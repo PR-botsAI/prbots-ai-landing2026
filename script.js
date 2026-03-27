@@ -174,4 +174,34 @@
   });
 })();
 
+document.getElementById('leadCaptureForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const form = e.target;
+  const nameValue = document.getElementById('name').value;
+  const emailValue = document.getElementById('email').value;
+  const phoneValue = document.getElementById('phone').value;
+
+  fetch('https://paymegpt.com/api/landing-pages/public/KUTvs2YTb/contacts', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: nameValue,
+      email: emailValue,
+      phone: phoneValue,
+      widgetId: 39435347
+    })
+  })
+  .then(r => r.json())
+  .then(d => {
+    alert('Solicitud recibida. Un estratega te contactará pronto.');
+    form.reset();
+  })
+  .catch(e => {
+    console.error('Error submitting form:', e);
+    alert('Error, intenta de nuevo.');
+  });
+});
+
 window.PayMeGPTConfig={widgetId:'44460389',type:'voice_launcher',primaryColor:'#FF3D5A',position:'bottom-right',label:'Habla con BOTi',icon:'mic',startButtonText:'Comenzar',stopButtonText:'Terminar',theme:'dark',customFooterText:'PRbots.ai · Hecho en Puerto Rico 🇵🇷'};
