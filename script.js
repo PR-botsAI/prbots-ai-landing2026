@@ -1,3 +1,6 @@
+/* === PRbots.ai Landing Page Script === */
+
+/* --- URL Param Personalization --- */
 (function(){
   var params=new URLSearchParams(window.location.search);
   var fields={};
@@ -33,24 +36,6 @@
     r['{{date}}']=new Date().toLocaleDateString();
     r['{{time}}']=new Date().toLocaleTimeString();
     r['{{location}}']=[data.city,data.state,data.country].filter(Boolean).join(', ');
-    r['{{tracking_id}}']=esc(data.trackingId||'');
-    r['{{lastClickedProduct}}']=esc(data.lastClickedProduct||'');
-    r['{{lastProductClickDate}}']=esc(data.lastProductClickDate||'');
-    r['{{lastClickedProductPrice}}']=esc(data.lastClickedProductPrice||'');
-    r['{{lastClickedProductURL}}']=esc(data.lastClickedProductURL||'');
-    r['{{productsClickedCount}}']=esc(data.productsClickedCount||'0');
-    r['{{ip_address}}']=esc(data.ipAddress||'');
-    r['{{ip}}']=esc(data.ipAddress||'');
-    if(data.customFields){
-      for(var k in data.customFields){
-        r['{{'+k+'}}']=esc(String(data.customFields[k]||''));
-      }
-    }
-    params.forEach(function(v,k){
-      if(!paramMap[k]&&k!=='contact_id'&&k!=='page_id'&&k.indexOf('utm_')!==0){
-        r['{{'+k+'}}']=esc(v);
-      }
-    });
     var hasValues=false;
     for(var key in r){if(r[key]){hasValues=true;break;}}
     if(!hasValues)return;
@@ -74,24 +59,6 @@
         if(changed!==txt)node.nodeValue=changed;
       }
     }
-    var attrs=['value','placeholder','content','alt','title'];
-    attrs.forEach(function(attr){
-      var els=document.querySelectorAll('['+attr+'*="{{"]');
-      for(var i=0;i<els.length;i++){
-        var tag=els[i].tagName;
-        if(skipTags[tag])continue;
-        var val=els[i].getAttribute(attr);
-        if(val){
-          var nv=val;
-          for(var ph in r){
-            if(r[ph]&&nv.indexOf(ph)>-1){
-              nv=nv.split(ph).join(r[ph]);
-            }
-          }
-          if(nv!==val)els[i].setAttribute(attr,nv);
-        }
-      }
-    });
   }
   function run(){
     if(contactId){
@@ -121,32 +88,28 @@
   else{run();}
 })();
 
+/* --- Payment Processing --- */
 (function(){
   var slug='KUTvs2YTb';
   var apiBase='https://paymegpt.com';
   function findEmail(){
-    var ids=['email','emailAddress','buyer-email','buyerEmail','user-email','userEmail','checkout-email','customer-email','contact-email'];
+    var ids=['email','emailAddress','form-email','buyer-email'];
     for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.includes('@'))return el.value.trim();}
-    var inputs=document.querySelectorAll('input[type="email"],input[name*="email"],input[placeholder*="email"],input[placeholder*="Email"]');
+    var inputs=document.querySelectorAll('input[type="email"]');
     for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.includes('@'))return inputs[j].value.trim();}
     return '';
   }
   function findName(){
-    var ids=['name','fullName','full-name','buyer-name','buyerName','customer-name','userName','user-name'];
+    var ids=['name','fullName','form-name'];
     for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value)return el.value.trim();}
-    var inputs=document.querySelectorAll('input[name*="name"]:not([name*="email"]):not([type="email"]),input[placeholder*="name"]:not([placeholder*="email"]):not([type="email"]),input[placeholder*="Name"]:not([type="email"])');
-    for(var j=0;j<inputs.length;j++){if(inputs[j].value)return inputs[j].value.trim();}
     return '';
   }
-  var __realProcessPayment=function(a,b,c,d,e){
+  var __realProcessPayment=function(a){
     var amountCents,email,productName,productDescription,customerName,quantity;
     if(a&&typeof a==='object'){
       amountCents=a.amountCents;email=a.email;productName=a.productName;
       productDescription=a.productDescription||'';customerName=a.name||'';quantity=a.quantity||1;
-    }else{
-      amountCents=typeof a==='number'?a:0;productName=typeof b==='string'?b:'';
-      productDescription=typeof c==='string'?c:'';email='';customerName='';quantity=1;
-    }
+    }else{return Promise.reject('invalid');}
     if(!email)email=findEmail();
     if(!customerName)customerName=findName();
     if(!productName){alert('Product name is required.');return Promise.reject('no_product_name');}
@@ -162,46 +125,68 @@
     });
   };
   Object.defineProperty(window,'__processPayment',{value:__realProcessPayment,writable:false,configurable:false});
-  document.addEventListener('DOMContentLoaded',function(){
-    var urlParams=new URLSearchParams(window.location.search);
-    if(urlParams.get('payment')==='success'){
-      var pName=urlParams.get('product')||'your item';
-      var overlay=document.createElement('div');overlay.id='payment-success-overlay';
-      overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;';
-      overlay.innerHTML='<div style="background:white;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);"><div style="width:64px;height:64px;border-radius:50%;background:#dcfce7;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">Payment Successful!</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">Thank you for purchasing '+pName.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'.</p><button onclick="document.getElementById(\'payment-success-overlay\').remove();window.history.replaceState({},\'\',window.location.pathname);" style="padding:12px 32px;font-size:16px;font-weight:600;background:#16a34a;color:white;border:none;border-radius:8px;cursor:pointer;">Continue</button></div>';
-      document.body.appendChild(overlay);
-    }
+})();
+
+/* --- Contact Form Submission --- */
+(function(){
+  document.addEventListener('DOMContentLoaded', function(){
+    var form = document.getElementById('lead-form');
+    if(!form) return;
+
+    var statusEl = document.getElementById('form-status');
+    var submitBtn = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+
+      var name = document.getElementById('form-name').value.trim();
+      var email = document.getElementById('form-email').value.trim();
+      var phone = document.getElementById('form-phone').value.trim();
+      var smsOptin = document.getElementById('sms-optin').checked;
+
+      if(!name || !email){
+        statusEl.textContent = 'Por favor completa nombre y email.';
+        statusEl.className = 'form-status error';
+        return;
+      }
+
+      // Disable button while submitting
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
+      statusEl.textContent = '';
+      statusEl.className = 'form-status';
+
+      // POST to create contact via Orchestrator agent
+      fetch('https://paymegpt.com/api/landing-pages/public/KUTvs2YTb/contacts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          phone: phone,
+          smsOptIn: smsOptin,
+          widgetId: 39435347,
+          source: 'landing_page_form'
+        })
+      })
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        // Success
+        statusEl.innerHTML = '✅ <strong>¡Solicitud recibida!</strong> Un estratega te contactará en menos de 24 horas.';
+        statusEl.className = 'form-status success';
+        form.reset(); // Clears all fields and unchecks checkbox
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Solicitar Evaluación Gratis';
+      })
+      .catch(function(err){
+        statusEl.textContent = '❌ Error al enviar. Por favor intenta de nuevo.';
+        statusEl.className = 'form-status error';
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Solicitar Evaluación Gratis';
+      });
+    });
   });
 })();
 
-document.getElementById('leadCaptureForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  const form = e.target;
-  const nameValue = document.getElementById('name').value;
-  const emailValue = document.getElementById('email').value;
-  const phoneValue = document.getElementById('phone').value;
-
-  fetch('https://paymegpt.com/api/landing-pages/public/KUTvs2YTb/contacts', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      name: nameValue,
-      email: emailValue,
-      phone: phoneValue,
-      widgetId: 39435347
-    })
-  })
-  .then(r => r.json())
-  .then(d => {
-    alert('Solicitud recibida. Un estratega te contactará pronto.');
-    form.reset();
-  })
-  .catch(e => {
-    console.error('Error submitting form:', e);
-    alert('Error, intenta de nuevo.');
-  });
-});
-
+/* --- Widget Config --- */
 window.PayMeGPTConfig={widgetId:'44460389',type:'voice_launcher',primaryColor:'#FF3D5A',position:'bottom-right',label:'Habla con BOTi',icon:'mic',startButtonText:'Comenzar',stopButtonText:'Terminar',theme:'dark',customFooterText:'PRbots.ai · Hecho en Puerto Rico 🇵🇷'};

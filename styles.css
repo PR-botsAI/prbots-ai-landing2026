@@ -181,7 +181,7 @@ h2.sh{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:900;text-align:center;line-
 .pfeat li{font-size:.83rem;color:var(--ink-soft);line-height:2.05;display:flex;gap:9px}
 .pfor{font-size:.75rem;font-weight:700;color:var(--blue);margin-bottom:20px;display:block}
 .pc.hot .pfor{color:var(--coral)}.pc.dfy .pfor{color:#007a52}
-.pbtn{display:block;text-align:center;border-radius:50px;padding:14px;font-weight:800;font-size:.89rem;text-decoration:none;transition:opacity .2s;cursor:pointer}
+.pbtn{display:block;text-align:center;border-radius:50px;padding:14px;font-weight:800;font-size:.89rem;text-decoration:none;transition:opacity .2s}
 .pbtn:hover{opacity:.88}
 .pb-def{background:var(--blue-light);border:1.5px solid #c0d5ff;color:var(--blue)}
 .pb-main{background:var(--coral);color:#fff;box-shadow:0 4px 16px rgba(255,61,90,.22)}
@@ -199,6 +199,24 @@ h2.sh{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:900;text-align:center;line-
 .comp-row div:first-child{color:var(--ink);font-weight:600}
 .comp-row div:nth-child(2){color:var(--ink-muted);text-align:center}
 .comp-row div:last-child{color:var(--ink);font-weight:700;text-align:center}
+/* === CONTACT FORM === */
+.form-wrap{max-width:480px;margin:0 auto;background:#ffffff;border-radius:24px;padding:36px;border:2px solid var(--coral-mid);box-shadow:0 8px 40px rgba(255,61,90,.08)}
+.form-field{margin-bottom:18px}
+.form-field label{display:block;font-size:.82rem;font-weight:700;color:var(--ink);margin-bottom:6px}
+.form-field input{width:100%;padding:14px 16px;border:1.5px solid var(--border);border-radius:12px;font-size:.95rem;font-family:inherit;color:var(--ink);background:#fafaf8;transition:border-color .2s}
+.form-field input:focus{outline:none;border-color:var(--coral);background:#fff}
+.form-checkbox{display:flex;gap:10px;align-items:flex-start;margin-bottom:12px;padding:14px 16px;background:#fafaf8;border-radius:12px;border:1.5px solid var(--border)}
+.form-checkbox input[type="checkbox"]{width:20px;height:20px;min-width:20px;margin-top:2px;accent-color:var(--coral);cursor:pointer}
+.form-checkbox label{font-size:.78rem;color:var(--ink-soft);line-height:1.55;cursor:pointer}
+.form-checkbox label a{color:var(--coral);text-decoration:underline}
+.form-note{font-size:.72rem;color:var(--ink-muted);text-align:center;margin-bottom:20px;font-style:italic}
+.form-btn{width:100%;padding:16px;background:var(--coral);color:#fff;border:none;border-radius:50px;font-size:1.04rem;font-weight:900;font-family:inherit;cursor:pointer;box-shadow:0 6px 24px rgba(255,61,90,.28);transition:transform .15s,box-shadow .15s}
+.form-btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(255,61,90,.4)}
+.form-btn:disabled{opacity:.6;cursor:not-allowed;transform:none;box-shadow:none}
+.form-status{text-align:center;margin-top:16px;font-size:.88rem;line-height:1.5;min-height:24px}
+.form-status.success{color:var(--green);font-weight:700}
+.form-status.error{color:var(--coral);font-weight:700}
+/* === END CONTACT FORM === */
 #cierre{background:linear-gradient(135deg,#fff0f2 0%,#ffffff 50%,#eef5ff 100%);padding:108px 24px;text-align:center;position:relative;overflow:hidden}
 .cierre-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(255,61,90,.05) 0%,transparent 60%),radial-gradient(ellipse at 80% 50%,rgba(0,102,255,.05) 0%,transparent 60%);pointer-events:none}
 .zig{max-width:560px;margin:0 auto 52px;position:relative}
@@ -235,15 +253,3 @@ footer{background:var(--ink);padding:52px 24px 28px}
 .ft-bar{border-top:1px solid rgba(255,255,255,.07);margin-top:32px;padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;max-width:1080px;margin-left:auto;margin-right:auto}
 .ft-bar p{color:rgba(255,255,255,.14);font-size:.73rem}
 .btn-sm{background:var(--coral);color:#fff;border-radius:50px;padding:12px 24px;font-weight:800;font-size:.85rem;text-decoration:none;display:inline-block;margin-top:20px}
-
-/* Lead Form Styles */
-.contact-form-wrap{max-width:500px;margin:40px auto;background:#fff;padding:32px;border-radius:24px;border:1.5px solid var(--border);box-shadow:0 10px 30px rgba(0,0,0,.05)}
-.f-group{margin-bottom:20px;text-align:left}
-.f-group label{display:block;font-size:.85rem;font-weight:700;margin-bottom:8px;color:var(--ink)}
-.f-group input{width:100%;padding:14px;border-radius:12px;border:1.5px solid var(--border);font-family:inherit;font-size:.95rem;outline:none;transition:border-color .2s}
-.f-group input:focus{border-color:var(--coral)}
-.f-note{display:block;font-size:.72rem;color:var(--ink-muted);margin-top:6px}
-.f-check{display:flex;gap:12px;text-align:left;margin-top:24px;align-items:flex-start}
-.f-check input{margin-top:4px;width:18px;height:18px;flex-shrink:0;cursor:pointer}
-.f-check label{font-size:.75rem;color:var(--ink-soft);line-height:1.5;cursor:pointer}
-.f-check a{color:var(--coral);text-decoration:none;font-weight:600}
