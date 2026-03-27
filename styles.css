@@ -181,7 +181,7 @@ h2.sh{font-size:clamp(1.9rem,4.5vw,3rem);font-weight:900;text-align:center;line-
 .pfeat li{font-size:.83rem;color:var(--ink-soft);line-height:2.05;display:flex;gap:9px}
 .pfor{font-size:.75rem;font-weight:700;color:var(--blue);margin-bottom:20px;display:block}
 .pc.hot .pfor{color:var(--coral)}.pc.dfy .pfor{color:#007a52}
-.pbtn{display:block;text-align:center;border-radius:50px;padding:14px;font-weight:800;font-size:.89rem;text-decoration:none;transition:opacity .2s}
+.pbtn{display:block;text-align:center;border-radius:50px;padding:14px;font-weight:800;font-size:.89rem;text-decoration:none;transition:opacity .2s;cursor:pointer}
 .pbtn:hover{opacity:.88}
 .pb-def{background:var(--blue-light);border:1.5px solid #c0d5ff;color:var(--blue)}
 .pb-main{background:var(--coral);color:#fff;box-shadow:0 4px 16px rgba(255,61,90,.22)}
@@ -235,3 +235,15 @@ footer{background:var(--ink);padding:52px 24px 28px}
 .ft-bar{border-top:1px solid rgba(255,255,255,.07);margin-top:32px;padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;max-width:1080px;margin-left:auto;margin-right:auto}
 .ft-bar p{color:rgba(255,255,255,.14);font-size:.73rem}
 .btn-sm{background:var(--coral);color:#fff;border-radius:50px;padding:12px 24px;font-weight:800;font-size:.85rem;text-decoration:none;display:inline-block;margin-top:20px}
+
+/* Lead Form Styles */
+.contact-form-wrap{max-width:500px;margin:40px auto;background:#fff;padding:32px;border-radius:24px;border:1.5px solid var(--border);box-shadow:0 10px 30px rgba(0,0,0,.05)}
+.f-group{margin-bottom:20px;text-align:left}
+.f-group label{display:block;font-size:.85rem;font-weight:700;margin-bottom:8px;color:var(--ink)}
+.f-group input{width:100%;padding:14px;border-radius:12px;border:1.5px solid var(--border);font-family:inherit;font-size:.95rem;outline:none;transition:border-color .2s}
+.f-group input:focus{border-color:var(--coral)}
+.f-note{display:block;font-size:.72rem;color:var(--ink-muted);margin-top:6px}
+.f-check{display:flex;gap:12px;text-align:left;margin-top:24px;align-items:flex-start}
+.f-check input{margin-top:4px;width:18px;height:18px;flex-shrink:0;cursor:pointer}
+.f-check label{font-size:.75rem;color:var(--ink-soft);line-height:1.5;cursor:pointer}
+.f-check a{color:var(--coral);text-decoration:none;font-weight:600}
