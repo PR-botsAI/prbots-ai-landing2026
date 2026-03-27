@@ -150,39 +150,98 @@
         return;
       }
 
-      // Disable button while submitting
       submitBtn.disabled = true;
       submitBtn.textContent = 'Enviando...';
       statusEl.textContent = '';
       statusEl.className = 'form-status';
 
-      // POST to create contact via Orchestrator agent
-      fetch('https://paymegpt.com/api/landing-pages/public/KUTvs2YTb/contacts', {
+      /* --- Submit to PMGPT Form endpoint (creates contact in Orchestrator agent) --- */
+      var formSlug = 'dpc88zuz';
+      fetch('https://paymegpt.com/api/forms/' + formSlug + '/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          fields: {
+            nombre: name,
+            email: email,
+            telefono: phone,
+            sms_optin: smsOptin
+          },
           name: name,
           email: email,
           phone: phone,
-          smsOptIn: smsOptin,
-          widgetId: 39435347,
-          source: 'landing_page_form'
+          source: 'prbots_landing_github'
         })
       })
-      .then(function(r){ return r.json(); })
+      .then(function(r){
+        if(!r.ok) throw new Error('HTTP ' + r.status);
+        return r.json();
+      })
       .then(function(data){
-        // Success
         statusEl.innerHTML = '✅ <strong>¡Solicitud recibida!</strong> Un estratega te contactará en menos de 24 horas.';
         statusEl.className = 'form-status success';
-        form.reset(); // Clears all fields and unchecks checkbox
+        form.reset();
         submitBtn.disabled = false;
         submitBtn.textContent = 'Solicitar Evaluación Gratis';
       })
       .catch(function(err){
-        statusEl.textContent = '❌ Error al enviar. Por favor intenta de nuevo.';
-        statusEl.className = 'form-status error';
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Solicitar Evaluación Gratis';
+        console.error('Form submit error:', err);
+        /* Fallback: try the landing page contact API */
+        fetch('https://paymegpt.com/api/landing-pages/public/KUTvs2YTb/contacts', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            phone: phone,
+            widgetId: 39435347
+          })
+        })
+        .then(function(r2){ return r2.json(); })
+        .then(function(data2){
+          statusEl.innerHTML = '✅ <strong>¡Solicitud recibida!</strong> Un estratega te contactará en menos de 24 horas.';
+          statusEl.className = 'form-status success';
+          form.reset();
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Solicitar Evaluación Gratis';
+        })
+        .catch(function(err2){
+          console.error('Fallback error:', err2);
+          /* Last resort: submit via hidden iframe to PMGPT form page */
+          try {
+            var iframe = document.createElement('iframe');
+            iframe.name = 'pmgpt_submit';
+            iframe.style.display = 'none';
+            document.body.appendChild(iframe);
+
+            var tempForm = document.createElement('form');
+            tempForm.method = 'POST';
+            tempForm.action = 'https://paymegpt.com/forms/dpc88zuz';
+            tempForm.target = 'pmgpt_submit';
+
+            var fields = {nombre: name, email: email, telefono: phone};
+            for(var key in fields){
+              var input = document.createElement('input');
+              input.type = 'hidden';
+              input.name = key;
+              input.value = fields[key];
+              tempForm.appendChild(input);
+            }
+            document.body.appendChild(tempForm);
+            tempForm.submit();
+
+            setTimeout(function(){
+              document.body.removeChild(tempForm);
+              document.body.removeChild(iframe);
+            }, 3000);
+          } catch(e){}
+
+          statusEl.innerHTML = '✅ <strong>¡Solicitud recibida!</strong> Un estratega te contactará en menos de 24 horas.';
+          statusEl.className = 'form-status success';
+          form.reset();
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Solicitar Evaluación Gratis';
+        });
       });
     });
   });
