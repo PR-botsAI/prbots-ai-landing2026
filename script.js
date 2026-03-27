@@ -1,6 +1,10 @@
-/* === PRbots.ai Landing Page Script === */
+/* ============================================================
+   PRbots.ai — Landing Page Scripts
+   Repo: PR-botsAI/prbots-ai-landing2026
+   Last updated: 2026-03-27
+   ============================================================ */
 
-/* --- URL Param Personalization --- */
+/* --- 1. URL Parameter Personalization --- */
 (function(){
   var params=new URLSearchParams(window.location.search);
   var fields={};
@@ -88,13 +92,11 @@
   else{run();}
 })();
 
-/* --- Payment Processing --- */
+/* --- 2. Payment Processing (Stripe via PMGPT) --- */
 (function(){
   var slug='KUTvs2YTb';
   var apiBase='https://paymegpt.com';
   function findEmail(){
-    var ids=['email','emailAddress','form-email','buyer-email'];
-    for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.includes('@'))return el.value.trim();}
     var inputs=document.querySelectorAll('input[type="email"]');
     for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.includes('@'))return inputs[j].value.trim();}
     return '';
@@ -105,13 +107,9 @@
     return '';
   }
   var __realProcessPayment=function(a){
-    var amountCents,email,productName,productDescription,customerName,quantity;
-    if(a&&typeof a==='object'){
-      amountCents=a.amountCents;email=a.email;productName=a.productName;
-      productDescription=a.productDescription||'';customerName=a.name||'';quantity=a.quantity||1;
-    }else{return Promise.reject('invalid');}
-    if(!email)email=findEmail();
-    if(!customerName)customerName=findName();
+    if(!a||typeof a!=='object')return Promise.reject('invalid');
+    var amountCents=a.amountCents,email=a.email||findEmail(),customerName=a.name||findName();
+    var productName=a.productName,productDescription=a.productDescription||'',quantity=a.quantity||1;
     if(!productName){alert('Product name is required.');return Promise.reject('no_product_name');}
     if(!amountCents||amountCents<100){alert('Amount must be at least $1.00');return Promise.reject('invalid_amount');}
     if(!email){alert('Please enter your email address.');return Promise.reject('no_email');}
@@ -120,132 +118,34 @@
       method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({email:email,name:customerName,amountCents:amountCents,productName:productName,productDescription:productDescription,quantity:quantity,successUrl:successBase+'?payment=success&product='+encodeURIComponent(productName)+'&session_id={CHECKOUT_SESSION_ID}',cancelUrl:successBase+'?payment=cancelled'})
     }).then(function(r){return r.json();}).then(function(d){
-      if(d.checkoutUrl){window.location.href=d.checkoutUrl;}
+      if(d.checkoutUrl)window.location.href=d.checkoutUrl;
       else{alert(d.error||'Failed to process payment');throw new Error(d.error);}
     });
   };
   Object.defineProperty(window,'__processPayment',{value:__realProcessPayment,writable:false,configurable:false});
 })();
 
-/* --- Contact Form Submission --- */
-(function(){
-  document.addEventListener('DOMContentLoaded', function(){
-    var form = document.getElementById('lead-form');
-    if(!form) return;
+/*
+  --- 3. Contact Form ---
+  The contact form is an embedded PMGPT form iframe (dpc88zuz).
+  It handles everything server-side on paymegpt.com:
+  - Creates contact in Orchestrator agent (39435347)
+  - SMS opt-in checkbox is UNCHECKED by default (Twilio TCPA compliance)
+  - Triggers welcome email flow (1652) via automation (346)
+  - Sends notification to hello@prbots.ai
+  No client-side JS needed — the iframe handles it all.
+*/
 
-    var statusEl = document.getElementById('form-status');
-    var submitBtn = form.querySelector('button[type="submit"]');
-
-    form.addEventListener('submit', function(e){
-      e.preventDefault();
-
-      var name = document.getElementById('form-name').value.trim();
-      var email = document.getElementById('form-email').value.trim();
-      var phone = document.getElementById('form-phone').value.trim();
-      var smsOptin = document.getElementById('sms-optin').checked;
-
-      if(!name || !email){
-        statusEl.textContent = 'Por favor completa nombre y email.';
-        statusEl.className = 'form-status error';
-        return;
-      }
-
-      submitBtn.disabled = true;
-      submitBtn.textContent = 'Enviando...';
-      statusEl.textContent = '';
-      statusEl.className = 'form-status';
-
-      /* --- Submit to PMGPT Form endpoint (creates contact in Orchestrator agent) --- */
-      var formSlug = 'dpc88zuz';
-      fetch('https://paymegpt.com/api/forms/' + formSlug + '/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          fields: {
-            nombre: name,
-            email: email,
-            telefono: phone,
-            sms_optin: smsOptin
-          },
-          name: name,
-          email: email,
-          phone: phone,
-          source: 'prbots_landing_github'
-        })
-      })
-      .then(function(r){
-        if(!r.ok) throw new Error('HTTP ' + r.status);
-        return r.json();
-      })
-      .then(function(data){
-        statusEl.innerHTML = '✅ <strong>¡Solicitud recibida!</strong> Un estratega te contactará en menos de 24 horas.';
-        statusEl.className = 'form-status success';
-        form.reset();
-        submitBtn.disabled = false;
-        submitBtn.textContent = 'Solicitar Evaluación Gratis';
-      })
-      .catch(function(err){
-        console.error('Form submit error:', err);
-        /* Fallback: try the landing page contact API */
-        fetch('https://paymegpt.com/api/landing-pages/public/KUTvs2YTb/contacts', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            name: name,
-            email: email,
-            phone: phone,
-            widgetId: 39435347
-          })
-        })
-        .then(function(r2){ return r2.json(); })
-        .then(function(data2){
-          statusEl.innerHTML = '✅ <strong>¡Solicitud recibida!</strong> Un estratega te contactará en menos de 24 horas.';
-          statusEl.className = 'form-status success';
-          form.reset();
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Solicitar Evaluación Gratis';
-        })
-        .catch(function(err2){
-          console.error('Fallback error:', err2);
-          /* Last resort: submit via hidden iframe to PMGPT form page */
-          try {
-            var iframe = document.createElement('iframe');
-            iframe.name = 'pmgpt_submit';
-            iframe.style.display = 'none';
-            document.body.appendChild(iframe);
-
-            var tempForm = document.createElement('form');
-            tempForm.method = 'POST';
-            tempForm.action = 'https://paymegpt.com/forms/dpc88zuz';
-            tempForm.target = 'pmgpt_submit';
-
-            var fields = {nombre: name, email: email, telefono: phone};
-            for(var key in fields){
-              var input = document.createElement('input');
-              input.type = 'hidden';
-              input.name = key;
-              input.value = fields[key];
-              tempForm.appendChild(input);
-            }
-            document.body.appendChild(tempForm);
-            tempForm.submit();
-
-            setTimeout(function(){
-              document.body.removeChild(tempForm);
-              document.body.removeChild(iframe);
-            }, 3000);
-          } catch(e){}
-
-          statusEl.innerHTML = '✅ <strong>¡Solicitud recibida!</strong> Un estratega te contactará en menos de 24 horas.';
-          statusEl.className = 'form-status success';
-          form.reset();
-          submitBtn.disabled = false;
-          submitBtn.textContent = 'Solicitar Evaluación Gratis';
-        });
-      });
-    });
-  });
-})();
-
-/* --- Widget Config --- */
-window.PayMeGPTConfig={widgetId:'44460389',type:'voice_launcher',primaryColor:'#FF3D5A',position:'bottom-right',label:'Habla con BOTi',icon:'mic',startButtonText:'Comenzar',stopButtonText:'Terminar',theme:'dark',customFooterText:'PRbots.ai · Hecho en Puerto Rico 🇵🇷'};
+/* --- 4. BOTi Widget Config --- */
+window.PayMeGPTConfig={
+  widgetId: '44460389',
+  type: 'voice_launcher',
+  primaryColor: '#FF3D5A',
+  position: 'bottom-right',
+  label: 'Habla con BOTi',
+  icon: 'mic',
+  startButtonText: 'Comenzar',
+  stopButtonText: 'Terminar',
+  theme: 'dark',
+  customFooterText: 'PRbots.ai \u00b7 Hecho en Puerto Rico \ud83c\uddf5\ud83c\uddf7'
+};
