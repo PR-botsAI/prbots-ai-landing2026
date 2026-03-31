@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SMS & Newsletter Sign-Up — PRbots.AI</title>
+<meta name="description" content="Sign up to receive SMS updates and the newsletter from PRbots.AI. This is completely optional and separate from any service.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;0,9..40,900&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    background: #f8f7f4;
+    color: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  nav {
+    background: #fff;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  nav a { text-decoration: none; color: #1a1a1a; font-weight: 700; font-size: 18px; }
+  nav span { font-size: 20px; }
+  .container {
+    max-width: 600px;
+    margin: 48px auto;
+    padding: 0 20px;
+    flex: 1;
+  }
+  .card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 40px 40px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+  .badge {
+    display: inline-block;
+    background: #fff0f2;
+    color: #e0355c;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .08em;
+    padding: 5px 12px;
+    border-radius: 20px;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+  }
+  h1 { font-size: 28px; font-weight: 900; margin-bottom: 10px; line-height: 1.2; }
+  .sub { color: #555; font-size: 15px; line-height: 1.6; margin-bottom: 28px; }
+  .divider { height: 1px; background: #eee; margin: 24px 0; }
+  label.field-label {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #333;
+  }
+  label.field-label .req { color: #e0355c; }
+  input[type="text"], input[type="email"], input[type="tel"] {
+    width: 100%;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 15px;
+    font-family: inherit;
+    margin-bottom: 18px;
+    transition: border-color .2s;
+    outline: none;
+    background: #fafafa;
+  }
+  input:focus { border-color: #e0355c; background: #fff; }
+
+  /* ─── CONSENT BOXES ─── */
+  .consent-box {
+    background: #f8f7f4;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 16px;
+  }
+  .consent-box.sms { border-color: #e0355c22; background: #fff8f9; }
+  .consent-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .consent-row input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    min-width: 20px;
+    margin-top: 2px;
+    accent-color: #e0355c;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  .consent-text {
+    font-size: 13px;
+    color: #444;
+    line-height: 1.6;
+  }
+  .consent-text strong { color: #1a1a1a; }
+  .consent-text a { color: #e0355c; text-decoration: underline; }
+  .unchecked-note {
+    font-size: 11px;
+    color: #999;
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  .required-note {
+    font-size: 13px;
+    color: #888;
+    margin-bottom: 20px;
+    background: #fff8e7;
+    border: 1px solid #ffe0a0;
+    border-radius: 8px;
+    padding: 10px 14px;
+  }
+  .required-note strong { color: #7a5800; }
+
+  button[type="submit"] {
+    width: 100%;
+    background: #e0355c;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 16px;
+    font-size: 16px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background .2s, transform .1s;
+    margin-top: 8px;
+  }
+  button[type="submit"]:hover { background: #c42a4f; }
+  button[type="submit"]:active { transform: scale(.98); }
+
+  .success-msg {
+    display: none;
+    text-align: center;
+    padding: 32px 20px;
+  }
+  .success-msg .icon { font-size: 48px; margin-bottom: 12px; }
+  .success-msg h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
+  .success-msg p { color: #555; font-size: 15px; line-height: 1.6; }
+
+  .terms-block {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #999;
+    line-height: 1.6;
+    border-top: 1px solid #eee;
+    padding-top: 16px;
+  }
+  .terms-block a { color: #888; }
+
+  footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 13px;
+    color: #999;
+  }
+  footer a { color: #888; text-decoration: underline; }
+
+  @media (max-width: 480px) {
+    .card { padding: 28px 20px; }
+    h1 { font-size: 23px; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/">🤖 PRbots.AI</a>
+</nav>
+
+<div class="container">
+  <div class="card" id="main-card">
+
+    <span class="badge">📩 Stay Connected</span>
+    <h1>Get Updates from PRbots.AI</h1>
+    <p class="sub">Sign up to receive our newsletter and/or SMS alerts about tips, promotions, and news. <strong>This is completely optional</strong> — signing up does not affect your access to any of our services.</p>
+
+    <div class="required-note">
+      ⚠️ <strong>Note:</strong> Providing your information here is <strong>not required</strong> to use PRbots.AI services. You may use our services without signing up for marketing communications.
+    </div>
+
+    <div class="divider"></div>
+
+    <label class="field-label" for="fname">First Name <span class="req">*</span></label>
+    <input type="text" id="fname" name="fname" placeholder="e.g. María" autocomplete="given-name" required>
+
+    <label class="field-label" for="lname">Last Name</label>
+    <input type="text" id="lname" name="lname" placeholder="e.g. García" autocomplete="family-name">
+
+    <label class="field-label" for="email">Email Address <span class="req">*</span></label>
+    <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+
+    <label class="field-label" for="phone">Mobile Phone Number (for SMS)</label>
+    <input type="tel" id="phone" name="phone" placeholder="+1 (787) 555-0000" autocomplete="tel">
+
+    <div class="divider"></div>
+
+    <!-- EMAIL NEWSLETTER CONSENT — unchecked by default -->
+    <div class="consent-box">
+      <div class="consent-row">
+        <input type="checkbox" id="consent-email" name="consent_email">
+        <div>
+          <label for="consent-email" class="consent-text">
+            <strong>📧 Yes, I want to receive the PRbots.AI email newsletter</strong> — tips, AI strategies, and special offers for Puerto Rico businesses. You can unsubscribe at any time by clicking "Unsubscribe" in any email.
+          </label>
+          <div class="unchecked-note">Checkbox is unchecked by default. Check to opt in.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- SMS CONSENT — unchecked by default — TCPA/CTIA compliant -->
+    <div class="consent-box sms">
+      <div class="consent-row">
+        <input type="checkbox" id="consent-sms" name="consent_sms">
+        <div>
+          <label for="consent-sms" class="consent-text">
+            <strong>📲 Yes, I want to receive SMS text messages from PRbots.AI</strong> at the mobile number I provided above. Messages may include promotions, tips, updates, and reminders. Message frequency varies. Message &amp; Data rates may apply. Reply <strong>STOP</strong> to cancel at any time. Reply <strong>HELP</strong> for assistance. See our <a href="https://paymegpt.com/p/5ysCGaS" target="_blank">SMS &amp; Privacy Policy</a>.
+          </label>
+          <div class="unchecked-note">Checkbox is unchecked by default. Check to opt in. This is separate from and not required for any service.</div>
+        </div>
+      </div>
+    </div>
+
+    <button type="submit" id="submit-btn" onclick="handleSubmit()">Subscribe →</button>
+
+    <div class="terms-block">
+      By submitting, you confirm that the information provided is accurate. SMS consent is not a condition of purchasing any product or service. PRbots.AI · 192 Av Dr Francisco Susoni, Unit 166, Hatillo, PR 00659 · hello@prbots.ai ·
+      <a href="https://paymegpt.com/p/5ysCGaS" target="_blank">Privacy &amp; SMS Policy</a>
+    </div>
+
+    <div class="success-msg" id="success-msg">
+      <div class="icon">✅</div>
+      <h2>You're in!</h2>
+      <p>Thanks for signing up. Check your inbox for a confirmation.<br><br>If you opted into SMS, you'll receive a confirmation text shortly.<br>Reply <strong>STOP</strong> at any time to unsubscribe from SMS.</p>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>© 2025 PRbots.AI · Hecho en Puerto Rico 🇵🇷 · <a href="/">Back to Home</a> · <a href="https://paymegpt.com/p/5ysCGaS" target="_blank">Privacy &amp; SMS Policy</a></p>
+  <p style="margin-top:8px">SMS: To stop receiving messages, reply STOP. For help, reply HELP or email hello@prbots.ai. Msg &amp; Data rates may apply.</p>
+</footer>
+
+<script>
+function handleSubmit() {
+  var fname = document.getElementById('fname').value.trim();
+  var email = document.getElementById('email').value.trim();
+  if (!fname) { alert('Please enter your first name.'); return; }
+  if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
+
+  var consentSMS = document.getElementById('consent-sms').checked;
+  var phone = document.getElementById('phone').value.trim();
+  if (consentSMS && !phone) {
+    alert('Please enter a phone number to receive SMS messages, or uncheck the SMS option.');
+    return;
+  }
+
+  // Hide form, show success
+  document.getElementById('submit-btn').style.display = 'none';
+  document.getElementById('success-msg').style.display = 'block';
+
+  // You can POST to your own endpoint here if needed:
+  // fetch('https://your-api/subscribe', { method: 'POST', body: JSON.stringify({...}) })
+}
+</script>
+</body>
+</html>
