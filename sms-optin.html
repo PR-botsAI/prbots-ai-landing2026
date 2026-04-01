@@ -1,411 +1,623 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="html-root">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>SMS & Newsletter Opt-In — PRbots.AI (TCPA Compliant)</title>
-<meta name="description" content="Voluntarily sign up to receive SMS and/or email updates from PRbots.AI. This is completely optional and separate from any service or purchase.">
+<meta name="description" content="Voluntarily sign up to receive SMS and/or email updates from PRbots.AI. Completely optional and separate from any service. / Inscríbete voluntariamente para recibir mensajes SMS y correos de PRbots.AI. Completamente opcional.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,600;0,9..40,700;0,9..40,900&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    font-family: 'DM Sans', system-ui, sans-serif;
-    background: #f4f6f9;
-    color: #1a1a1a;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  background: #f4f6f9;
+  color: #1a1a1a;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
 
-  /* ── Compliance Banner (top of page — very visible for Twilio reviewers) ── */
-  .compliance-banner {
-    background: #1a3a5c;
-    color: #fff;
-    text-align: center;
-    padding: 10px 20px;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: .02em;
-  }
-  .compliance-banner span { opacity: .8; font-weight: 400; }
+/* ── Compliance banner ── */
+.compliance-banner {
+  background: #1a3a5c;
+  color: #fff;
+  text-align: center;
+  padding: 9px 20px;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: .02em;
+}
+.compliance-banner span { opacity: .75; font-weight: 400; }
 
-  nav {
-    background: #fff;
-    border-bottom: 1px solid #e5e5e5;
-    padding: 14px 24px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  nav a { text-decoration: none; color: #1a1a1a; font-weight: 700; font-size: 18px; }
+/* ── Nav ── */
+nav {
+  background: #fff;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 13px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+nav a.nav-logo { text-decoration: none; color: #1a1a1a; font-weight: 800; font-size: 18px; }
 
-  .container {
-    max-width: 620px;
-    margin: 36px auto 48px;
-    padding: 0 20px;
-    flex: 1;
-  }
+/* ── Language Toggle ── */
+.lang-toggle {
+  display: flex;
+  background: #f0f2f5;
+  border-radius: 20px;
+  padding: 3px;
+  gap: 2px;
+}
+.lang-btn {
+  background: none;
+  border: none;
+  border-radius: 16px;
+  padding: 5px 14px;
+  font-size: 13px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  color: #888;
+  transition: all .2s;
+}
+.lang-btn.active {
+  background: #fff;
+  color: #1a1a1a;
+  box-shadow: 0 1px 4px rgba(0,0,0,.12);
+}
 
-  /* ── Standalone notice — first thing people (and Twilio) see ── */
-  .standalone-notice {
-    background: #fff;
-    border: 2px solid #0056b3;
-    border-radius: 12px;
-    padding: 18px 20px;
-    margin-bottom: 24px;
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-  }
-  .standalone-notice .sn-icon { font-size: 28px; flex-shrink: 0; }
-  .standalone-notice h2 { font-size: 16px; font-weight: 800; color: #0056b3; margin-bottom: 5px; }
-  .standalone-notice p { font-size: 13px; color: #444; line-height: 1.55; }
-  .standalone-notice p strong { color: #0056b3; }
+/* ── Main container ── */
+.container {
+  max-width: 620px;
+  margin: 32px auto 48px;
+  padding: 0 18px;
+  flex: 1;
+}
 
-  .card {
-    background: #fff;
-    border-radius: 16px;
-    padding: 36px 40px;
-    box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-  }
+/* ── Standalone notice ── */
+.standalone-notice {
+  background: #fff;
+  border: 2px solid #0056b3;
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 22px;
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+}
+.standalone-notice .sn-icon { font-size: 26px; flex-shrink: 0; }
+.standalone-notice h2 { font-size: 15px; font-weight: 800; color: #0056b3; margin-bottom: 5px; }
+.standalone-notice p { font-size: 13px; color: #444; line-height: 1.55; }
 
-  .badge {
-    display: inline-block;
-    background: #fff0f2;
-    color: #e0355c;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: .1em;
-    padding: 5px 12px;
-    border-radius: 20px;
-    margin-bottom: 16px;
-    text-transform: uppercase;
-  }
-  h1 { font-size: 26px; font-weight: 900; margin-bottom: 8px; line-height: 1.25; }
-  .sub { color: #555; font-size: 14px; line-height: 1.6; margin-bottom: 24px; }
+/* ── Card ── */
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 34px 36px;
+  box-shadow: 0 4px 24px rgba(0,0,0,.07);
+}
 
-  .divider { height: 1px; background: #eee; margin: 22px 0; }
+.badge {
+  display: inline-block;
+  background: #fff0f2;
+  color: #e0355c;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: .1em;
+  padding: 4px 11px;
+  border-radius: 20px;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+h1 { font-size: 25px; font-weight: 900; margin-bottom: 8px; line-height: 1.25; }
+.sub { color: #555; font-size: 14px; line-height: 1.6; margin-bottom: 22px; }
+.divider { height: 1px; background: #eee; margin: 20px 0; }
 
-  label.field-label {
-    display: block;
-    font-weight: 600;
-    font-size: 13px;
-    margin-bottom: 5px;
-    color: #333;
-  }
-  label.field-label .req { color: #e0355c; }
-  input[type="text"], input[type="email"], input[type="tel"] {
-    width: 100%;
-    border: 1.5px solid #ddd;
-    border-radius: 8px;
-    padding: 11px 13px;
-    font-size: 14px;
-    font-family: inherit;
-    margin-bottom: 16px;
-    outline: none;
-    background: #fafafa;
-    transition: border-color .2s;
-  }
-  input:focus { border-color: #0056b3; background: #fff; }
+/* ── Fields ── */
+label.field-label {
+  display: block;
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 5px;
+  color: #333;
+}
+.req { color: #e0355c; }
+.row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+input[type="text"],
+input[type="email"],
+input[type="tel"] {
+  width: 100%;
+  border: 1.5px solid #ddd;
+  border-radius: 8px;
+  padding: 11px 13px;
+  font-size: 14px;
+  font-family: inherit;
+  margin-bottom: 14px;
+  outline: none;
+  background: #fafafa;
+  transition: border-color .2s;
+}
+input:focus { border-color: #0056b3; background: #fff; }
 
-  /* ── NOT REQUIRED callout ── */
-  .not-required-callout {
-    background: #fffbea;
-    border: 1.5px solid #f5c518;
-    border-radius: 10px;
-    padding: 13px 16px;
-    margin-bottom: 20px;
-    font-size: 13px;
-    color: #6b4c00;
-    line-height: 1.55;
-  }
-  .not-required-callout strong { font-size: 13.5px; color: #4a3200; }
+/* ── Not-required callout ── */
+.not-required-callout {
+  background: #fffbea;
+  border: 1.5px solid #f5c518;
+  border-radius: 10px;
+  padding: 12px 15px;
+  margin-bottom: 18px;
+  font-size: 13px;
+  color: #6b4c00;
+  line-height: 1.55;
+}
 
-  /* ── Consent boxes ── */
-  .consent-section-title {
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: .08em;
-    text-transform: uppercase;
-    color: #888;
-    margin-bottom: 10px;
-  }
+/* ── Consent boxes ── */
+.consent-section-title {
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 10px;
+}
+.consent-box {
+  background: #f8f8f8;
+  border: 1.5px solid #e0e0e0;
+  border-radius: 10px;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+}
+.consent-box.sms { border-color: #fbbdc7; background: #fff8f9; }
+.sms-compliance-tag {
+  display: inline-block;
+  background: #e6f0ff;
+  color: #0056b3;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 4px;
+  margin-bottom: 8px;
+  letter-spacing: .04em;
+}
+.consent-row { display: flex; align-items: flex-start; gap: 11px; }
+.consent-row input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  min-width: 20px;
+  margin-top: 2px;
+  accent-color: #e0355c;
+  cursor: pointer;
+}
+.consent-text { font-size: 13px; color: #444; line-height: 1.6; }
+.consent-text strong { color: #1a1a1a; }
+.consent-text a { color: #0056b3; text-decoration: underline; }
+.unchecked-note {
+  font-size: 11px;
+  color: #aaa;
+  font-style: italic;
+  margin-top: 5px;
+}
+.unchecked-note::before { content: "☐ "; color: #ccc; }
 
-  .consent-box {
-    background: #f8f8f8;
-    border: 1.5px solid #e0e0e0;
-    border-radius: 10px;
-    padding: 15px 17px;
-    margin-bottom: 14px;
-  }
-  .consent-box.sms { border-color: #fbbdc7; background: #fff8f9; }
+/* ── Submit ── */
+.submit-btn {
+  width: 100%;
+  background: #e0355c;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  margin-top: 6px;
+  transition: background .2s, transform .1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+.submit-btn:hover { background: #c42a4f; }
+.submit-btn:active { transform: scale(.98); }
+.submit-btn .spinner {
+  display: none;
+  width: 16px; height: 16px;
+  border: 2px solid rgba(255,255,255,.4);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin .6s linear infinite;
+}
+.submit-btn.loading .btn-text { display: none; }
+.submit-btn.loading .spinner { display: block; }
+@keyframes spin { to { transform: rotate(360deg); } }
 
-  .consent-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .consent-row input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
-    min-width: 20px;
-    margin-top: 2px;
-    accent-color: #e0355c;
-    cursor: pointer;
-  }
-  .consent-text {
-    font-size: 13px;
-    color: #444;
-    line-height: 1.6;
-  }
-  .consent-text strong { color: #1a1a1a; }
-  .consent-text a { color: #0056b3; text-decoration: underline; }
-  .unchecked-note {
-    font-size: 11px;
-    color: #aaa;
-    font-style: italic;
-    margin-top: 5px;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-  .unchecked-note::before {
-    content: "☐";
-    font-size: 13px;
-    color: #ccc;
-  }
+/* ── Legal block ── */
+.legal-block {
+  margin-top: 18px;
+  font-size: 11.5px;
+  color: #999;
+  line-height: 1.65;
+  border-top: 1px solid #eee;
+  padding-top: 14px;
+}
+.legal-block a { color: #888; }
+.legal-highlight {
+  background: #f0f4ff;
+  border: 1px solid #c7d9ff;
+  border-radius: 6px;
+  padding: 8px 10px;
+  color: #2a4a80;
+  font-size: 11px;
+  margin-bottom: 10px;
+  font-weight: 600;
+}
 
-  /* Separate-from-service badge on SMS box */
-  .sms-compliance-tag {
-    display: inline-block;
-    background: #e6f0ff;
-    color: #0056b3;
-    font-size: 10.5px;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 4px;
-    margin-bottom: 8px;
-    letter-spacing: .04em;
-  }
+/* ── Success ── */
+.success-msg {
+  display: none;
+  text-align: center;
+  padding: 24px 8px;
+}
+.success-msg .s-icon { font-size: 50px; margin-bottom: 12px; }
+.success-msg h2 { font-size: 22px; font-weight: 900; margin-bottom: 10px; }
+.success-msg p { color: #555; font-size: 14px; line-height: 1.65; }
 
-  button[type="submit"] {
-    width: 100%;
-    background: #e0355c;
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    padding: 15px;
-    font-size: 15px;
-    font-weight: 700;
-    font-family: inherit;
-    cursor: pointer;
-    margin-top: 6px;
-    transition: background .2s, transform .1s;
-  }
-  button[type="submit"]:hover { background: #c42a4f; }
-  button[type="submit"]:active { transform: scale(.98); }
+/* ── Footer ── */
+footer {
+  text-align: center;
+  padding: 24px;
+  font-size: 12px;
+  color: #aaa;
+  line-height: 1.7;
+}
+footer a { color: #999; text-decoration: underline; }
 
-  .success-msg {
-    display: none;
-    text-align: center;
-    padding: 28px 10px;
-  }
-  .success-msg .icon { font-size: 48px; margin-bottom: 12px; }
-  .success-msg h2 { font-size: 22px; font-weight: 800; margin-bottom: 8px; }
-  .success-msg p { color: #555; font-size: 14px; line-height: 1.65; }
-
-  /* ── TCPA Legal block ── */
-  .legal-block {
-    margin-top: 20px;
-    font-size: 11.5px;
-    color: #999;
-    line-height: 1.65;
-    border-top: 1px solid #eee;
-    padding-top: 16px;
-  }
-  .legal-block a { color: #888; }
-  .legal-block .legal-highlight {
-    background: #f0f4ff;
-    border: 1px solid #c7d9ff;
-    border-radius: 6px;
-    padding: 8px 10px;
-    color: #2a4a80;
-    font-size: 11px;
-    margin-bottom: 10px;
-    font-weight: 600;
-  }
-
-  footer {
-    text-align: center;
-    padding: 24px;
-    font-size: 12px;
-    color: #aaa;
-  }
-  footer a { color: #999; text-decoration: underline; }
-
-  @media (max-width: 480px) {
-    .card { padding: 24px 18px; }
-    h1 { font-size: 22px; }
-    .standalone-notice { flex-direction: column; gap: 8px; }
-  }
+@media (max-width: 520px) {
+  .card { padding: 22px 16px; }
+  h1 { font-size: 21px; }
+  .standalone-notice { flex-direction: column; gap: 8px; }
+  .row-2 { grid-template-columns: 1fr; gap: 0; }
+}
 </style>
 </head>
 <body>
 
-<!-- Compliance banner visible at very top for Twilio reviewers -->
+<!-- ════════════════════════════════════════════
+     COMPLIANCE BANNER — visible to Twilio reviewers
+     ════════════════════════════════════════════ -->
 <div class="compliance-banner">
-  ✅ TCPA &amp; CTIA Compliant Opt-In Page &nbsp;·&nbsp;
-  <span>SMS &amp; email consent is voluntary and separate from any PRbots.AI service or purchase.</span>
+  ✅ TCPA &amp; CTIA Compliant Opt-In &nbsp;·&nbsp;
+  <span>SMS &amp; email consent is voluntary and completely separate from any PRbots.AI service or purchase.</span>
 </div>
 
 <nav>
-  <a href="/">🤖 PRbots.AI</a>
+  <a href="/" class="nav-logo">🤖 PRbots.AI</a>
+  <!-- Language toggle -->
+  <div class="lang-toggle" role="group" aria-label="Language / Idioma">
+    <button class="lang-btn active" id="btn-en" onclick="setLang('en')" aria-pressed="true">EN</button>
+    <button class="lang-btn" id="btn-es" onclick="setLang('es')" aria-pressed="false">ES</button>
+  </div>
 </nav>
 
 <div class="container">
 
-  <!-- STANDALONE NOTICE — must be the first major element -->
+  <!-- STANDALONE NOTICE -->
   <div class="standalone-notice">
     <span class="sn-icon">ℹ️</span>
     <div>
-      <h2>This form is ONLY for newsletter &amp; SMS marketing opt-in.</h2>
-      <p>
+      <h2 id="sn-title">This form is ONLY for newsletter &amp; SMS marketing opt-in.</h2>
+      <p id="sn-body">
         <strong>Signing up here is entirely voluntary</strong> and is completely independent of using PRbots.AI services or making any purchase.
         You can use every PRbots.AI service without submitting this form.
-        This page exists solely so that customers who <em>want</em> to receive tips, promotions, and updates may do so with full informed consent.
+        This page exists solely so customers who <em>want</em> updates may do so with full informed consent.
       </p>
     </div>
   </div>
 
-  <div class="card" id="main-card">
-    <span class="badge">📩 Optional · Voluntary Sign-Up</span>
-    <h1>Subscribe to PRbots.AI Updates</h1>
-    <p class="sub">
-      Stay in the loop with AI tips, promotions, and news for Puerto Rico businesses — delivered by email and/or SMS.
-      <strong>This is 100% optional.</strong> Your access to PRbots.AI services is unaffected whether or not you subscribe.
-    </p>
+  <div class="card">
 
-    <div class="not-required-callout">
-      🚫 <strong>NOT required to use our services.</strong>
-      Providing your information here is not a condition of using PRbots.AI, making a purchase, or receiving any service.
-      You may close this page and use our services freely without subscribing.
-    </div>
+    <div id="form-body">
+      <span class="badge" id="badge-text">📩 Optional · Voluntary Sign-Up</span>
+      <h1 id="main-title">Subscribe to PRbots.AI Updates</h1>
+      <p class="sub" id="main-sub">
+        Stay in the loop with AI tips, promotions, and news for Puerto Rico businesses — delivered by email and/or SMS.
+        <strong>This is 100% optional.</strong> Your access to PRbots.AI services is unaffected whether or not you subscribe.
+      </p>
 
-    <div class="divider"></div>
+      <div class="not-required-callout" id="nr-callout">
+        🚫 <strong id="nr-title">NOT required to use our services.</strong>
+        <span id="nr-body">Providing your information here is not a condition of using PRbots.AI, making a purchase, or receiving any service. You may close this page and use our services freely without subscribing.</span>
+      </div>
 
-    <label class="field-label" for="fname">First Name <span class="req">*</span></label>
-    <input type="text" id="fname" name="fname" placeholder="e.g. María" autocomplete="given-name" required>
+      <div class="divider"></div>
 
-    <label class="field-label" for="lname">Last Name</label>
-    <input type="text" id="lname" name="lname" placeholder="e.g. García" autocomplete="family-name">
-
-    <label class="field-label" for="email">Email Address <span class="req">*</span></label>
-    <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
-
-    <label class="field-label" for="phone">Mobile Phone Number <span style="font-weight:400;color:#888">(only needed if opting in to SMS below)</span></label>
-    <input type="tel" id="phone" name="phone" placeholder="+1 (787) 555-0000" autocomplete="tel">
-
-    <div class="divider"></div>
-    <p class="consent-section-title">Choose what you'd like to receive — both are unchecked by default:</p>
-
-    <!-- ── EMAIL NEWSLETTER CONSENT — UNCHECKED BY DEFAULT ── -->
-    <div class="consent-box">
-      <div class="consent-row">
-        <input type="checkbox" id="consent-email" name="consent_email">
+      <!-- Name row -->
+      <div class="row-2">
         <div>
-          <label for="consent-email" class="consent-text">
-            <strong>📧 Yes, I want to receive the PRbots.AI email newsletter</strong> — AI strategies, tips, and special offers for Puerto Rico businesses.
-            You can unsubscribe at any time by clicking "Unsubscribe" in any email we send.
-          </label>
-          <div class="unchecked-note">Unchecked by default. Check this box to opt in to email.</div>
+          <label class="field-label" for="fname"><span id="lbl-fname">First Name</span> <span class="req">*</span></label>
+          <input type="text" id="fname" autocomplete="given-name" placeholder="María">
+        </div>
+        <div>
+          <label class="field-label" for="lname" id="lbl-lname">Last Name</label>
+          <input type="text" id="lname" autocomplete="family-name" placeholder="García">
         </div>
       </div>
-    </div>
 
-    <!-- ── SMS CONSENT — UNCHECKED BY DEFAULT — FULL TCPA/CTIA DISCLOSURE ── -->
-    <div class="consent-box sms">
-      <span class="sms-compliance-tag">✅ SEPARATE FROM SERVICE — NOT REQUIRED</span>
-      <div class="consent-row">
-        <input type="checkbox" id="consent-sms" name="consent_sms">
-        <div>
-          <label for="consent-sms" class="consent-text">
-            <strong>📲 Yes, I want to receive SMS/text messages from PRbots.AI</strong> at the mobile number I provided above.
-            Messages may include promotional offers, AI tips, product updates, and reminders.
-            Message frequency varies (typically 2–4 messages/month).
-            Message &amp; Data rates may apply.
-            Reply <strong>STOP</strong> at any time to opt out. Reply <strong>HELP</strong> for help.
-            See our <a href="https://paymegpt.com/p/5ysCGaS" target="_blank" rel="noopener">Privacy &amp; SMS Policy</a>.
-          </label>
-          <div class="unchecked-note">Unchecked by default. Check this box to opt in to SMS. This is not required to use PRbots.AI.</div>
+      <label class="field-label" for="email"><span id="lbl-email">Email Address</span> <span class="req">*</span></label>
+      <input type="email" id="email" autocomplete="email" placeholder="tu@ejemplo.com">
+
+      <label class="field-label" for="phone">
+        <span id="lbl-phone">Mobile Phone Number</span>
+        <span style="font-weight:400;color:#888" id="lbl-phone-note"> (only needed if opting in to SMS)</span>
+      </label>
+      <input type="tel" id="phone" autocomplete="tel" placeholder="+1 (787) 555-0000">
+
+      <div class="divider"></div>
+      <p class="consent-section-title" id="cst-title">Choose what you'd like to receive — both unchecked by default:</p>
+
+      <!-- Email consent — UNCHECKED by default -->
+      <div class="consent-box">
+        <div class="consent-row">
+          <input type="checkbox" id="consent-email">
+          <div>
+            <label for="consent-email" class="consent-text" id="ce-label">
+              <strong>📧 Yes, I want to receive the PRbots.AI email newsletter</strong> — AI strategies, tips, and special offers for Puerto Rico businesses.
+              Unsubscribe anytime by clicking "Unsubscribe" in any email.
+            </label>
+            <div class="unchecked-note" id="ce-note">Unchecked by default. Check to opt in to email.</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <button type="submit" id="submit-btn" onclick="handleSubmit()">Subscribe →</button>
-
-    <!-- ── Legal / TCPA disclosure ── -->
-    <div class="legal-block">
-      <div class="legal-highlight">
-        ⚖️ SMS consent is NOT a condition of purchasing any product or service from PRbots.AI.
-        Providing your phone number is entirely optional and voluntary.
+      <!-- SMS consent — UNCHECKED by default — full TCPA disclosure -->
+      <div class="consent-box sms">
+        <span class="sms-compliance-tag" id="sms-tag">✅ SEPARATE FROM SERVICE — NOT REQUIRED</span>
+        <div class="consent-row">
+          <input type="checkbox" id="consent-sms">
+          <div>
+            <label for="consent-sms" class="consent-text" id="cs-label">
+              <strong>📲 Yes, I want to receive SMS/text messages from PRbots.AI</strong> at the mobile number above.
+              Messages may include promotional offers, AI tips, product updates, and reminders.
+              Message frequency varies (typically 2–4/month). Message &amp; Data rates may apply.
+              Reply <strong>STOP</strong> to opt out. Reply <strong>HELP</strong> for help.
+              See our <a href="https://paymegpt.com/p/5ysCGaS" target="_blank" rel="noopener">Privacy &amp; SMS Policy</a>.
+            </label>
+            <div class="unchecked-note" id="cs-note">Unchecked by default. Check to opt in to SMS. Not required to use PRbots.AI.</div>
+          </div>
+        </div>
       </div>
-      By submitting this form, you confirm that the information provided is accurate and that you are voluntarily choosing to receive the communications you checked above.
-      PRbots.AI · 192 Av Dr Francisco Susoni, Unit 166, Hatillo, PR 00659 ·
-      <a href="mailto:hello@prbots.ai">hello@prbots.ai</a> ·
-      <a href="https://paymegpt.com/p/5ysCGaS" target="_blank" rel="noopener">Privacy &amp; SMS Policy</a>
-    </div>
 
-    <!-- Success message (shown after submit) -->
+      <button class="submit-btn" id="submit-btn" onclick="handleSubmit()">
+        <span class="btn-text" id="btn-text">Subscribe →</span>
+        <span class="spinner"></span>
+      </button>
+
+      <div class="legal-block">
+        <div class="legal-highlight" id="legal-highlight">
+          ⚖️ SMS consent is NOT a condition of purchasing any product or service from PRbots.AI. Providing your phone number is entirely optional and voluntary.
+        </div>
+        <span id="legal-body">By submitting, you confirm the information is accurate and you are voluntarily choosing the communications checked above.</span>
+        PRbots.AI · 192 Av Dr Francisco Susoni, Unit 166, Hatillo, PR 00659 ·
+        <a href="mailto:hello@prbots.ai">hello@prbots.ai</a> ·
+        <a href="https://paymegpt.com/p/5ysCGaS" target="_blank" rel="noopener" id="policy-link">Privacy &amp; SMS Policy</a>
+      </div>
+    </div><!-- /form-body -->
+
+    <!-- Success state -->
     <div class="success-msg" id="success-msg">
-      <div class="icon">✅</div>
-      <h2>You're subscribed!</h2>
-      <p>
-        Thanks for signing up. Check your inbox for a confirmation email.<br><br>
+      <div class="s-icon">✅</div>
+      <h2 id="success-title">You're subscribed!</h2>
+      <p id="success-body">
+        Thanks for signing up! Check your inbox for a confirmation email.<br><br>
         If you opted into SMS, you'll receive a confirmation text shortly.<br>
-        Reply <strong>STOP</strong> at any time to unsubscribe from SMS messages.<br>
-        Reply <strong>HELP</strong> for help or email <a href="mailto:hello@prbots.ai">hello@prbots.ai</a>.
+        Reply <strong>STOP</strong> at any time to unsubscribe from SMS.<br>
+        Reply <strong>HELP</strong> for assistance.
       </p>
     </div>
-  </div>
 
+  </div><!-- /card -->
 </div><!-- /container -->
 
 <footer>
   <p>© 2025 PRbots.AI · Hecho en Puerto Rico 🇵🇷 · <a href="/">Back to Home</a> · <a href="https://paymegpt.com/p/5ysCGaS" target="_blank">Privacy &amp; SMS Policy</a></p>
-  <p style="margin-top:8px">
-    To stop receiving SMS messages at any time, reply <strong>STOP</strong> to any text.
-    For help, reply <strong>HELP</strong> or email hello@prbots.ai.
-    Message &amp; Data rates may apply. Msg frequency varies.
-  </p>
-  <p style="margin-top:8px; color:#ccc">
-    This opt-in page complies with TCPA, CTIA guidelines, and Twilio messaging policies.
-    SMS opt-in is a distinct, voluntary action and is NOT bundled with any service agreement.
-  </p>
+  <p style="margin-top:8px" id="ft-sms">To stop receiving SMS messages, reply <strong>STOP</strong> to any text. For help, reply <strong>HELP</strong> or email hello@prbots.ai. Msg &amp; Data rates may apply.</p>
+  <p style="margin-top:8px;color:#ccc">TCPA &amp; CTIA compliant. SMS opt-in is a distinct, voluntary action NOT bundled with any service agreement.</p>
 </footer>
 
+<!-- ════════════════════════════
+     HIDDEN PAYMEGPT FORM BRIDGE
+     Submits data to PayMeGPT form tsqb0ek5
+     so contacts appear in your dashboard
+     ════════════════════════════ -->
+<iframe id="pmgpt-bridge" name="pmgpt-bridge" style="display:none" aria-hidden="true"></iframe>
+<form id="pmgpt-form"
+      action="https://paymegpt.com/forms/tsqb0ek5"
+      method="POST"
+      target="pmgpt-bridge"
+      style="display:none">
+  <input type="hidden" name="first_name"      id="pf-fname">
+  <input type="hidden" name="last_name"       id="pf-lname">
+  <input type="hidden" name="email"           id="pf-email">
+  <input type="hidden" name="phone"           id="pf-phone">
+  <input type="hidden" name="consent_sms"     id="pf-sms"   value="no">
+  <input type="hidden" name="consent_email"   id="pf-email-c" value="no">
+  <input type="hidden" name="source"          value="sms-optin-page">
+</form>
+
 <script>
+/* ══════════════════════
+   BILINGUAL CONTENT MAP
+   ══════════════════════ */
+var CONTENT = {
+  en: {
+    htmlLang: 'en',
+    pageTitle: 'SMS & Newsletter Opt-In — PRbots.AI (TCPA Compliant)',
+    snTitle: 'This form is ONLY for newsletter &amp; SMS marketing opt-in.',
+    snBody: '<strong>Signing up here is entirely voluntary</strong> and is completely independent of using PRbots.AI services or making any purchase. You can use every PRbots.AI service without submitting this form. This page exists solely so customers who <em>want</em> updates may do so with full informed consent.',
+    badge: '📩 Optional · Voluntary Sign-Up',
+    mainTitle: 'Subscribe to PRbots.AI Updates',
+    mainSub: 'Stay in the loop with AI tips, promotions, and news for Puerto Rico businesses — delivered by email and/or SMS. <strong>This is 100% optional.</strong> Your access to PRbots.AI services is unaffected whether or not you subscribe.',
+    nrTitle: 'NOT required to use our services.',
+    nrBody: 'Providing your information here is not a condition of using PRbots.AI, making a purchase, or receiving any service. You may close this page and use our services freely without subscribing.',
+    lblFname: 'First Name',
+    lblLname: 'Last Name',
+    lblEmail: 'Email Address',
+    lblPhone: 'Mobile Phone Number',
+    lblPhoneNote: ' (only needed if opting in to SMS)',
+    cstTitle: 'Choose what you\'d like to receive — both unchecked by default:',
+    ceLabel: '<strong>📧 Yes, I want to receive the PRbots.AI email newsletter</strong> — AI strategies, tips, and special offers for Puerto Rico businesses. Unsubscribe anytime.',
+    ceNote: 'Unchecked by default. Check to opt in to email.',
+    smsTag: '✅ SEPARATE FROM SERVICE — NOT REQUIRED',
+    csLabel: '<strong>📲 Yes, I want to receive SMS/text messages from PRbots.AI</strong> at the mobile number above. Messages may include promotions, tips, updates, and reminders. Frequency varies (2–4/month). Msg &amp; Data rates may apply. Reply <strong>STOP</strong> to opt out. Reply <strong>HELP</strong> for help. See our <a href="https://paymegpt.com/p/5ysCGaS" target="_blank" rel="noopener">Privacy &amp; SMS Policy</a>.',
+    csNote: 'Unchecked by default. Check to opt in to SMS. Not required to use PRbots.AI.',
+    btnText: 'Subscribe →',
+    legalHighlight: '⚖️ SMS consent is NOT a condition of purchasing any product or service from PRbots.AI. Providing your phone number is entirely optional and voluntary.',
+    legalBody: 'By submitting, you confirm the information is accurate and you are voluntarily choosing the communications checked above.',
+    policyLink: 'Privacy &amp; SMS Policy',
+    successTitle: 'You\'re subscribed!',
+    successBody: 'Thanks for signing up! Check your inbox for a confirmation email.<br><br>If you opted into SMS, you\'ll receive a confirmation text shortly.<br>Reply <strong>STOP</strong> to unsubscribe from SMS. Reply <strong>HELP</strong> for help.',
+    ftSms: 'To stop receiving SMS messages, reply <strong>STOP</strong>. For help, reply <strong>HELP</strong> or email hello@prbots.ai. Msg &amp; Data rates may apply.',
+    alertName: 'Please enter your first name. / Por favor ingresa tu nombre.',
+    alertEmail: 'Please enter a valid email address.',
+    alertConsent: 'Please check at least one option to subscribe.',
+    alertPhone: 'Please enter a phone number to receive SMS, or uncheck the SMS option.'
+  },
+  es: {
+    htmlLang: 'es',
+    pageTitle: 'Suscripción SMS y Boletín — PRbots.AI (Cumplimiento TCPA)',
+    snTitle: 'Este formulario es SOLO para suscripción voluntaria a boletines y SMS.',
+    snBody: '<strong>Suscribirse aquí es completamente voluntario</strong> y es totalmente independiente de usar los servicios de PRbots.AI o realizar cualquier compra. Puedes usar todos los servicios de PRbots.AI sin llenar este formulario. Esta página existe únicamente para que los clientes que <em>quieran</em> recibir actualizaciones puedan hacerlo con pleno consentimiento informado.',
+    badge: '📩 Opcional · Registro Voluntario',
+    mainTitle: 'Suscríbete a las Actualizaciones de PRbots.AI',
+    mainSub: 'Mantente al día con tips de IA, promociones y noticias para negocios de Puerto Rico — por correo electrónico y/o SMS. <strong>Es 100% opcional.</strong> Tu acceso a los servicios de PRbots.AI no se ve afectado.',
+    nrTitle: 'NO es requisito para usar nuestros servicios.',
+    nrBody: 'Proporcionar tu información aquí no es una condición para usar PRbots.AI, hacer una compra ni recibir ningún servicio. Puedes cerrar esta página y usar nuestros servicios libremente sin suscribirte.',
+    lblFname: 'Nombre',
+    lblLname: 'Apellido',
+    lblEmail: 'Correo Electrónico',
+    lblPhone: 'Número de Celular',
+    lblPhoneNote: ' (solo necesario si te inscribes en SMS)',
+    cstTitle: 'Elige qué deseas recibir — ambas opciones están desmarcadas por defecto:',
+    ceLabel: '<strong>📧 Sí, quiero recibir el boletín de PRbots.AI</strong> — estrategias de IA, tips y ofertas especiales para negocios en Puerto Rico. Puedes cancelar en cualquier momento haciendo clic en "Cancelar suscripción" en cualquier correo.',
+    ceNote: 'Desmarcada por defecto. Marca para suscribirte al correo.',
+    smsTag: '✅ SEPARADO DEL SERVICIO — NO ES OBLIGATORIO',
+    csLabel: '<strong>📲 Sí, quiero recibir mensajes de texto (SMS) de PRbots.AI</strong> al número de celular que proporcioné arriba. Los mensajes pueden incluir ofertas, tips, actualizaciones y recordatorios. La frecuencia varía (2–4/mes). Se aplican cargos de mensajes y datos. Responde <strong>STOP</strong> para cancelar. Responde <strong>HELP</strong> para ayuda. Ver nuestra <a href="https://paymegpt.com/p/5ysCGaS" target="_blank" rel="noopener">Política de SMS y Privacidad</a>.',
+    csNote: 'Desmarcada por defecto. Marca para suscribirte a SMS. No es requisito para usar PRbots.AI.',
+    btnText: 'Suscribirme →',
+    legalHighlight: '⚖️ El consentimiento para SMS NO es una condición para comprar ningún producto o servicio de PRbots.AI. Proporcionar tu teléfono es completamente opcional y voluntario.',
+    legalBody: 'Al enviar, confirmas que la información es correcta y que estás eligiendo voluntariamente las comunicaciones marcadas arriba.',
+    policyLink: 'Política de Privacidad y SMS',
+    successTitle: '¡Estás suscrito!',
+    successBody: '¡Gracias por suscribirte! Revisa tu correo para una confirmación.<br><br>Si te inscribiste en SMS, recibirás un mensaje de confirmación pronto.<br>Responde <strong>STOP</strong> en cualquier momento para cancelar. Responde <strong>HELP</strong> para ayuda.',
+    ftSms: 'Para dejar de recibir SMS, responde <strong>STOP</strong> a cualquier mensaje. Para ayuda, responde <strong>HELP</strong> o escribe a hello@prbots.ai. Se aplican cargos de mensaje y datos.',
+    alertName: 'Por favor ingresa tu nombre.',
+    alertEmail: 'Por favor ingresa un correo electrónico válido.',
+    alertConsent: 'Por favor marca al menos una opción para suscribirte.',
+    alertPhone: 'Por favor ingresa un número de celular para recibir SMS, o desmarca la opción de SMS.'
+  }
+};
+
+var currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  var c = CONTENT[lang];
+
+  document.getElementById('html-root').lang = c.htmlLang;
+  document.title = c.pageTitle;
+
+  // Nav buttons
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-en').setAttribute('aria-pressed', lang === 'en');
+  document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+  document.getElementById('btn-es').setAttribute('aria-pressed', lang === 'es');
+
+  // Standalone notice
+  document.getElementById('sn-title').innerHTML = c.snTitle;
+  document.getElementById('sn-body').innerHTML  = c.snBody;
+
+  // Card content
+  document.getElementById('badge-text').textContent  = c.badge;
+  document.getElementById('main-title').textContent  = c.mainTitle;
+  document.getElementById('main-sub').innerHTML      = c.mainSub;
+  document.getElementById('nr-title').textContent    = c.nrTitle;
+  document.getElementById('nr-body').textContent     = c.nrBody;
+  document.getElementById('lbl-fname').textContent   = c.lblFname;
+  document.getElementById('lbl-lname').textContent   = c.lblLname;
+  document.getElementById('lbl-email').textContent   = c.lblEmail;
+  document.getElementById('lbl-phone').textContent   = c.lblPhone;
+  document.getElementById('lbl-phone-note').textContent = c.lblPhoneNote;
+  document.getElementById('cst-title').textContent   = c.cstTitle;
+  document.getElementById('ce-label').innerHTML      = c.ceLabel;
+  document.getElementById('ce-note').innerHTML       = c.ceNote;
+  document.getElementById('sms-tag').textContent     = c.smsTag;
+  document.getElementById('cs-label').innerHTML      = c.csLabel;
+  document.getElementById('cs-note').innerHTML       = c.csNote;
+  document.getElementById('btn-text').textContent    = c.btnText;
+  document.getElementById('legal-highlight').innerHTML = c.legalHighlight;
+  document.getElementById('legal-body').textContent  = c.legalBody;
+  document.getElementById('policy-link').innerHTML   = c.policyLink;
+
+  // Success state
+  document.getElementById('success-title').textContent = c.successTitle;
+  document.getElementById('success-body').innerHTML    = c.successBody;
+
+  // Footer
+  document.getElementById('ft-sms').innerHTML = c.ftSms;
+}
+
+/* ══════════════════════════════
+   FORM SUBMISSION
+   1. Validates fields
+   2. Submits to PayMeGPT via hidden iframe (creates contact in dashboard)
+   3. Shows localised success message
+   ══════════════════════════════ */
 function handleSubmit() {
-  var fname  = document.getElementById('fname').value.trim();
-  var email  = document.getElementById('email').value.trim();
+  var c     = CONTENT[currentLang];
+  var fname = document.getElementById('fname').value.trim();
+  var lname = document.getElementById('lname').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var phone = document.getElementById('phone').value.trim();
   var emailC = document.getElementById('consent-email').checked;
   var smsC   = document.getElementById('consent-sms').checked;
-  var phone  = document.getElementById('phone').value.trim();
 
-  if (!fname) { alert('Please enter your first name.'); return; }
-  if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
-  if (!emailC && !smsC) { alert('Please check at least one option (email newsletter or SMS) to subscribe.'); return; }
-  if (smsC && !phone) {
-    alert('Please enter a mobile phone number to receive SMS, or uncheck the SMS option.');
-    return;
-  }
+  if (!fname)                     { alert(c.alertName);    return; }
+  if (!email || !email.includes('@')) { alert(c.alertEmail);   return; }
+  if (!emailC && !smsC)           { alert(c.alertConsent); return; }
+  if (smsC && !phone)             { alert(c.alertPhone);   return; }
 
-  // Hide form, show success
-  document.getElementById('submit-btn').style.display = 'none';
-  var labels = document.querySelectorAll('.field-label, input[type="text"], input[type="email"], input[type="tel"], .consent-box, .not-required-callout, .divider, .consent-section-title, .legal-block, .badge, h1, .sub');
-  labels.forEach(function(el){ el.style.display = 'none'; });
-  document.getElementById('success-msg').style.display = 'block';
+  // Loading state
+  var btn = document.getElementById('submit-btn');
+  btn.classList.add('loading');
+  btn.disabled = true;
+
+  // Populate hidden PayMeGPT form → submits into invisible iframe
+  // This creates a contact in your PayMeGPT dashboard (widget 44460389)
+  document.getElementById('pf-fname').value   = fname;
+  document.getElementById('pf-lname').value   = lname;
+  document.getElementById('pf-email').value   = email;
+  document.getElementById('pf-phone').value   = phone;
+  document.getElementById('pf-sms').value     = smsC   ? 'yes' : 'no';
+  document.getElementById('pf-email-c').value = emailC ? 'yes' : 'no';
+  document.getElementById('pmgpt-form').submit();
+
+  // Show success after brief delay
+  setTimeout(function() {
+    document.getElementById('form-body').style.display  = 'none';
+    document.getElementById('success-msg').style.display = 'block';
+    btn.classList.remove('loading');
+    btn.disabled = false;
+  }, 800);
 }
+
+// Auto-detect browser language on load
+(function() {
+  var lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+  if (lang.startsWith('es')) setLang('es');
+})();
 </script>
 </body>
 </html>
