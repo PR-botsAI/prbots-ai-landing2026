@@ -22,15 +22,6 @@
 (function(){var slug='KUTvs2YTb';var apiBase='https://paymegpt.com';function findEmail(){var ids=['email','emailAddress','buyer-email','buyerEmail','user-email','userEmail','checkout-email','customer-email','contact-email'];for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.includes('@'))return el.value.trim();}var inputs=document.querySelectorAll('input[type="email"],input[name*="email"],input[placeholder*="email"],input[placeholder*="Email"]');for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.includes('@'))return inputs[j].value.trim();}return '';}function findName(){var ids=['name','fullName','full-name','buyer-name','buyerName','customer-name','userName','user-name'];for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value)return el.value.trim();}var inputs=document.querySelectorAll('input[name*="name"]:not([name*="email"]):not([type="email"]),input[placeholder*="name"]:not([placeholder*="email"]):not([type="email"]),input[placeholder*="Name"]:not([type="email"])');for(var j=0;j<inputs.length;j++){if(inputs[j].value)return inputs[j].value.trim();}return '';}var __realProcessPayment=function(a,b,c,d,e){var amountCents,email,productName,productDescription,customerName,quantity;if(a&&typeof a==='object'){amountCents=a.amountCents;email=a.email;productName=a.productName;productDescription=a.productDescription||'';customerName=a.name||'';quantity=a.quantity||1;}else{amountCents=typeof a==='number'?a:0;productName=typeof b==='string'?b:'';productDescription=typeof c==='string'?c:'';email='';customerName='';quantity=1;}if(!email)email=findEmail();if(!customerName)customerName=findName();if(!productName){alert('Product name is required.');return Promise.reject('no_product_name');}if(!amountCents||amountCents<100){alert('Amount must be at least $1.00');return Promise.reject('invalid_amount');}if(!email){alert('Please enter your email address.');return Promise.reject('no_email');}var successBase=window.location.href.split('?')[0];return fetch(apiBase+'/api/landing-pages/public/'+slug+'/payment/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,name:customerName,amountCents:amountCents,productName:productName,productDescription:productDescription,quantity:quantity,successUrl:successBase+'?payment=success&product='+encodeURIComponent(productName)+'&session_id={CHECKOUT_SESSION_ID}',cancelUrl:successBase+'?payment=cancelled'})}).then(function(r){return r.json();}).then(function(d){if(d.checkoutUrl){window.location.href=d.checkoutUrl;}else{alert(d.error||'Failed to process payment');throw new Error(d.error);}});};Object.defineProperty(window,'__processPayment',{value:__realProcessPayment,writable:false,configurable:false});document.addEventListener('DOMContentLoaded',function(){var urlParams=new URLSearchParams(window.location.search);if(urlParams.get('payment')==='success'){var pName=urlParams.get('product')||'your item';var overlay=document.createElement('div');overlay.id='payment-success-overlay';overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;';overlay.innerHTML='<div style="background:white;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);"><div style="width:64px;height:64px;border-radius:50%;background:#dcfce7;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">Payment Successful!</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">Thank you for purchasing '+pName.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'.</p><button onclick="document.getElementById(\'payment-success-overlay\').remove();window.history.replaceState({},\'\',window.location.pathname);" style="padding:12px 32px;font-size:16px;font-weight:600;background:#16a34a;color:white;border:none;border-radius:8px;cursor:pointer;">Continue</button></div>';document.body.appendChild(overlay);}});})();
 </script>
 <link rel="stylesheet" href="styles.css">
-
-<!-- ═══════════════════════════════════════════════════════════════
-     SMS / NEWSLETTER OPT-IN POPUP — TCPA/CTIA COMPLIANT
-     Key compliance points:
-     • Both checkboxes UNCHECKED by default (required)
-     • SMS opt-in is SEPARATE from any service/purchase form
-     • Clear STOP / HELP / frequency disclosure
-     • Not a condition of using the service
-     ═══════════════════════════════════════════════════════════════ -->
 <style>
 /* ── Popup Overlay ── */
 #optin-overlay {
@@ -45,7 +36,6 @@
   backdrop-filter: blur(3px);
 }
 #optin-overlay.open { display: flex; }
-
 #optin-modal {
   background: #fff;
   border-radius: 18px;
@@ -62,188 +52,82 @@
   from { transform: translateY(20px) scale(.97); opacity: 0; }
   to   { transform: none; opacity: 1; }
 }
-
 #optin-close {
-  position: absolute;
-  top: 14px; right: 16px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  cursor: pointer;
-  color: #888;
-  line-height: 1;
-  padding: 4px 8px;
+  position: absolute; top: 14px; right: 16px;
+  background: none; border: none; font-size: 24px;
+  cursor: pointer; color: #888; line-height: 1; padding: 4px 8px;
 }
 #optin-close:hover { color: #333; }
-
 #optin-modal .om-badge {
-  display: inline-block;
-  background: #fff0f2;
-  color: #e0355c;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: .1em;
-  padding: 4px 11px;
-  border-radius: 20px;
-  text-transform: uppercase;
-  margin-bottom: 14px;
+  display: inline-block; background: #fff0f2; color: #e0355c;
+  font-size: 11px; font-weight: 800; letter-spacing: .1em;
+  padding: 4px 11px; border-radius: 20px; text-transform: uppercase; margin-bottom: 14px;
 }
-#optin-modal h2 {
-  font-size: 22px;
-  font-weight: 900;
-  margin-bottom: 6px;
-  line-height: 1.25;
-  color: #1a1a1a;
-}
-#optin-modal .om-sub {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 20px;
-  line-height: 1.55;
-}
+#optin-modal h2 { font-size: 22px; font-weight: 900; margin-bottom: 6px; line-height: 1.25; color: #1a1a1a; }
+#optin-modal .om-sub { font-size: 14px; color: #666; margin-bottom: 20px; line-height: 1.55; }
 #optin-modal .om-required-note {
-  font-size: 12px;
-  background: #fffbea;
-  border: 1px solid #fde68a;
-  border-radius: 8px;
-  padding: 9px 12px;
-  color: #7a5800;
-  margin-bottom: 18px;
-  line-height: 1.5;
+  font-size: 12px; background: #fffbea; border: 1px solid #fde68a;
+  border-radius: 8px; padding: 9px 12px; color: #7a5800; margin-bottom: 18px; line-height: 1.5;
 }
-
-#optin-modal .om-field label {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #333;
-}
+#optin-modal .om-field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 5px; color: #333; }
 #optin-modal .om-field input[type="text"],
 #optin-modal .om-field input[type="email"],
 #optin-modal .om-field input[type="tel"] {
-  width: 100%;
-  border: 1.5px solid #ddd;
-  border-radius: 8px;
-  padding: 10px 12px;
-  font-size: 14px;
-  font-family: inherit;
-  margin-bottom: 14px;
-  outline: none;
-  background: #fafafa;
-  transition: border-color .2s;
+  width: 100%; border: 1.5px solid #ddd; border-radius: 8px; padding: 10px 12px;
+  font-size: 14px; font-family: inherit; margin-bottom: 14px; outline: none;
+  background: #fafafa; transition: border-color .2s;
 }
 #optin-modal .om-field input:focus { border-color: #e0355c; background: #fff; }
-
-.om-consent-box {
-  background: #f9f9f9;
-  border: 1.5px solid #e5e5e5;
-  border-radius: 10px;
-  padding: 13px 15px;
-  margin-bottom: 12px;
-}
+.om-consent-box { background: #f9f9f9; border: 1.5px solid #e5e5e5; border-radius: 10px; padding: 13px 15px; margin-bottom: 12px; }
 .om-consent-box.sms-box { border-color: #fcc; background: #fff8f9; }
-
-.om-consent-row {
-  display: flex;
-  align-items: flex-start;
-  gap: 11px;
-}
-.om-consent-row input[type="checkbox"] {
-  width: 18px;
-  height: 18px;
-  min-width: 18px;
-  margin-top: 2px;
-  accent-color: #e0355c;
-  cursor: pointer;
-}
-.om-consent-text {
-  font-size: 12.5px;
-  color: #444;
-  line-height: 1.55;
-}
+.om-consent-row { display: flex; align-items: flex-start; gap: 11px; }
+.om-consent-row input[type="checkbox"] { width: 18px; height: 18px; min-width: 18px; margin-top: 2px; accent-color: #e0355c; cursor: pointer; }
+.om-consent-text { font-size: 12.5px; color: #444; line-height: 1.55; }
 .om-consent-text strong { color: #1a1a1a; }
 .om-consent-text a { color: #e0355c; }
-.om-unchecked-note {
-  font-size: 11px;
-  color: #aaa;
-  font-style: italic;
-  margin-top: 5px;
-}
-
+.om-unchecked-note { font-size: 11px; color: #aaa; font-style: italic; margin-top: 5px; }
 #optin-modal .om-submit {
-  width: 100%;
-  background: #e0355c;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
-  padding: 14px;
-  font-size: 15px;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  margin-top: 6px;
-  transition: background .2s;
+  width: 100%; background: #e0355c; color: #fff; border: none; border-radius: 10px;
+  padding: 14px; font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer; margin-top: 6px; transition: background .2s;
 }
 #optin-modal .om-submit:hover { background: #c42a4f; }
-
 #optin-modal .om-skip {
-  display: block;
-  text-align: center;
-  margin-top: 12px;
-  font-size: 12px;
-  color: #aaa;
-  cursor: pointer;
-  background: none;
-  border: none;
-  font-family: inherit;
-  width: 100%;
+  display: block; text-align: center; margin-top: 12px; font-size: 12px; color: #aaa;
+  cursor: pointer; background: none; border: none; font-family: inherit; width: 100%;
 }
 #optin-modal .om-skip:hover { color: #666; }
-
-#optin-modal .om-legal {
-  font-size: 11px;
-  color: #bbb;
-  line-height: 1.5;
-  margin-top: 14px;
-  border-top: 1px solid #eee;
-  padding-top: 12px;
-}
+#optin-modal .om-legal { font-size: 11px; color: #bbb; line-height: 1.5; margin-top: 14px; border-top: 1px solid #eee; padding-top: 12px; }
 #optin-modal .om-legal a { color: #aaa; }
-
-/* Success state */
-#optin-success {
-  display: none;
-  text-align: center;
-  padding: 12px 0 8px;
-}
+#optin-success { display: none; text-align: center; padding: 12px 0 8px; }
 #optin-success .os-icon { font-size: 44px; margin-bottom: 10px; }
 #optin-success h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
 #optin-success p { font-size: 14px; color: #555; line-height: 1.6; }
-
-/* ── Footer subscribe bar ── */
-.ft-subscribe {
-  margin-top: 14px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(255,255,255,.1);
-  text-align: center;
-}
+.ft-subscribe { margin-top: 14px; padding-top: 14px; border-top: 1px solid rgba(255,255,255,.1); text-align: center; }
 .ft-subscribe p { font-size: 13px; color: #aaa; margin-bottom: 8px; }
 .ft-subscribe button {
-  background: #e0355c;
-  color: #fff;
-  border: none;
-  border-radius: 8px;
-  padding: 9px 22px;
-  font-size: 13px;
-  font-weight: 700;
-  cursor: pointer;
-  font-family: inherit;
-  transition: background .2s;
+  background: #e0355c; color: #fff; border: none; border-radius: 8px; padding: 9px 22px;
+  font-size: 13px; font-weight: 700; cursor: pointer; font-family: inherit; transition: background .2s;
 }
 .ft-subscribe button:hover { background: #c42a4f; }
-</style>
 
+/* ── SMS Non-Consent Notice (shown on consultation form + BOTi) ── */
+.sms-non-consent-notice {
+  background: #f0f6ff;
+  border: 1.5px solid #b8d4f8;
+  border-radius: 10px;
+  padding: 11px 16px;
+  margin-bottom: 14px;
+  font-size: 12.5px;
+  color: #1a3a6c;
+  line-height: 1.55;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+.sms-non-consent-notice .nc-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.sms-non-consent-notice a { color: #0056b3; text-decoration: underline; font-weight: 600; }
+.sms-non-consent-notice strong { color: #0c2a5e; }
+</style>
 </head>
 <body>
 <nav>
@@ -262,6 +146,11 @@
     <div id="boti">
       <div class="boti-shell">
         <div class="boti-top"><div class="boti-top-line"></div><span>Chat con BOTi ahora mismo</span><div class="boti-top-line"></div></div>
+        <!-- SMS NON-CONSENT NOTICE — Twilio compliance: chatting with BOTi does NOT opt anyone in to SMS -->
+        <div class="sms-non-consent-notice" style="margin: 0 0 12px;">
+          <span class="nc-icon">ℹ️</span>
+          <span><strong>Note:</strong> Using this chat does <strong>not</strong> opt you in to receive SMS messages from PRbots.AI. SMS is entirely optional. To subscribe to optional SMS updates, visit our <a href="/sms-optin.html">SMS opt-in page</a>.</span>
+        </div>
         <div class="boti-frame"><iframe src="https://paymegpt.com/agents/44460389/embed" frameborder="0" allow="microphone; camera"></iframe></div>
       </div>
     </div>
@@ -309,14 +198,41 @@
   <p class="sh-sub">&nbsp;</p>
   <div class="vgrid"><div class="vcard"><span class="vcard-ico">💅</span><h3>Tienes salón de uñas o belleza</h3><p>Manos ocupadas creando arte — DMs acumulándose. Sábados caóticos. No-shows caros.</p><span class="vst">→ Pérdida promedio: $62,700/año sin automatización</span><a href="#boti" class="vlink">BOTi resuelve esto →</a></div><div class="vcard b"><span class="vcard-ico">🛍️</span><h3>Tienes tienda online o Shopify</h3><p>Preguntas a las 11pm. 70% de carritos abandonados. Tu tienda pierde ventas mientras no estás.</p><span class="vst" style="color:var(--blue)">→ $13,400/mes en carritos abandonados sin respuesta</span><a href="#boti" class="vlink" style="color:var(--blue)">BOTi vende mientras duermes →</a></div><div class="vcard y"><span class="vcard-ico">📸</span><h3>Eres influencer o creas contenido</h3><p>200+ DMs que no puedes contestar. Tu audiencia quiere comprar — pero no puede llegar a ti.</p><span class="vst" style="color:#8a6d00">→ $1,998 perdidos por post sin DM automation</span><a href="#boti" class="vlink" style="color:#8a6d00">BOTi monetiza tu audiencia →</a></div><div class="vcard g"><span class="vcard-ico">🍽️</span><h3>Tienes restaurante o cafetería</h3><p>Teléfono sonando durante el rush. Reservas perdidas. No-shows con mesas vacías en tu mejor noche.</p><span class="vst" style="color:var(--green)">→ 43% de llamadas sin contestar en hora pico</span><a href="#boti" class="vlink" style="color:var(--green)">BOTi llena tu restaurante →</a></div><div class="vcard p"><span class="vcard-ico">🔧</span><h3>Ofreces servicios — contractor, groomer, tutor</h3><p>Estás trabajando cuando llegan las consultas. Para cuando revisas, ya llamaron a tu competencia.</p><span class="vst" style="color:var(--purple)">→ 62% de leads se pierden sin respuesta en 5 minutos</span><a href="#boti" class="vlink" style="color:var(--purple)">BOTi captura cada oportunidad →</a></div></div>
 </section>
+
+<!-- ═══════════════════════════════════════════════════
+     CONSULTATION FORM SECTION
+     IMPORTANT: Phone number submitted here is used ONLY
+     to contact the prospect about our services.
+     It does NOT constitute SMS opt-in. Separate opt-in
+     required at /sms-optin.html for any SMS marketing.
+     ═══════════════════════════════════════════════════ -->
 <section id="consultoria" class="sec white">
   <div style="text-align:center"><span class="chip-tag ct-coral">EVALUACIÓN GRATUITA</span></div>
   <h2 class="sh">¿Listo para dejar de perder clientes?</h2>
   <p class="sh-sub">Completa el formulario y un estratega te contactará en menos de 24 horas.</p>
+
+  <!-- SMS NON-CONSENT NOTICE — visible above the form -->
+  <div class="sms-non-consent-notice" style="max-width:680px;margin:0 auto 18px;">
+    <span class="nc-icon">📋</span>
+    <span>
+      <strong>Privacy note:</strong> Your phone number is collected here solely so our team can reach you about our services.
+      Submitting this form does <strong>not</strong> opt you in to receive SMS/text marketing messages from PRbots.AI.
+      SMS marketing communications are entirely optional — <a href="/sms-optin.html">sign up separately here</a> only if you wish to receive them.
+      See our <a href="https://paymegpt.com/p/5ysCGaS" target="_blank">Privacy &amp; SMS Policy</a>.
+    </span>
+  </div>
+
   <div class="form-section-wrap">
     <iframe src="https://paymegpt.com/forms/6kwi91qz?darkMode=true" frameborder="0" scrolling="yes"></iframe>
   </div>
+
+  <!-- Repeat notice below the form for clarity -->
+  <p style="text-align:center;font-size:12px;color:#aaa;margin-top:12px;max-width:600px;margin-left:auto;margin-right:auto;">
+    📵 Submitting this form does not opt you in to SMS. SMS is optional.
+    <a href="/sms-optin.html" style="color:#888">Subscribe to optional SMS updates →</a>
+  </p>
 </section>
+
 <section id="precios" class="sec white">
   <div style="text-align:center"><span class="chip-tag ct-green">ELIGE TU CAMINO</span></div>
   <h2 class="sh">Tres formas de empezar hoy</h2>
@@ -341,80 +257,42 @@
 </section>
 <footer>
   <div class="ft"><div class="ft-brand"><a href="#hero" class="logo">PRbots.ai 🤖</a><p>Puerto Rico's #1 AI Sales Automation Agency<br>192 Av Dr Francisco Susoni, Unit 166<br>Hatillo, PR 00659</p></div><div class="ft-links"><a href="#boti">Habla con BOTi</a><a href="#precios">Ver Precios</a><a href="#casos">Casos Reales</a><a href="#comparacion">Comparación</a><a href="https://paymegpt.com/p/5ysCGaS" target="_blank">SMS &amp; Privacy Policy</a><a href="/sms-optin.html">Newsletter &amp; SMS Sign-Up</a></div><div class="ft-contact"><p>hello@prbots.ai<br>+1 (939) 297-5805<br><a href="https://www.instagram.com/prbots.ai" target="_blank">@prbots.ai en Instagram</a></p><div class="ft-subscribe"><p>📩 Get tips &amp; updates from PRbots.AI</p><button onclick="openOptinPopup()">Subscribe (Optional)</button></div></div></div>
-  <div class="ft-bar"><p>© 2025 PRbots.ai · Hecho con 🤖 en Puerto Rico 🇵🇷</p><p>Todos los derechos reservados · <a href="/sms-optin.html" style="color:#aaa">Newsletter &amp; SMS Opt-In</a></p></div>
+  <div class="ft-bar"><p>© 2025 PRbots.ai · Hecho con 🤖 en Puerto Rico 🇵🇷</p><p>Todos los derechos reservados · <a href="/sms-optin.html" style="color:#aaa">Newsletter &amp; SMS Opt-In (Optional)</a></p><p style="font-size:11px;color:#666;margin-top:6px">📵 Submitting any form on this site does not constitute consent to receive SMS marketing. SMS opt-in is voluntary and separate. <a href="/sms-optin.html" style="color:#666">SMS opt-in page</a> · <a href="https://paymegpt.com/p/5ysCGaS" target="_blank" style="color:#666">Privacy &amp; SMS Policy</a></p></div>
 </footer>
 
-<!-- ═══════════════════════════════════════════════════════════════
-     SMS / NEWSLETTER OPT-IN POPUP
-     TCPA / CTIA / Twilio Error 30475 compliant:
-     ✅ Both checkboxes UNCHECKED by default
-     ✅ Separate from any service/purchase form
-     ✅ Not required to use the service — clearly stated
-     ✅ STOP / HELP instructions visible
-     ✅ Frequency and rate disclosures present
-     ✅ Triggered only by user clicking "Subscribe" — not automatic
-     ═══════════════════════════════════════════════════════════════ -->
 <div id="optin-overlay" role="dialog" aria-modal="true" aria-labelledby="optin-title">
   <div id="optin-modal">
     <button id="optin-close" onclick="closeOptinPopup()" aria-label="Close">&times;</button>
-
     <div id="optin-form-body">
       <span class="om-badge">📩 Stay in the Loop</span>
       <h2 id="optin-title">Get Updates from PRbots.AI</h2>
       <p class="om-sub">Tips, promotions and news for PR businesses — delivered by email or SMS. <strong>100% optional.</strong></p>
-
-      <div class="om-required-note">
-        ⚠️ <strong>This is completely optional.</strong> Signing up here does not affect your access to PRbots.AI services in any way.
-      </div>
-
-      <div class="om-field">
-        <label for="om-fname">First Name *</label>
-        <input type="text" id="om-fname" placeholder="e.g. María" autocomplete="given-name">
-      </div>
-      <div class="om-field">
-        <label for="om-email">Email Address *</label>
-        <input type="email" id="om-email" placeholder="you@example.com" autocomplete="email">
-      </div>
-      <div class="om-field">
-        <label for="om-phone">Mobile Phone (for SMS only)</label>
-        <input type="tel" id="om-phone" placeholder="+1 (787) 555-0000" autocomplete="tel">
-      </div>
-
-      <!-- EMAIL CONSENT — UNCHECKED BY DEFAULT -->
+      <div class="om-required-note">⚠️ <strong>This is completely optional.</strong> Signing up here does not affect your access to PRbots.AI services in any way.</div>
+      <div class="om-field"><label for="om-fname">First Name *</label><input type="text" id="om-fname" placeholder="e.g. María" autocomplete="given-name"></div>
+      <div class="om-field"><label for="om-email">Email Address *</label><input type="email" id="om-email" placeholder="you@example.com" autocomplete="email"></div>
+      <div class="om-field"><label for="om-phone">Mobile Phone (for SMS only)</label><input type="tel" id="om-phone" placeholder="+1 (787) 555-0000" autocomplete="tel"></div>
       <div class="om-consent-box">
         <div class="om-consent-row">
           <input type="checkbox" id="om-consent-email" name="om_consent_email">
           <div>
-            <label for="om-consent-email" class="om-consent-text">
-              <strong>📧 Yes — send me the PRbots.AI email newsletter</strong> with AI tips and special offers for Puerto Rico businesses. Unsubscribe anytime.
-            </label>
+            <label for="om-consent-email" class="om-consent-text"><strong>📧 Yes — send me the PRbots.AI email newsletter</strong> with AI tips and special offers for Puerto Rico businesses. Unsubscribe anytime.</label>
             <div class="om-unchecked-note">Unchecked by default — check to opt in.</div>
           </div>
         </div>
       </div>
-
-      <!-- SMS CONSENT — UNCHECKED BY DEFAULT — FULL TCPA DISCLOSURE -->
       <div class="om-consent-box sms-box">
         <div class="om-consent-row">
           <input type="checkbox" id="om-consent-sms" name="om_consent_sms">
           <div>
-            <label for="om-consent-sms" class="om-consent-text">
-              <strong>📲 Yes — send me SMS text messages from PRbots.AI</strong> at the number above. Messages may include promotions, tips, and updates. Frequency varies. Msg &amp; Data rates may apply. Reply <strong>STOP</strong> to cancel. Reply <strong>HELP</strong> for help. See <a href="https://paymegpt.com/p/5ysCGaS" target="_blank">Privacy &amp; SMS Policy</a>. <em>SMS consent is not required to use any PRbots.AI service.</em>
-            </label>
+            <label for="om-consent-sms" class="om-consent-text"><strong>📲 Yes — send me SMS text messages from PRbots.AI</strong> at the number above. Messages may include promotions, tips, and updates. Frequency varies. Msg &amp; Data rates may apply. Reply <strong>STOP</strong> to cancel. Reply <strong>HELP</strong> for help. See <a href="https://paymegpt.com/p/5ysCGaS" target="_blank">Privacy &amp; SMS Policy</a>. <em>SMS consent is not required to use any PRbots.AI service.</em></label>
             <div class="om-unchecked-note">Unchecked by default — check to opt in to SMS.</div>
           </div>
         </div>
       </div>
-
       <button class="om-submit" onclick="submitOptin()">Subscribe →</button>
       <button class="om-skip" onclick="closeOptinPopup()">No thanks, close this</button>
-
-      <div class="om-legal">
-        SMS opt-in is not a condition of any purchase or service. PRbots.AI · 192 Av Dr Francisco Susoni, Unit 166, Hatillo, PR 00659 · hello@prbots.ai ·
-        <a href="https://paymegpt.com/p/5ysCGaS" target="_blank">Privacy &amp; SMS Policy</a>
-      </div>
+      <div class="om-legal">SMS opt-in is not a condition of any purchase or service. PRbots.AI · 192 Av Dr Francisco Susoni, Unit 166, Hatillo, PR 00659 · hello@prbots.ai · <a href="https://paymegpt.com/p/5ysCGaS" target="_blank">Privacy &amp; SMS Policy</a></div>
     </div>
-
     <div id="optin-success">
       <div class="os-icon">✅</div>
       <h3>You're in!</h3>
@@ -426,9 +304,7 @@
 <script>window.PayMeGPTConfig={widgetId:'44460389',type:'voice_launcher',primaryColor:'#FF3D5A',position:'bottom-right',label:'Habla con BOTi',icon:'mic',startButtonText:'Comenzar',stopButtonText:'Terminar',theme:'dark',customFooterText:'PRbots.ai · Hecho en Puerto Rico 🇵🇷'};</script>
 <script src="https://paymegpt.com/widget.js"></script>
 <script src="script.js"></script>
-
 <script>
-/* ── Opt-in Popup Logic ── */
 function openOptinPopup() {
   document.getElementById('optin-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
@@ -437,33 +313,25 @@ function closeOptinPopup() {
   document.getElementById('optin-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-// Close on overlay click (outside modal)
 document.getElementById('optin-overlay').addEventListener('click', function(e) {
   if (e.target === this) closeOptinPopup();
 });
-// Close on Escape key
 document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') closeOptinPopup();
 });
-
 function submitOptin() {
   var fname = document.getElementById('om-fname').value.trim();
   var email = document.getElementById('om-email').value.trim();
   if (!fname) { alert('Please enter your first name.'); return; }
   if (!email || !email.includes('@')) { alert('Please enter a valid email address.'); return; }
-
   var smsChecked = document.getElementById('om-consent-sms').checked;
   var phone = document.getElementById('om-phone').value.trim();
   if (smsChecked && !phone) {
     alert('Please enter a mobile phone number to receive SMS, or uncheck the SMS option.');
     return;
   }
-
-  // Show success
   document.getElementById('optin-form-body').style.display = 'none';
   document.getElementById('optin-success').style.display = 'block';
-
-  // Auto-close after 4 seconds
   setTimeout(closeOptinPopup, 4000);
 }
 </script>
