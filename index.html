@@ -24,16 +24,9 @@
 <link rel="stylesheet" href="styles.css">
 <style>
 /* ── Popup Overlay ── */
-#optin-overlay {
-  display: none; position: fixed; inset: 0; background: rgba(0,0,0,.55);
-  z-index: 99998; align-items: center; justify-content: center; padding: 16px; backdrop-filter: blur(3px);
-}
-#optin-overlay.open { display: flex; }
-#optin-modal {
-  background: #fff; border-radius: 18px; max-width: 520px; width: 100%;
-  padding: 36px 36px 28px; position: relative; box-shadow: 0 24px 80px rgba(0,0,0,.22);
-  animation: popIn .25s ease; max-height: 92vh; overflow-y: auto;
-}
+#optin-overlay { display:none;position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:99998;align-items:center;justify-content:center;padding:16px;backdrop-filter:blur(3px); }
+#optin-overlay.open { display:flex; }
+#optin-modal { background:#fff;border-radius:18px;max-width:520px;width:100%;padding:36px 36px 28px;position:relative;box-shadow:0 24px 80px rgba(0,0,0,.22);animation:popIn .25s ease;max-height:92vh;overflow-y:auto; }
 @keyframes popIn { from{transform:translateY(20px) scale(.97);opacity:0} to{transform:none;opacity:1} }
 #optin-close { position:absolute;top:14px;right:16px;background:none;border:none;font-size:24px;cursor:pointer;color:#888;line-height:1;padding:4px 8px; }
 #optin-close:hover { color:#333; }
@@ -68,142 +61,17 @@
 .ft-subscribe button:hover { background:#c42a4f; }
 
 /* ── SMS Non-Consent Notice ── */
-.sms-non-consent-notice {
-  background:#f0f6ff;border:1.5px solid #b8d4f8;border-radius:10px;padding:11px 16px;
-  margin-bottom:14px;font-size:12.5px;color:#1a3a6c;line-height:1.55;display:flex;gap:10px;align-items:flex-start;
-}
+.sms-non-consent-notice { background:#f0f6ff;border:1.5px solid #b8d4f8;border-radius:10px;padding:11px 16px;margin-bottom:14px;font-size:12.5px;color:#1a3a6c;line-height:1.55;display:flex;gap:10px;align-items:flex-start; }
 .sms-non-consent-notice .nc-icon { font-size:18px;flex-shrink:0;margin-top:1px; }
 .sms-non-consent-notice a { color:#0056b3;text-decoration:underline;font-weight:600; }
 .sms-non-consent-notice strong { color:#0c2a5e; }
 
-/* ── Hero ── */
-.hero-outcome-super { display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:100px;padding:6px 16px;font-size:13px;font-weight:600;color:#fff;margin-bottom:28px;backdrop-filter:blur(8px); }
-.hero-outcome-super .super-dot { width:8px;height:8px;background:#36D6B5;border-radius:50%;animation:pulse 2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.6;transform:scale(1.3)} }
-.hero-outcome-h1 { font-size:clamp(2.4rem,5vw,3.6rem);font-weight:900;line-height:1.1;color:#fff;margin-bottom:20px; }
-.hero-outcome-h1 .accent-green { color:#36D6B5; }
-.hero-outcome-h1 .accent-coral { color:#FF6B6B; }
-.hero-outcome-sub { font-size:1.15rem;color:rgba(255,255,255,0.82);max-width:560px;margin:0 auto 32px;line-height:1.65; }
+/* ── Hero stat bar ── */
 .hero-social-proof { display:flex;align-items:center;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px;padding:16px 20px;background:rgba(255,255,255,0.08);border-radius:12px;border:1px solid rgba(255,255,255,0.15);max-width:560px;margin-left:auto;margin-right:auto; }
 .hsp-div { width:1px;height:36px;background:rgba(255,255,255,0.2); }
 .hsp-item { text-align:center; }
 .hsp-item .hsp-n { font-size:1.4rem;font-weight:900;color:#FFD600;display:block; }
 .hsp-item .hsp-l { font-size:11px;color:rgba(255,255,255,0.6); }
-
-/* ── Before/After Grid ── */
-.pain-before-after { background:#fafafa;padding:80px 24px; }
-.ba-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px;margin-top:48px; }
-.ba-card { background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid #eee; }
-.ba-card-header { padding:16px 20px 14px;display:flex;align-items:center;gap:12px; }
-.ba-icon { font-size:28px; }
-.ba-header-text h4 { font-size:15px;font-weight:800;margin:0 0 2px; }
-.ba-header-text span { font-size:12px;font-weight:600;opacity:.75; }
-.ba-body { padding:0 20px 20px; }
-.ba-before,.ba-after { padding:12px 0; }
-.ba-before { border-bottom:1px solid #f0f0f0; }
-.ba-label { font-size:10px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;margin-bottom:6px;display:block; }
-.ba-text { font-size:13.5px;line-height:1.5; }
-.ba-before .ba-label { color:#d93025; }
-.ba-before .ba-text { color:#5a1a1a; }
-.ba-after .ba-label { color:#00875a; }
-.ba-after .ba-text { color:#1a3a2a;font-weight:500; }
-.ba-loss { font-size:12px;color:#d93025;font-weight:700;margin-top:6px; }
-.ba-win { font-size:12px;color:#00875a;font-weight:700;margin-top:6px; }
-
-/* ── Comment-to-DM ── */
-.cdm-section { background:linear-gradient(135deg,#0d0d1a 0%,#1a0a2e 100%);padding:80px 24px; }
-.cdm-inner { max-width:960px;margin:0 auto; }
-.cdm-grid { display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;margin-top:48px; }
-@media(max-width:700px){ .cdm-grid{grid-template-columns:1fr} }
-.cdm-flow { display:flex;flex-direction:column;gap:0; }
-.cdm-step { display:flex;align-items:flex-start;gap:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:14px;padding:18px 20px; }
-.cdm-step+.cdm-step { margin-top:6px; }
-.cdm-step-icon { font-size:28px;flex-shrink:0;margin-top:2px; }
-.cdm-step-body h4 { color:#fff;font-size:15px;font-weight:700;margin-bottom:4px; }
-.cdm-step-body p { color:rgba(255,255,255,0.65);font-size:13px;line-height:1.5;margin:0; }
-.cdm-arrow { text-align:center;color:#36D6B5;font-size:22px;margin:2px 0; }
-.cdm-result { background:linear-gradient(135deg,#36D6B5,#00b894);border-radius:16px;padding:28px;color:#fff; }
-.cdm-result .cr-tag { font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;opacity:.8;margin-bottom:12px;display:block; }
-.cdm-result .cr-num { font-size:3rem;font-weight:900;display:block;line-height:1;margin-bottom:8px; }
-.cdm-result .cr-label { font-size:1rem;font-weight:600;opacity:.9; }
-.cdm-result .cr-sub { font-size:13px;opacity:.75;margin-top:6px; }
-.cdm-result .cr-divider { border:none;border-top:1px solid rgba(255,255,255,.25);margin:18px 0; }
-.cdm-result .cr-vs { font-size:13px;opacity:.8; }
-.cdm-result .cr-vs strong { opacity:1;font-weight:800; }
-.cdm-badge { display:inline-block;background:rgba(54,214,181,0.15);border:1px solid rgba(54,214,181,0.4);color:#36D6B5;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:4px 12px;border-radius:20px;margin-bottom:14px; }
-
-/* ── Timeline ── */
-.timeline-section { background:#fff;padding:80px 24px; }
-.timeline-inner { max-width:860px;margin:0 auto; }
-.timeline-track { margin-top:48px;position:relative;padding-left:40px; }
-.timeline-track::before { content:'';position:absolute;left:14px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,#FF3D5A,#36D6B5,#FFD600,#4facfe);border-radius:2px; }
-.tl-item { position:relative;margin-bottom:32px; }
-.tl-dot { position:absolute;left:-33px;top:14px;width:18px;height:18px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 3px currentColor;background:currentColor; }
-.tl-card { background:#fafafa;border:1px solid #eee;border-radius:14px;padding:20px 22px;transition:box-shadow .2s; }
-.tl-card:hover { box-shadow:0 8px 24px rgba(0,0,0,0.08); }
-.tl-time { font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;margin-bottom:6px; }
-.tl-card h4 { font-size:16px;font-weight:800;margin-bottom:6px;color:#1a1a1a; }
-.tl-card p { font-size:13.5px;color:#666;margin:0;line-height:1.55; }
-.tl-result { display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:20px;margin-top:8px; }
-
-/* ── Guarantee ── */
-.guarantee-bar { background:linear-gradient(90deg,#0d1117 0%,#1a1a2e 100%);padding:32px 24px;text-align:center; }
-.guarantee-bar .gb-wrap { max-width:680px;margin:0 auto; }
-.guarantee-bar .gb-icon { font-size:3rem;display:block;margin-bottom:12px; }
-.guarantee-bar h3 { color:#FFD600;font-size:1.4rem;font-weight:900;margin-bottom:10px; }
-.guarantee-bar p { color:rgba(255,255,255,0.75);font-size:14px;line-height:1.6;max-width:520px;margin:0 auto; }
-
-/* ── NEW: Community/Pricing Tiers ── */
-.tiers-section { background:#fafafa;padding:80px 24px; }
-.tiers-inner { max-width:1080px;margin:0 auto; }
-.tiers-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:24px;margin-top:48px; }
-.tier-card { background:#fff;border-radius:20px;overflow:hidden;border:1px solid #eee;box-shadow:0 2px 16px rgba(0,0,0,0.06);transition:transform .2s,box-shadow .2s;display:flex;flex-direction:column; }
-.tier-card:hover { transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.10); }
-.tier-card.featured { border:2px solid #FF3D5A;box-shadow:0 8px 32px rgba(255,61,90,0.15); }
-.tier-top { padding:28px 28px 20px; }
-.tier-badge { display:inline-block;font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;padding:3px 10px;border-radius:20px;margin-bottom:14px; }
-.tier-badge.tb-free { background:#e6faf5;color:#006644; }
-.tier-badge.tb-mid { background:#fff0f2;color:#c0002a; }
-.tier-badge.tb-pro { background:#fffbe6;color:#6b5200; }
-.tier-rib { position:absolute;top:0;right:0;background:#FF3D5A;color:#fff;font-size:10px;font-weight:800;letter-spacing:.1em;padding:5px 14px;border-radius:0 20px 0 10px;text-transform:uppercase; }
-.tier-card.featured .tier-top { position:relative; }
-.tier-name { font-size:1.25rem;font-weight:900;color:#1a1a1a;margin-bottom:6px; }
-.tier-price { font-size:2.4rem;font-weight:900;color:#FF3D5A;margin-bottom:4px;line-height:1; }
-.tier-price .tp-currency { font-size:1.2rem;vertical-align:top;margin-top:8px;display:inline-block; }
-.tier-price .tp-period { font-size:1rem;color:#888;font-weight:400; }
-.tier-price.tp-free { color:#00875a; }
-.tier-price.tp-agency { color:#6b5200; }
-.tier-sub { font-size:13px;color:#888;margin-bottom:16px;line-height:1.5; }
-.tier-desc { font-size:14px;color:#555;line-height:1.6;padding:0 28px;margin-bottom:16px; }
-.tier-features { padding:0 28px 24px;flex:1; }
-.tier-features ul { list-style:none;padding:0;margin:0; }
-.tier-features ul li { display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:#444;padding:7px 0;border-bottom:1px solid #f5f5f5; }
-.tier-features ul li:last-child { border-bottom:none; }
-.tier-features ul li span:first-child { flex-shrink:0;margin-top:1px; }
-.tier-cta { padding:0 28px 28px; }
-.tier-cta button, .tier-cta a { display:block;width:100%;text-align:center;padding:14px;border-radius:12px;font-size:15px;font-weight:700;font-family:inherit;cursor:pointer;text-decoration:none;border:none;transition:background .2s,transform .1s; }
-.tier-cta button:active,.tier-cta a:active { transform:scale(.98); }
-.tier-btn-free { background:#e6faf5;color:#006644; }
-.tier-btn-free:hover { background:#d1f5eb; }
-.tier-btn-main { background:#FF3D5A;color:#fff; }
-.tier-btn-main:hover { background:#e02a47; }
-.tier-btn-agency { background:#1a1a2e;color:#FFD600; }
-.tier-btn-agency:hover { background:#111120; }
-.discord-pill { display:inline-flex;align-items:center;gap:6px;background:#5865F2;color:#fff;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;margin-top:8px; }
-
-/* ── NEW: À la Carte Section ── */
-.alacarte-section { background:#fff;padding:80px 24px; }
-.alacarte-inner { max-width:1080px;margin:0 auto; }
-.alacarte-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-top:48px; }
-.alacarte-card { background:#fafafa;border:1px solid #eee;border-radius:14px;padding:20px;transition:box-shadow .2s,transform .2s; }
-.alacarte-card:hover { box-shadow:0 6px 24px rgba(0,0,0,0.08);transform:translateY(-2px); }
-.ac-icon { font-size:2rem;margin-bottom:10px;display:block; }
-.ac-name { font-size:14px;font-weight:800;color:#1a1a1a;margin-bottom:4px; }
-.ac-desc { font-size:12.5px;color:#777;line-height:1.5;margin-bottom:8px; }
-.ac-price { font-size:13px;font-weight:800;color:#FF3D5A; }
-.ac-note { font-size:11px;color:#999;margin-top:2px; }
-.alacarte-cta { text-align:center;margin-top:40px; }
-.alacarte-note { font-size:14px;color:#888;margin-top:12px; }
 </style>
 </head>
 <body>
@@ -214,28 +82,17 @@
 </nav>
 
 <!-- ═══════════════════════════════════════
-     HERO — OUTCOME-FIRST
+     HERO — DARK TECH + OUTCOME-FIRST
      ═══════════════════════════════════════ -->
 <section id="hero">
   <div class="blob blob-1"></div><div class="blob blob-2"></div><div class="blob blob-3"></div>
   <div class="hero-in" style="text-align:center">
-    <div class="hero-outcome-super">
-      <span class="super-dot"></span>
-      <span>Puerto Rico's #1 AI Sales Agency &nbsp;·&nbsp; Hecho en PR 🇵🇷</span>
-    </div>
-    <h1 class="hero-outcome-h1">
-      Tus clientes reservan,
-      <span class="accent-green">pagan y regresan</span><br>
-      — mientras <span class="accent-coral">tú duermes.</span>
-    </h1>
-    <p class="hero-outcome-sub">
-      BOTi responde cada DM, WhatsApp y llamada en <strong>60 segundos</strong> — 24/7, en español boricua. El único agente de ventas que nunca se cansa, nunca se rinde, y nunca pide un viernes libre.
-    </p>
+    <div class="hero-badge"><span class="badge-dot"></span><span>Puerto Rico's #1 AI Sales Agency · Hecho en PR 🇵🇷</span></div>
+    <h1>Tus clientes reservan,<br><span class="blue">pagan y regresan</span><br>— mientras <span class="coral">tú duermes.</span></h1>
+    <p class="sub">BOTi responde cada DM, WhatsApp y llamada en <strong>60 segundos</strong> — 24/7, en español boricua. El único agente de ventas que nunca se cansa, nunca se rinde, y nunca pide un viernes libre.</p>
     <div class="btns">
       <a href="#boti" class="btn-main">🤖 Habla con BOTi — Es Gratis</a>
-      <a href="#precios" class="btn-out">
-        <svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3zm-1 17.93V20h-2v2h6v-2h-2v-1.07A8.002 8.002 0 0 0 20 12h-2a6 6 0 0 1-12 0H4a8.002 8.002 0 0 0 7 7.93z"/></svg>Ver Planes
-      </a>
+      <a href="#precios" class="btn-out"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3zm-1 17.93V20h-2v2h6v-2h-2v-1.07A8.002 8.002 0 0 0 20 12h-2a6 6 0 0 1-12 0H4a8.002 8.002 0 0 0 7 7.93z"/></svg>Ver Planes</a>
     </div>
     <div class="hero-social-proof">
       <div class="hsp-item"><span class="hsp-n">+50</span><span class="hsp-l">negocios en PR</span></div>
@@ -246,9 +103,7 @@
       <div class="hsp-div"></div>
       <div class="hsp-item"><span class="hsp-n">$97</span><span class="hsp-l">para empezar</span></div>
     </div>
-    <div class="trust" style="margin-top:20px">
-      <span>Responde en 60 segundos</span><span>Hecho en Puerto Rico</span><span>Comunidad en Discord</span><span>Habla o escribe con BOTi</span>
-    </div>
+    <div class="trust" style="margin-top:20px"><span>Responde en 60 segundos</span><span>Hecho en Puerto Rico</span><span>Comunidad en Discord</span><span>Habla o escribe con BOTi</span></div>
 
     <!-- BOTi Chat Widget -->
     <div id="boti">
@@ -284,8 +139,8 @@
           <div class="ba-header-text"><h4>DMs que nunca contestas</h4><span style="color:#d93025">Sábado · tus manos ocupadas</span></div>
         </div>
         <div class="ba-body">
-          <div class="ba-before"><span class="ba-label">Antes</span><p class="ba-text">34 DMs nuevos. 7 llamadas perdidas. Terminaste el servicio y ya reservaron con la competencia.</p><p class="ba-loss">❌ $5,720/año en sábados perdidos</p></div>
-          <div class="ba-after"><span class="ba-label">Con BOTi</span><p class="ba-text">BOTi respondió todos en 60 segundos. Cotizó, agendó, cobró el depósito del 50%. Tú terminaste el servicio.</p><p class="ba-win">✅ Agenda llena sin tocar el teléfono</p></div>
+          <div class="ba-before"><span class="ba-label">Antes</span><p class="ba-text">34 DMs. 7 llamadas perdidas. Terminaste el servicio. Ya reservaron con la competencia.</p><p class="ba-loss">❌ $5,720/año en sábados perdidos</p></div>
+          <div class="ba-after"><span class="ba-label">Con BOTi</span><p class="ba-text">Respondió en 60 seg. Cotizó, agendó, cobró el 50%. Tú terminaste el servicio.</p><p class="ba-win">✅ Agenda llena sin tocar el teléfono</p></div>
         </div>
       </div>
       <div class="ba-card">
@@ -294,18 +149,18 @@
           <div class="ba-header-text"><h4>Carritos abandonados</h4><span style="color:#00875a">Domingo · 11:23pm</span></div>
         </div>
         <div class="ba-body">
-          <div class="ba-before"><span class="ba-label">Antes</span><p class="ba-text">Clienta en Ponce. Producto perfecto. $67. Una pregunta sin respuesta. Cierra la página. Va a Amazon.</p><p class="ba-loss">❌ 70% de carritos se abandonan así</p></div>
-          <div class="ba-after"><span class="ba-label">Con BOTi</span><p class="ba-text">BOTi respondió en 8 segundos. Manejó la objeción. Guió al checkout. Venta cerrada a las 11:24pm. Tú dormida.</p><p class="ba-win">✅ 4x más conversión que sin IA</p></div>
+          <div class="ba-before"><span class="ba-label">Antes</span><p class="ba-text">Clienta en Ponce. $67. Una pregunta sin respuesta. Cierra la página. Va a Amazon.</p><p class="ba-loss">❌ 70% de carritos se abandonan así</p></div>
+          <div class="ba-after"><span class="ba-label">Con BOTi</span><p class="ba-text">Respondió en 8 seg. Manejó la objeción. Guió al checkout. Venta 11:24pm. Tú dormida.</p><p class="ba-win">✅ 4x más conversión que sin IA</p></div>
         </div>
       </div>
       <div class="ba-card">
         <div class="ba-card-header" style="background:#fffbf0">
           <span class="ba-icon">🪑</span>
-          <div class="ba-header-text"><h4>No-shows que destruyen tu semana</h4><span style="color:#8a6d00">Viernes · silla vacía</span></div>
+          <div class="ba-header-text"><h4>No-shows destruyen tu semana</h4><span style="color:#8a6d00">Viernes · silla vacía</span></div>
         </div>
         <div class="ba-body">
-          <div class="ba-before"><span class="ba-label">Antes</span><p class="ba-text">Reservaron. No llegaron. Sin depósito, sin aviso. Esa hora se fue para siempre. Gratis.</p><p class="ba-loss">❌ $19,800/año en citas no presentadas</p></div>
-          <div class="ba-after"><span class="ba-label">Con BOTi</span><p class="ba-text">BOTi cobra el 50% de depósito al reservar. Envía recordatorio 24h antes. No-shows casi eliminados.</p><p class="ba-win">✅ 70% menos no-shows desde el mes 1</p></div>
+          <div class="ba-before"><span class="ba-label">Antes</span><p class="ba-text">Reservaron. No llegaron. Sin depósito, sin aviso. Esa hora se fue. Gratis.</p><p class="ba-loss">❌ $19,800/año en citas no presentadas</p></div>
+          <div class="ba-after"><span class="ba-label">Con BOTi</span><p class="ba-text">Cobra 50% al reservar. Recordatorio 24h antes. No-shows casi eliminados.</p><p class="ba-win">✅ 70% menos no-shows desde el mes 1</p></div>
         </div>
       </div>
       <div class="ba-card">
@@ -314,18 +169,18 @@
           <div class="ba-header-text"><h4>El cliente de las 11pm</h4><span style="color:#6b3fa0">Cualquier noche</span></div>
         </div>
         <div class="ba-body">
-          <div class="ba-before"><span class="ba-label">Antes</span><p class="ba-text">Alguien ve tu post, quiere reservar. Son las 11:17pm. Estás dormida. Para la mañana, reservó en otro lugar.</p><p class="ba-loss">❌ El cliente nocturno tiene 2.3x más intención de compra</p></div>
-          <div class="ba-after"><span class="ba-label">Con BOTi</span><p class="ba-text">BOTi responde con tu voz en español boricua. Cotiza, agenda, cobra. A cualquier hora. Sin que tú te muevas.</p><p class="ba-win">✅ Ventas mientras duermes, literalmente</p></div>
+          <div class="ba-before"><span class="ba-label">Antes</span><p class="ba-text">Son las 11:17pm. Estás dormida. Para la mañana, reservó en otro lugar.</p><p class="ba-loss">❌ Cliente nocturno = 2.3x más intención de compra</p></div>
+          <div class="ba-after"><span class="ba-label">Con BOTi</span><p class="ba-text">BOTi responde con tu voz. Cotiza, agenda, cobra. A cualquier hora.</p><p class="ba-win">✅ Ventas mientras duermes, literalmente</p></div>
         </div>
       </div>
       <div class="ba-card">
         <div class="ba-card-header" style="background:#f0f8ff">
           <span class="ba-icon">📸</span>
-          <div class="ba-header-text"><h4>Tu Reel explotó y no ganaste nada</h4><span style="color:#1864ab">Viral sin ventas</span></div>
+          <div class="ba-header-text"><h4>Tu Reel explotó, no ganaste nada</h4><span style="color:#1864ab">Viral sin ventas</span></div>
         </div>
         <div class="ba-body">
-          <div class="ba-before"><span class="ba-label">Antes</span><p class="ba-text">847 comentarios. Estabas durmiendo. Esa ola pasó. 20 de 847 encontraron el link del bio. $6,117 perdidos.</p><p class="ba-loss">❌ Link en bio convierte solo el 2%</p></div>
-          <div class="ba-after"><span class="ba-label">Con BOTi</span><p class="ba-text">Comment Auto-Reply activo. BOTi mandó DM a los 847. Overnight: $6,278 en ventas. Tú no tocaste nada.</p><p class="ba-win">✅ Comment-to-DM convierte 10x más</p></div>
+          <div class="ba-before"><span class="ba-label">Antes</span><p class="ba-text">847 comentarios. Estabas durmiendo. 20 de 847 encontraron el link del bio. $6,117 perdidos.</p><p class="ba-loss">❌ Link en bio convierte solo el 2%</p></div>
+          <div class="ba-after"><span class="ba-label">Con BOTi</span><p class="ba-text">Comment Auto-Reply. BOTi mandó DM a los 847. Overnight: $6,278 en ventas.</p><p class="ba-win">✅ Comment-to-DM convierte 10x más</p></div>
         </div>
       </div>
       <div class="ba-card">
@@ -334,8 +189,8 @@
           <div class="ba-header-text"><h4>Diciembre te vuelve loca</h4><span style="color:#00875a">Nochebuena · Reyes · SanSe</span></div>
         </div>
         <div class="ba-body">
-          <div class="ba-before"><span class="ba-label">Antes</span><p class="ba-text">DMs triplicados. Estás al máximo. Los mejores leads del año se pierden porque no puedes con todo.</p><p class="ba-loss">❌ PR tiene la temporada navideña más larga del mundo</p></div>
-          <div class="ba-after"><span class="ba-label">Con BOTi</span><p class="ba-text">BOTi escala sin límite. 1 DM o 1,000 — responde igual de rápido. Tú disfrutas las fiestas.</p><p class="ba-win">✅ Sin límite de volumen. Nunca se cansa.</p></div>
+          <div class="ba-before"><span class="ba-label">Antes</span><p class="ba-text">DMs triplicados. Al máximo. Los mejores leads del año se pierden.</p><p class="ba-loss">❌ PR tiene la temporada navideña más larga del mundo</p></div>
+          <div class="ba-after"><span class="ba-label">Con BOTi</span><p class="ba-text">BOTi escala sin límite. 1 DM o 1,000 — igual de rápido. Tú disfrutas las fiestas.</p><p class="ba-win">✅ Sin límite de volumen. Nunca se cansa.</p></div>
         </div>
       </div>
     </div>
@@ -377,7 +232,7 @@
           <p class="cr-vs">ManyChat cobra $100–$200/mes <em>solo por esto</em>.<br><strong>En PRbots.ai está incluido.</strong></p>
         </div>
         <a href="#boti" class="btn-main" style="display:block;margin-top:16px;text-align:center">🤖 Activa el Comment Auto-Reply →</a>
-        <p style="text-align:center;font-size:12px;color:rgba(255,255,255,0.4);margin-top:8px">Setup en menos de 48 horas · Instagram y Facebook</p>
+        <p style="text-align:center;font-size:12px;color:rgba(255,255,255,0.4);margin-top:8px">Funciona en Instagram y Facebook · Conecta en la primera sesión</p>
       </div>
     </div>
   </div>
@@ -404,21 +259,41 @@
 </section>
 
 <!-- ═══════════════════════════════════════
+     FEATURES + VALUE TABLE
+     ═══════════════════════════════════════ -->
+<section id="que-hacemos" class="sec warm">
+  <div style="text-align:center"><span class="chip-tag ct-blue">TODO LO QUE HACE PRBOTS.AI</span></div>
+  <h2 class="sh">Un sistema completo. No una app más que aprender.</h2>
+  <p class="sh-sub">Todo lo que necesita tu negocio para capturar leads, cerrar ventas y dar seguimiento — en español, desde el día 1.</p>
+  <div class="fpills"><span class="fpill">✅ Sin experiencia técnica</span><span class="fpill">✅ Desde $97</span><span class="fpill">✅ Hecho para PR 🇵🇷</span><span class="fpill">✅ Comunidad en Discord</span><span class="fpill">✅ Habla o escribe 🎙️</span></div>
+  <div class="cgrid">
+    <div class="cap"><div class="cbar c"></div><span class="cico">🤖</span><h3>Agente de Ventas IA 24/7</h3><p>BOTi responde cada DM, WhatsApp y llamada en 60 segundos en español boricua. Califica leads, cotiza, agenda, cobra depósitos.</p><div class="cres"><small>Resultado común</small><span class="c">+340% más leads capturados el primer mes</span></div></div>
+    <div class="cap"><div class="cbar y"></div><span class="cico">⚡</span><h3>Comment Auto-Reply IA</h3><p>Cada comentario en tus posts → DM automático. 847 comentarios → 847 DMs → ventas overnight. El arma secreta de los influencers boricuas.</p><div class="cres"><small>Resultado común</small><span class="y">10x más conversión que link en bio</span></div></div>
+    <div class="cap"><div class="cbar b"></div><span class="cico">📲</span><h3>Instagram y WhatsApp</h3><p>BOTi responde cada comentario, DM y WhatsApp Business. El canal #1 de negocios en PR — atendido sin parar. <em style="font-size:.75rem;color:#888">Integración WhatsApp sujeta a aprobación de Meta.</em></p><div class="cres"><small>Resultado común</small><span class="b">98% open rate WhatsApp vs 20% por email</span></div></div>
+    <div class="cap"><div class="cbar g"></div><span class="cico">🛍️</span><h3>Shopify + Agente MCP</h3><p>Tu tienda conectada a BOTi via MCP. Revisa inventario, contesta preguntas, maneja objeciones y guía al checkout a las 3am.</p><div class="cres"><small>Resultado común</small><span class="g">12.3% conversión con IA vs 3.1% sin IA</span></div></div>
+    <div class="cap"><div class="cbar p"></div><span class="cico">🎙️</span><h3>Voz Real — Habla con BOTi</h3><p>BOTi no solo escribe — también habla. Voz real, español boricua, responde llamadas 24/7. Nunca duerme ni cuelga.</p><div class="cres"><small>Resultado común</small><span class="p">+60% de engagement con voz vs texto solo</span></div></div>
+    <div class="cap"><div class="cbar o"></div><span class="cico">📊</span><h3>CRM — Todos tus Clientes</h3><p>Pipeline visual de ventas. Sabes exactamente dónde está cada lead. Ningún cliente potencial se pierde nunca.</p><div class="cres"><small>Resultado común</small><span class="o">100% de leads rastreados — cero se escapan</span></div></div>
+    <div class="cap"><div class="cbar" style="background:#bbb"></div><span class="cico">🔗</span><h3>Se Integra con Todo</h3><p>Instagram · Facebook · WhatsApp · Shopify · Email · SMS · Google Calendar · Zoho CRM · Zapier · Make.com · Discord y 100+ integraciones via MCP.</p><div class="cres"><small>Resultado común</small><span style="font-weight:800;color:var(--ink)">Cada integración según tu caso de uso</span></div></div>
+  </div>
+  <div class="vtbl"><h3>Lo que pagarías por separado vs. PRbots.ai</h3><table class="vt"><tr><td>Recepcionista virtual 24/7</td><td>$800–$1,500/mes</td><td>✅ Incluido</td></tr><tr><td>Comment Auto-Reply (ManyChat)</td><td>$100–$200/mes</td><td>✅ Incluido</td></tr><tr><td>Instagram DM automation</td><td>$100–$200/mes</td><td>✅ Incluido</td></tr><tr><td>Shopify IA + Agente MCP</td><td>$200–$400/mes</td><td>✅ Incluido</td></tr><tr><td>Reservas + depósitos automáticos</td><td>$50–$100/mes</td><td>✅ Incluido</td></tr><tr><td>CRM completo</td><td>$50–$200/mes</td><td>✅ Incluido</td></tr><tr><td>Agente de voz IA 24/7</td><td>$500–$1,000/mes</td><td>✅ Incluido</td></tr><tr class="tot"><td>Valor total de mercado</td><td>$1,800–$3,600/mes</td><td>Desde $97 total</td></tr></table><p class="vt-note">Menos de lo que cuesta un solo día de trabajo de un empleado.</p></div>
+</section>
+
+<!-- ═══════════════════════════════════════
      7-DAY TIMELINE
      ═══════════════════════════════════════ -->
 <section class="timeline-section" id="timeline">
   <div class="timeline-inner">
     <div style="text-align:center"><span class="chip-tag ct-blue">TU PRIMERA SEMANA CON BOTI</span></div>
     <h2 class="sh">Esto es lo que pasa después de decir sí.</h2>
-    <p class="sh-sub">La mayoría de clientes ve su primer resultado en 24–48 horas. Aquí exactamente qué esperar:</p>
+    <p class="sh-sub">La mayoría de clientes ve su primer resultado en 24–48 horas. Lo que esperar:</p>
     <div class="timeline-track">
       <div class="tl-item">
         <div class="tl-dot" style="color:#FF3D5A"></div>
         <div class="tl-card">
           <p class="tl-time" style="color:#FF3D5A">Hoy mismo · Día 1</p>
-          <h4>🤝 Sesión de setup con tu Copiloto en Discord</h4>
-          <p>30–60 minutos en Discord con tu Copiloto humano. Configuramos BOTi con <em>tu voz, tu tono, tus precios</em>. Sales de la sesión con todo activo y funcionando.</p>
-          <span class="tl-result" style="background:#fff0f2;color:#c0002a">Nada que instalar · Sin experiencia técnica</span>
+          <h4>🤝 Sesión de setup en Discord</h4>
+          <p>Sesión de planificación con tu Copiloto humano. Evaluamos tu negocio, definimos qué activar primero y comenzamos la configuración. El tiempo total depende de cuántas herramientas integremos.</p>
+          <span class="tl-result" style="background:#fff0f2;color:#c0002a">Sin instalaciones · Sin experiencia técnica necesaria</span>
         </div>
       </div>
       <div class="tl-item">
@@ -426,7 +301,7 @@
         <div class="tl-card">
           <p class="tl-time" style="color:#FF8C00">Día 1–2</p>
           <h4>📲 Primeros DMs automáticos respondidos</h4>
-          <p>BOTi empieza a contestar en Instagram, WhatsApp y el chat del sitio. Los primeros clientes reciben respuesta en menos de 60 segundos — a cualquier hora.</p>
+          <p>BOTi empieza a contestar en Instagram y el chat del sitio. Los primeros clientes reciben respuesta en menos de 60 segundos — a cualquier hora. WhatsApp Business se activa sujeto a aprobación de Meta.</p>
           <span class="tl-result" style="background:#fff8e6;color:#7a4d00">Tu competencia sigue durmiendo cuando llegan esos mensajes</span>
         </div>
       </div>
@@ -475,18 +350,6 @@
 </section>
 
 <!-- ═══════════════════════════════════════
-     FEATURES + VALUE TABLE
-     ═══════════════════════════════════════ -->
-<section id="que-hacemos" class="sec warm">
-  <div style="text-align:center"><span class="chip-tag ct-blue">TODO LO QUE HACE PRBOTS.AI</span></div>
-  <h2 class="sh">Un sistema completo. No una app más que aprender.</h2>
-  <p class="sh-sub">Todo lo que necesita tu negocio para capturar leads, cerrar ventas y dar seguimiento — en español, desde el día 1.</p>
-  <div class="fpills"><span class="fpill">✅ Sin experiencia técnica</span><span class="fpill">✅ Setup en horas, no semanas</span><span class="fpill">✅ Desde $97</span><span class="fpill">✅ Hecho para PR 🇵🇷</span><span class="fpill">✅ Comunidad en Discord</span><span class="fpill">✅ Habla o escribe 🎙️</span></div>
-  <div class="cgrid"><div class="cap"><div class="cbar c"></div><span class="cico">🤖</span><h3>Agente de Ventas IA 24/7</h3><p>BOTi responde cada DM, WhatsApp y llamada en 60 segundos en español boricua. Califica leads, cotiza, agenda, cobra depósitos.</p><div class="cres"><small>Resultado común</small><span class="c">+340% más leads capturados el primer mes</span></div></div><div class="cap"><div class="cbar y"></div><span class="cico">⚡</span><h3>Comment Auto-Reply IA</h3><p>Cada comentario en tus posts se convierte en un DM automático. 847 comentarios → 847 DMs → ventas overnight. El arma secreta de los influencers boricuas.</p><div class="cres"><small>Resultado común</small><span class="y">10x más conversión que link en bio</span></div></div><div class="cap"><div class="cbar b"></div><span class="cico">📲</span><h3>Instagram y WhatsApp 24/7</h3><p>BOTi responde cada comentario, DM y WhatsApp Business. El canal #1 de negocios en PR — atendido sin parar.</p><div class="cres"><small>Resultado común</small><span class="b">98% open rate WhatsApp vs 20% por email</span></div></div><div class="cap"><div class="cbar g"></div><span class="cico">🛍️</span><h3>Shopify + Agente MCP</h3><p>Tu tienda conectada a BOTi via MCP. Revisa inventario, contesta preguntas, maneja objeciones y guía al checkout a las 3am. Infraestructura de empresa grande a precio boricua.</p><div class="cres"><small>Resultado común</small><span class="g">12.3% conversión con IA vs 3.1% sin IA</span></div></div><div class="cap"><div class="cbar p"></div><span class="cico">🎙️</span><h3>Voz Real — Habla con BOTi</h3><p>BOTi no solo escribe — también habla. Voz real, español boricua, responde llamadas 24/7. Nunca duerme ni cuelga.</p><div class="cres"><small>Resultado común</small><span class="p">+60% de engagement con voz vs texto solo</span></div></div><div class="cap"><div class="cbar o"></div><span class="cico">📊</span><h3>CRM — Todos tus Clientes</h3><p>Pipeline visual de ventas. Sabes exactamente dónde está cada lead. Ningún cliente potencial se pierde nunca.</p><div class="cres"><small>Resultado común</small><span class="o">100% de leads rastreados — cero se escapan</span></div></div><div class="cap"><div class="cbar" style="background:#bbb"></div><span class="cico">🔗</span><h3>Se Integra con Todo</h3><p>Instagram · Facebook · WhatsApp · Shopify · Email · SMS · Google Calendar · Zoho CRM · Zapier · Make.com · Discord y 100+ integraciones más.</p><div class="cres"><small>Resultado común</small><span style="font-weight:800;color:var(--ink)">Setup completo en menos de 48 horas</span></div></div></div>
-  <div class="vtbl"><h3>Lo que pagarías por separado vs. PRbots.ai</h3><table class="vt"><tr><td>Recepcionista virtual 24/7</td><td>$800–$1,500/mes</td><td>✅ Incluido</td></tr><tr><td>Comment Auto-Reply (ManyChat)</td><td>$100–$200/mes</td><td>✅ Incluido</td></tr><tr><td>Instagram DM automation</td><td>$100–$200/mes</td><td>✅ Incluido</td></tr><tr><td>Shopify IA + Agente MCP</td><td>$200–$400/mes</td><td>✅ Incluido</td></tr><tr><td>Reservas + depósitos automáticos</td><td>$50–$100/mes</td><td>✅ Incluido</td></tr><tr><td>CRM completo</td><td>$50–$200/mes</td><td>✅ Incluido</td></tr><tr><td>Agente de voz IA 24/7</td><td>$500–$1,000/mes</td><td>✅ Incluido</td></tr><tr class="tot"><td>Valor total de mercado</td><td>$1,800–$3,600/mes</td><td>Desde $97 total</td></tr></table><p class="vt-note">Menos de lo que cuesta un solo día de trabajo de un empleado.</p></div>
-</section>
-
-<!-- ═══════════════════════════════════════
      NEW 3-TIER PRICING MODEL
      ═══════════════════════════════════════ -->
 <section id="precios" class="tiers-section">
@@ -496,7 +359,7 @@
     <p class="sh-sub">Desde el que quiere aprender y construir por su cuenta hasta el negocio que dice "hazlo tú todo". Hay un lugar para ti.</p>
     <div class="tiers-grid">
 
-      <!-- TIER 1: DIY COMMUNITY -->
+      <!-- TIER 1: COMMUNITY -->
       <div class="tier-card">
         <div class="tier-top">
           <span class="tier-badge tb-free">COMUNIDAD 🌱</span>
@@ -505,16 +368,17 @@
           <p class="tier-sub">O donación libre · Cancela cuando quieras</p>
           <span class="discord-pill">💬 Comunidad en Discord</span>
         </div>
-        <p class="tier-desc">Para el emprendedor boricua que quiere aprender IA de verdad — no solo usarla. Acceso a la comunidad donde compartimos todo: qué funciona, qué no, y cómo construirlo tú mismo.</p>
+        <p class="tier-desc">Para el emprendedor boricua que quiere aprender IA — no solo usarla. Acceso a la comunidad, herramientas, prompts y estrategias que construimos y probamos juntos.</p>
         <div class="tier-features">
           <ul>
-            <li><span>✅</span><span>Acceso al servidor de Discord de PRbots.ai</span></li>
-            <li><span>✅</span><span>Tutoriales y guías paso a paso en español</span></li>
-            <li><span>✅</span><span>Pruebas en vivo de nuevas herramientas y agentes IA</span></li>
-            <li><span>✅</span><span>Plantillas de flujos listas para usar con PMGPT</span></li>
-            <li><span>✅</span><span>Actualizaciones semanales de lo que está funcionando en PR</span></li>
-            <li><span>✅</span><span>Acceso anticipado a nuevas funciones antes que nadie</span></li>
-            <li><span>✅</span><span>Soporte de la comunidad — no estás solo(a)</span></li>
+            <li><span>✅</span><span>Servidor de Discord de PRbots.ai</span></li>
+            <li><span>✅</span><span>Tutoriales paso a paso en español</span></li>
+            <li><span>✅</span><span>Herramientas propias que construimos para la comunidad</span></li>
+            <li><span>✅</span><span>Videos, prompts y estrategias de IA probadas</span></li>
+            <li><span>✅</span><span>Plantillas de flujos listas con PMGPT</span></li>
+            <li><span>✅</span><span>Pruebas en vivo de nuevos agentes y automatizaciones</span></li>
+            <li><span>✅</span><span>Actualizaciones semanales de lo que funciona en PR</span></li>
+            <li><span>✅</span><span>Acceso anticipado a nuevas funciones</span></li>
           </ul>
         </div>
         <div class="tier-cta">
@@ -523,7 +387,7 @@
         </div>
       </div>
 
-      <!-- TIER 2: DONE-WITH-YOU COACHING -->
+      <!-- TIER 2: COACHING -->
       <div class="tier-card featured" style="position:relative">
         <div class="tier-top">
           <span class="tier-rib">MÁS POPULAR 🔥</span>
@@ -533,16 +397,16 @@
           <p class="tier-sub">+ $197 setup inicial · Cancela cuando quieras</p>
           <span class="discord-pill">💬 Sesiones en Discord</span>
         </div>
-        <p class="tier-desc">Para el dueño de negocio que quiere aprender <em>haciendo</em>. Sesiones personalizadas en Discord donde construimos tu sistema de IA juntos, basado en lo que TÚ necesitas cada mes.</p>
+        <p class="tier-desc">Para el dueño de negocio que quiere aprender <em>haciendo</em>. Sesiones personalizadas en Discord donde construimos tu sistema de IA juntos, basado en lo que TÚ necesitas.</p>
         <div class="tier-features">
           <ul>
             <li><span>✅</span><span>Todo lo del plan Comunidad incluido</span></li>
-            <li><span>✅</span><span>2 sesiones de estrategia por mes en Discord (90 min c/u)</span></li>
-            <li><span>✅</span><span>Plan personalizado basado en tu negocio y tus metas</span></li>
+            <li><span>✅</span><span>2 sesiones de estrategia por mes en Discord (90 min)</span></li>
+            <li><span>✅</span><span>Plan personalizado para tu negocio y tus metas</span></li>
             <li><span>✅</span><span>Construcción en vivo de flujos, bots y automatizaciones</span></li>
             <li><span>✅</span><span>BOTi configurado para tu negocio específico</span></li>
-            <li><span>✅</span><span>Comment Auto-Reply + WhatsApp + Instagram activos</span></li>
-            <li><span>✅</span><span>Shopify o reservas — lo que aplique a tu negocio</span></li>
+            <li><span>✅</span><span>Comment Auto-Reply + Instagram DM activos</span></li>
+            <li><span>✅</span><span>Shopify o reservas — lo que aplique a ti</span></li>
             <li><span>✅</span><span>Soporte directo por Discord entre sesiones</span></li>
             <li><span>✅</span><span>Prueba de nuevas herramientas PMGPT juntos</span></li>
           </ul>
@@ -553,43 +417,41 @@
         </div>
       </div>
 
-      <!-- TIER 3: DONE-FOR-YOU AGENCY -->
+      <!-- TIER 3: AGENCY -->
       <div class="tier-card">
         <div class="tier-top">
           <span class="tier-badge tb-pro">AGENCIA 👑</span>
           <div class="tier-name">Nosotros Lo Hacemos Todo</div>
           <div class="tier-price tp-agency">Desde <span class="tp-currency">$</span>597<span class="tp-period">/mes</span></div>
-          <p class="tier-sub">+ setup desde $297 · Sin contrato anual</p>
+          <p class="tier-sub">+ setup desde $297 · Cotización personalizada · Sin contrato anual</p>
         </div>
-        <p class="tier-desc">Para el negocio que dice "págame para que funcione, yo no quiero saber los detalles". Nuestro equipo construye, maneja y optimiza toda la operación de IA de tu negocio.</p>
+        <p class="tier-desc">Para el negocio que dice "págame para que funcione". Nuestro equipo evalúa tu caso, te presenta una propuesta, y maneja toda la operación de IA. Cada setup es diferente — el precio depende de qué integramos.</p>
         <div class="tier-features">
           <ul>
-            <li><span>✅</span><span>Setup completo en 48 horas</span></li>
+            <li><span>✅</span><span>Evaluación de tu negocio + propuesta personalizada</span></li>
             <li><span>✅</span><span>BOTi con voz y chat configurado a medida</span></li>
-            <li><span>✅</span><span>Gestión completa de Instagram, WhatsApp y Facebook</span></li>
+            <li><span>✅</span><span>Gestión de Instagram, Facebook y canales aprobados</span></li>
             <li><span>✅</span><span>Comment Auto-Reply activo en todos tus posts</span></li>
-            <li><span>✅</span><span>Shopify + MCP Agent configurado (si aplica)</span></li>
-            <li><span>✅</span><span>Automatizaciones de ventas, seguimientos y recordatorios</span></li>
-            <li><span>✅</span><span>CRM + pipeline de ventas configurado</span></li>
+            <li><span>✅</span><span>Shopify, MCP, CRM — según tu negocio</span></li>
+            <li><span>✅</span><span>Automatizaciones de ventas y seguimientos</span></li>
             <li><span>✅</span><span>Reportes mensuales de rendimiento en español</span></li>
-            <li><span>✅</span><span>Estrategia de contenido e IA incluida</span></li>
             <li><span>✅</span><span>Soporte técnico humano prioritario 7 días</span></li>
+            <li><span>ℹ️</span><span style="color:#888;font-size:.78rem">El tiempo de setup y el precio final dependen de la complejidad de tu caso</span></li>
           </ul>
         </div>
         <div class="tier-cta">
           <a href="#boti" class="tier-btn-agency">👑 Quiero que lo Hagan Por Mí →</a>
-          <p style="font-size:11px;color:#aaa;text-align:center;margin-top:8px">Precio exacto según volumen e integraciones · BOTi te cotiza</p>
+          <p style="font-size:11px;color:#aaa;text-align:center;margin-top:8px">BOTi evalúa tu caso y te presenta una propuesta exacta</p>
         </div>
       </div>
 
     </div>
-    <!-- Comparison table -->
     <div class="vtbl" style="margin-top:48px">
       <h3>Comparación rápida de los tres planes</h3>
       <table class="vt">
         <tr style="background:#f5f5f5"><td><strong>Incluye</strong></td><td style="text-align:center"><strong>Comunidad</strong></td><td style="text-align:center"><strong>Coaching</strong></td><td style="text-align:center"><strong>Agencia</strong></td></tr>
         <tr><td>Discord de PRbots.ai</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
-        <tr><td>Tutoriales y plantillas</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
+        <tr><td>Herramientas, videos y prompts</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
         <tr><td>BOTi configurado para tu negocio</td><td style="text-align:center">🔧 Tú lo haces</td><td style="text-align:center">✅ Juntos</td><td style="text-align:center">✅ Nosotros</td></tr>
         <tr><td>Sesiones personalizadas</td><td style="text-align:center">—</td><td style="text-align:center">✅ 2/mes</td><td style="text-align:center">✅ Mensual</td></tr>
         <tr><td>Comment Auto-Reply</td><td style="text-align:center">🔧 Guiado</td><td style="text-align:center">✅</td><td style="text-align:center">✅</td></tr>
@@ -601,126 +463,36 @@
 </section>
 
 <!-- ═══════════════════════════════════════
-     À LA CARTE — TODAS LAS POSIBILIDADES
+     À LA CARTE
      ═══════════════════════════════════════ -->
 <section id="alacarte" class="alacarte-section">
   <div class="alacarte-inner">
     <div style="text-align:center"><span class="chip-tag ct-coral">À LA CARTE 🍽️</span></div>
     <h2 class="sh">Todo lo que podemos activar en tu negocio.</h2>
-    <p class="sh-sub">Cada una de estas herramientas se puede activar por separado o en conjunto. No pagas por lo que no usas. Todo funciona con BOTi como cerebro central.</p>
+    <p class="sh-sub">Cada herramienta se puede activar por separado o en conjunto. No pagas por lo que no usas. Cotización exacta en minutos con BOTi.</p>
     <div class="alacarte-grid">
-      <div class="alacarte-card">
-        <span class="ac-icon">💬</span>
-        <div class="ac-name">Agente de Chat IA</div>
-        <div class="ac-desc">BOTi en tu sitio web, WhatsApp o Facebook. Responde 24/7 con tu voz y conocimiento.</div>
-        <div class="ac-price">Incluido en todos los planes</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">📸</span>
-        <div class="ac-name">Comment Auto-Reply Instagram</div>
-        <div class="ac-desc">Cada comentario dispara un DM automático con tu oferta. 10x más conversión que el link en bio.</div>
-        <div class="ac-price">Incluido · o $47/mes à la carte</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">📘</span>
-        <div class="ac-name">Comment Auto-Reply Facebook</div>
-        <div class="ac-desc">Lo mismo para Facebook Pages y posts patrocinados. Captura leads de cada ad automáticamente.</div>
-        <div class="ac-price">Incluido · o $47/mes à la carte</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">🎙️</span>
-        <div class="ac-name">Agente de Voz IA (Llamadas)</div>
-        <div class="ac-desc">BOTi contesta llamadas reales con voz boricua 24/7. Agenda, cotiza y cobra — por teléfono.</div>
-        <div class="ac-price">Desde $97/mes · incluido en Coaching+</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">🛍️</span>
-        <div class="ac-name">Shopify IA + Agente MCP</div>
-        <div class="ac-desc">BOTi conectado a tu tienda: revisa inventario, responde sobre productos, guía al checkout.</div>
-        <div class="ac-price">Desde $67/mes · incluido en Coaching+</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">🪑</span>
-        <div class="ac-name">Sistema Anti No-Show</div>
-        <div class="ac-desc">Cobro de depósito 50% al reservar + recordatorio 24h antes. Elimina citas sin presentarse.</div>
-        <div class="ac-price">Incluido en todos los planes</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">📊</span>
-        <div class="ac-name">CRM + Pipeline de Ventas</div>
-        <div class="ac-desc">Ve cada lead, dónde está en tu embudo, y qué sigue. Nunca pierdas un prospecto.</div>
-        <div class="ac-price">Incluido en Coaching+ · o $37/mes</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">📧</span>
-        <div class="ac-name">Email Marketing Automatizado</div>
-        <div class="ac-desc">Secuencias de bienvenida, nurturing y recuperación. Disparadas por el comportamiento del lead.</div>
-        <div class="ac-price">Desde $47/mes · incluido en Agencia</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">📲</span>
-        <div class="ac-name">SMS Marketing (WhatsApp Broadcast)</div>
-        <div class="ac-desc">Mensajes masivos a tu lista de WhatsApp. 98% de open rate. Promos, recordatorios, novedades.</div>
-        <div class="ac-price">Desde $57/mes · incluido en Agencia</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">🔄</span>
-        <div class="ac-name">Flujos de Seguimiento Automático</div>
-        <div class="ac-desc">El lead no compró hoy — BOTi le sigue por 7 días vía DM, WhatsApp y email hasta que decida.</div>
-        <div class="ac-price">Incluido en Coaching+ · o $47/mes</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">📅</span>
-        <div class="ac-name">Reservas + Google Calendar</div>
-        <div class="ac-desc">Agenda citas directamente desde el chat, conectado a tu calendario. Sin apps adicionales.</div>
-        <div class="ac-price">Desde $37/mes · incluido en Coaching+</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">🤖</span>
-        <div class="ac-name">Agente Entrenado en tu Negocio</div>
-        <div class="ac-desc">Sube tu menú, catálogo, FAQ o website. BOTi aprende y responde con información exacta de TU negocio.</div>
-        <div class="ac-price">Incluido en todos los planes</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">🌐</span>
-        <div class="ac-name">Landing Page con IA</div>
-        <div class="ac-desc">Página de ventas o captura de leads generada con IA, conectada a BOTi y desplegada en 24h.</div>
-        <div class="ac-price">Desde $197 pago único · incluido en Agencia</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">📱</span>
-        <div class="ac-name">Publicaciones IA en Redes Sociales</div>
-        <div class="ac-desc">BOTi genera y programa tus posts de Instagram y Facebook con IA. Con imágenes incluidas.</div>
-        <div class="ac-price">Desde $67/mes · incluido en Agencia</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">⚡</span>
-        <div class="ac-name">Zapier / Make.com / MCP</div>
-        <div class="ac-desc">Conecta BOTi a más de 6,000 aplicaciones. Cualquier acción en cualquier herramienta puede activar BOTi — y al revés.</div>
-        <div class="ac-price">Incluido en Coaching+ · o cotiza</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">🏆</span>
-        <div class="ac-name">Zoho CRM / Google Sheets</div>
-        <div class="ac-desc">BOTi escribe leads directamente a tu CRM o spreadsheet. Reportes automáticos sin mover un dedo.</div>
-        <div class="ac-price">Desde $47/mes · incluido en Agencia</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">🔔</span>
-        <div class="ac-name">Notificaciones Push / SMS Alerts</div>
-        <div class="ac-desc">Alertas en tiempo real cuando un lead nuevo llega, una venta se cierra, o un no-show se detecta.</div>
-        <div class="ac-price">Incluido en todos los planes</div>
-      </div>
-      <div class="alacarte-card">
-        <span class="ac-icon">🎬</span>
-        <div class="ac-name">Generación de Imágenes y Videos IA</div>
-        <div class="ac-desc">Crea fotos de producto, arte para posts y videos cortos con IA. Sin diseñador, sin fotógrafo.</div>
-        <div class="ac-price">Desde $47/mes · incluido en Agencia</div>
-      </div>
+      <div class="alacarte-card"><span class="ac-icon">💬</span><div class="ac-name">Agente de Chat IA</div><div class="ac-desc">BOTi en tu sitio web o Facebook. Responde 24/7 con tu voz y conocimiento.</div><div class="ac-price">Incluido en todos los planes</div></div>
+      <div class="alacarte-card"><span class="ac-icon">📸</span><div class="ac-name">Comment Auto-Reply Instagram</div><div class="ac-desc">Cada comentario → DM automático con tu oferta. 10x más conversión que link en bio.</div><div class="ac-price">Incluido · o $47/mes</div></div>
+      <div class="alacarte-card"><span class="ac-icon">📘</span><div class="ac-name">Comment Auto-Reply Facebook</div><div class="ac-desc">Facebook Pages y posts patrocinados. Captura leads de cada ad automáticamente.</div><div class="ac-price">Incluido · o $47/mes</div></div>
+      <div class="alacarte-card"><span class="ac-icon">🎙️</span><div class="ac-name">Agente de Voz IA</div><div class="ac-desc">BOTi contesta llamadas reales con voz boricua 24/7. Agenda, cotiza y cobra por teléfono.</div><div class="ac-price">Desde $97/mes</div></div>
+      <div class="alacarte-card"><span class="ac-icon">🛍️</span><div class="ac-name">Shopify IA + MCP</div><div class="ac-desc">BOTi conectado a tu tienda: inventario, productos, checkout. A las 3am.</div><div class="ac-price">Desde $67/mes</div></div>
+      <div class="alacarte-card"><span class="ac-icon">🪑</span><div class="ac-name">Sistema Anti No-Show</div><div class="ac-desc">Depósito 50% al reservar + recordatorio 24h antes. Elimina citas sin presentarse.</div><div class="ac-price">Incluido en todos los planes</div></div>
+      <div class="alacarte-card"><span class="ac-icon">📊</span><div class="ac-name">CRM + Pipeline</div><div class="ac-desc">Ve cada lead, dónde está en tu embudo, y qué sigue. Cero prospectos perdidos.</div><div class="ac-price">Desde $37/mes</div></div>
+      <div class="alacarte-card"><span class="ac-icon">📧</span><div class="ac-name">Email Marketing IA</div><div class="ac-desc">Secuencias de bienvenida, nurturing y recuperación por comportamiento del lead.</div><div class="ac-price">Desde $47/mes</div></div>
+      <div class="alacarte-card"><span class="ac-icon">📲</span><div class="ac-name">WhatsApp Broadcast</div><div class="ac-desc">Mensajes masivos a tu lista. 98% open rate. Promos, recordatorios, novedades. <em style="font-size:.65rem;color:#aaa">Sujeto a aprobación Meta.</em></div><div class="ac-price">Desde $57/mes</div></div>
+      <div class="alacarte-card"><span class="ac-icon">🔄</span><div class="ac-name">Seguimiento Automático 7 días</div><div class="ac-desc">Lead no compró hoy — BOTi le sigue por 7 días vía DM, WhatsApp y email.</div><div class="ac-price">Desde $47/mes</div></div>
+      <div class="alacarte-card"><span class="ac-icon">📅</span><div class="ac-name">Reservas + Google Calendar</div><div class="ac-desc">Agenda citas desde el chat, conectado a tu calendario. Sin apps adicionales.</div><div class="ac-price">Desde $37/mes</div></div>
+      <div class="alacarte-card"><span class="ac-icon">🤖</span><div class="ac-name">Agente Entrenado en tu Negocio</div><div class="ac-desc">Sube tu menú, catálogo, FAQ o website. BOTi responde con tu información exacta.</div><div class="ac-price">Incluido en todos los planes</div></div>
+      <div class="alacarte-card"><span class="ac-icon">🌐</span><div class="ac-name">Landing Page IA</div><div class="ac-desc">Página de ventas generada con IA, conectada a BOTi. Desplegada en tu dominio.</div><div class="ac-price">Desde $197 pago único</div></div>
+      <div class="alacarte-card"><span class="ac-icon">📱</span><div class="ac-name">Publicaciones IA Social</div><div class="ac-desc">BOTi genera y programa tus posts de Instagram y Facebook con imágenes incluidas.</div><div class="ac-price">Desde $67/mes</div></div>
+      <div class="alacarte-card"><span class="ac-icon">⚡</span><div class="ac-name">Zapier / Make.com / MCP</div><div class="ac-desc">Conecta BOTi a 6,000+ aplicaciones. Cualquier herramienta puede activar BOTi.</div><div class="ac-price">Cotizar según integraciones</div></div>
+      <div class="alacarte-card"><span class="ac-icon">🏆</span><div class="ac-name">Zoho CRM / Google Sheets</div><div class="ac-desc">BOTi escribe leads a tu CRM o spreadsheet. Reportes automáticos sin mover un dedo.</div><div class="ac-price">Desde $47/mes</div></div>
+      <div class="alacarte-card"><span class="ac-icon">🔔</span><div class="ac-name">Notificaciones en Tiempo Real</div><div class="ac-desc">Alertas cuando un lead llega, venta se cierra, o no-show se detecta.</div><div class="ac-price">Incluido en todos los planes</div></div>
+      <div class="alacarte-card"><span class="ac-icon">🎬</span><div class="ac-name">Imágenes y Videos IA</div><div class="ac-desc">Fotos de producto, arte para posts, videos cortos con IA. Sin diseñador.</div><div class="ac-price">Desde $47/mes</div></div>
     </div>
     <div class="alacarte-cta">
       <a href="#boti" class="btn-main">🤖 Dile a BOTi qué necesitas — te cotiza en 2 minutos</a>
-      <p class="alacarte-note">¿No sabes cuál necesitas? BOTi analiza tu negocio y te dice exactamente qué activar primero para el mayor impacto.</p>
+      <p class="alacarte-note">BOTi analiza tu negocio y te dice qué activar primero para el mayor impacto.</p>
     </div>
   </div>
 </section>
@@ -735,9 +507,7 @@
   <div class="vgrid"><div class="vcard"><span class="vcard-ico">💅</span><h3>Tienes salón de uñas o belleza</h3><p>Manos ocupadas creando arte — DMs acumulándose. Sábados caóticos. No-shows caros.</p><span class="vst">→ Pérdida promedio: $62,700/año sin automatización</span><a href="#boti" class="vlink">BOTi resuelve esto →</a></div><div class="vcard b"><span class="vcard-ico">🛍️</span><h3>Tienes tienda online o Shopify</h3><p>Preguntas a las 11pm. 70% de carritos abandonados. Tu tienda pierde ventas mientras no estás.</p><span class="vst" style="color:var(--blue)">→ $13,400/mes en carritos abandonados sin respuesta</span><a href="#boti" class="vlink" style="color:var(--blue)">BOTi vende mientras duermes →</a></div><div class="vcard y"><span class="vcard-ico">📸</span><h3>Eres influencer o creas contenido</h3><p>200+ DMs que no puedes contestar. Tu audiencia quiere comprar — el Comment Auto-Reply lo hace por ti.</p><span class="vst" style="color:#8a6d00">→ $1,998 perdidos por post sin DM automation</span><a href="#boti" class="vlink" style="color:#8a6d00">BOTi monetiza tu audiencia →</a></div><div class="vcard g"><span class="vcard-ico">🍽️</span><h3>Tienes restaurante o cafetería</h3><p>Teléfono sonando durante el rush. Reservas perdidas. No-shows con mesas vacías en tu mejor noche.</p><span class="vst" style="color:var(--green)">→ 43% de llamadas sin contestar en hora pico</span><a href="#boti" class="vlink" style="color:var(--green)">BOTi llena tu restaurante →</a></div><div class="vcard p"><span class="vcard-ico">🔧</span><h3>Ofreces servicios — contractor, groomer, tutor</h3><p>Estás trabajando cuando llegan las consultas. Para cuando revisas, ya llamaron a tu competencia.</p><span class="vst" style="color:var(--purple)">→ 62% de leads se pierden sin respuesta en 5 minutos</span><a href="#boti" class="vlink" style="color:var(--purple)">BOTi captura cada oportunidad →</a></div></div>
 </section>
 
-<!-- ═══════════════════════════════════════
-     GARANTÍA
-     ═══════════════════════════════════════ -->
+<!-- GARANTÍA -->
 <div class="guarantee-bar">
   <div class="gb-wrap">
     <span class="gb-icon">🛡️</span>
@@ -753,12 +523,12 @@
   <div style="text-align:center"><span class="chip-tag ct-coral">¿POR QUÉ NO MANYCHAT?</span></div>
   <h2 class="sh">Las herramientas gringas no entienden cómo funciona Puerto Rico.</h2>
   <p class="sh-sub">Están hechas para el mainland. El mercado de PR es diferente — y PRbots.ai fue construido exactamente para eso.</p>
-  <div class="comp-tbl"><div class="comp-head"><div>&nbsp;</div><div>🇺🇸 Herramientas Gringas</div><div>🇵🇷 PRbots.ai</div></div><div class="comp-row"><div>Idioma</div><div>Español básico</div><div>✅ Español PR + Spanglish nativo</div></div><div class="comp-row"><div>Canal principal</div><div>Email (nadie lo usa en PR)</div><div>✅ WhatsApp + Instagram DM + Voz</div></div><div class="comp-row"><div>Voz real en español</div><div>❌ No disponible</div><div>✅ BOTi habla — voz boricua 24/7</div></div><div class="comp-row"><div>Comment Auto-Reply</div><div>$100–$200/mes extra</div><div>✅ Incluido en todos los planes</div></div><div class="comp-row"><div>Shopify + Agente MCP</div><div>❌ No disponible</div><div>✅ Conecta con todo tu negocio</div></div><div class="comp-row"><div>Comunidad y soporte</div><div>Ticket en inglés, días de espera</div><div>✅ Discord boricua · Respondemos hoy</div></div><div class="comp-row"><div>Precio de entrada</div><div>$200–$500+/mes solo la herramienta</div><div>✅ Desde $27/mes · o $97 pago único</div></div><div class="comp-row"><div>Tiempo de setup</div><div>Semanas de onboarding técnico</div><div>✅ 48h con tu Copiloto en Discord</div></div></div>
+  <div class="comp-tbl"><div class="comp-head"><div>&nbsp;</div><div>🇺🇸 Herramientas Gringas</div><div>🇵🇷 PRbots.ai</div></div><div class="comp-row"><div>Idioma</div><div>Español básico</div><div>✅ Español PR + Spanglish nativo</div></div><div class="comp-row"><div>Canal principal</div><div>Email (nadie lo usa en PR)</div><div>✅ Instagram DM + Voz + WhatsApp*</div></div><div class="comp-row"><div>Voz real en español</div><div>❌ No disponible</div><div>✅ BOTi habla — voz boricua 24/7</div></div><div class="comp-row"><div>Comment Auto-Reply</div><div>$100–$200/mes extra</div><div>✅ Incluido en todos los planes</div></div><div class="comp-row"><div>Shopify + Agente MCP</div><div>❌ No disponible</div><div>✅ Conecta con todo tu negocio</div></div><div class="comp-row"><div>Comunidad y soporte</div><div>Ticket en inglés, días de espera</div><div>✅ Discord boricua · Respondemos hoy</div></div><div class="comp-row"><div>Precio de entrada</div><div>$200–$500+/mes solo la herramienta</div><div>✅ Desde $27/mes · o $97 pago único</div></div><div class="comp-row"><div>Tiempo de setup</div><div>Semanas de onboarding técnico</div><div>✅ Primera sesión el mismo día</div></div></div>
+  <p style="text-align:center;font-size:11px;color:#aaa;margin-top:12px;max-width:700px;margin-left:auto;margin-right:auto;">*La integración con WhatsApp Business está disponible y es funcional, pero requiere aprobación de Meta. Para números nuevos que aún no han sido registrados en WhatsApp, el proceso es más simple.</p>
 </section>
 
 <!-- ═══════════════════════════════════════
-     FORMULARIO CONSULTA
-     SMS NON-CONSENT — DO NOT MODIFY
+     FORMULARIO CONSULTA — SMS NON-CONSENT: NO TOCAR
      ═══════════════════════════════════════ -->
 <section id="consultoria" class="sec white">
   <div style="text-align:center"><span class="chip-tag ct-coral">EVALUACIÓN GRATUITA</span></div>
@@ -784,9 +554,7 @@
   </p>
 </section>
 
-<!-- ═══════════════════════════════════════
-     CIERRE
-     ═══════════════════════════════════════ -->
+<!-- CIERRE -->
 <section id="cierre">
   <div class="cierre-bg"></div>
   <div class="zig"><blockquote>"People don't buy for logical reasons. They buy for emotional reasons. And then they justify with logic."</blockquote><cite>— Zig Ziglar</cite></div>
@@ -798,7 +566,7 @@
   <div class="offer-pills">
     <a href="#boti" class="opill"><span class="pn">🌱 Comunidad · $27/mes</span><span class="ps">Discord · aprende y construye</span></a>
     <a href="#boti" class="opill hot"><span class="phot">🔥 MÁS POPULAR</span><span class="pn">🤝 Coaching · $297/mes</span><span class="ps">+ $197 setup · Juntos en Discord</span></a>
-    <a href="#boti" class="opill dfy"><span class="pn">👑 Agencia · desde $597/mes</span><span class="ps">$297+ setup · Manos libres</span></a>
+    <a href="#boti" class="opill dfy"><span class="pn">👑 Agencia · desde $597/mes</span><span class="ps">$297+ setup · Cotización personalizada</span></a>
   </div>
 </section>
 
