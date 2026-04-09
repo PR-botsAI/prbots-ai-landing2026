@@ -16,10 +16,10 @@
 <meta name="twitter:description" content="El 78% de tus clientes compran del primero que responde. BOTi responde en 60 segundos, 24/7, en español. Hecho en Puerto Rico. Desde $97." />
 <meta name="twitter:image" content="https://paymegpt.com/objects/generated-images/548/1773362951199-9d3ecbc4f8c57fe5.png" />
 <script data-field-replace>
-(function(){var params=new URLSearchParams(window.location.search);var fields={};var paramMap={'first_name':'firstName','last_name':'lastName','full_name':'fullName','email':'email','phone':'phone','company':'company','city':'city','state':'state','country':'country'};var skipTags={'SCRIPT':1,'STYLE':1,'NOSCRIPT':1,'TEXTAREA':1,'CODE':1,'PRE':1};var hasUrlFields=false;for(var p in paramMap){var v=params.get(p);if(v){fields[paramMap[p]]=v;hasUrlFields=true;}}var contactId=params.get('contact_id');function esc(s){if(!s)return s;var d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML;}function doReplace(data){var r={};r['{{full_name}}']=esc(((data.firstName||'')+' '+(data.lastName||'')).trim()||((data.fullName||data.name)||''));r['{{first_name}}']=esc(data.firstName||(data.name?data.name.split(' ')[0]:'')||'');r['{{last_name}}']=esc(data.lastName||(data.name&&data.name.indexOf(' ')>-1?data.name.substring(data.name.indexOf(' ')+1):'')||'');r['{{email}}']=esc(data.email||'');r['{{phone}}']=esc(data.phone||'');r['{{company}}']=esc(data.company||'');r['{{city}}']=esc(data.city||'');r['{{state}}']=esc(data.state||'');r['{{country}}']=esc(data.country||'');r['{{date}}']=new Date().toLocaleDateString();r['{{time}}']=new Date().toLocaleTimeString();r['{{location}}']=[data.city,data.state,data.country].filter(Boolean).join(', ');r['{{tracking_id}}']=esc(data.trackingId||'');r['{{lastClickedProduct}}']=esc(data.lastClickedProduct||'');r['{{lastProductClickDate}}']=esc(data.lastProductClickDate||'');r['{{lastClickedProductPrice}}']=esc(data.lastClickedProductPrice||'');r['{{lastClickedProductURL}}']=esc(data.lastClickedProductURL||'');r['{{productsClickedCount}}']=esc(data.productsClickedCount||'0');r['{{ip_address}}']=esc(data.ipAddress||'');r['{{ip}}']=esc(data.ipAddress||'');if(data.customFields){for(var k in data.customFields){r['{{'+k+'}}']=esc(String(data.customFields[k]||''));}}params.forEach(function(v,k){if(!paramMap[k]&&k!=='contact_id'&&k!=='page_id'&&k.indexOf('utm_')!==0){r['{{'+k+'}}']=esc(v);}});var hasValues=false;for(var key in r){if(r[key]){hasValues=true;break;}}if(!hasValues)return;var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){var p=n.parentNode;if(p&&skipTags[p.nodeName])return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});var node;while(node=walker.nextNode()){var txt=node.nodeValue;if(txt&&txt.indexOf('{{')>-1){var changed=txt;for(var ph in r){if(r[ph]&&changed.indexOf(ph)>-1){changed=changed.split(ph).join(r[ph]);}}if(changed!==txt)node.nodeValue=changed;}}var attrs=['value','placeholder','content','alt','title'];attrs.forEach(function(attr){var els=document.querySelectorAll('['+attr+'*="{{"]');for(var i=0;i<els.length;i++){var tag=els[i].tagName;if(skipTags[tag])continue;var val=els[i].getAttribute(attr);if(val){var nv=val;for(var ph in r){if(r[ph]&&nv.indexOf(ph)>-1){nv=nv.split(ph).join(r[ph]);}}if(nv!==val)els[i].setAttribute(attr,nv);}}});}function run(){if(contactId){var xhr=new XMLHttpRequest();xhr.open('GET','https://paymegpt.com/api/landing/context/'+encodeURIComponent(contactId)+'?page_id=2074');xhr.onload=function(){if(xhr.status===200){try{var resp=JSON.parse(xhr.responseText);if(resp.success&&resp.contact){var merged=resp.contact;for(var k in fields){merged[k]=fields[k];}doReplace(merged);return;}}catch(e){}}if(hasUrlFields)doReplace(fields);};xhr.onerror=function(){if(hasUrlFields)doReplace(fields);};xhr.send();}else if(hasUrlFields){doReplace(fields);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}else{run();}})();
+(function(){var params=new URLSearchParams(window.location.search);var fields={};var paramMap={'first_name':'firstName','last_name':'lastName','full_name':'fullName','email':'email','phone':'phone','company':'company','city':'city','state':'state','country':'country'};var skipTags={'SCRIPT':1,'STYLE':1,'NOSCRIPT':1,'TEXTAREA':1,'CODE':1,'PRE':1};var hasUrlFields=false;for(var p in paramMap){var v=params.get(p);if(v){fields[paramMap[p]]=v;hasUrlFields=true;}}var contactId=params.get('contact_id');function esc(s){if(!s)return s;var d=document.createElement('div');d.appendChild(document.createTextNode(s));return d.innerHTML;}function doReplace(data){var r={};r['{{full_name}}']=esc(((data.firstName||'')+' '+(data.lastName||'')).trim()||((data.fullName||data.name)||''));r['{{first_name}}']=esc(data.firstName||(data.name?data.name.split(' ')[0]:'')||'');r['{{last_name}}']=esc(data.lastName||(data.name&&data.name.indexOf(' ')>-1?data.name.substring(data.name.indexOf(' ')+1):'')||'');r['{{email}}']=esc(data.email||'');r['{{phone}}']=esc(data.phone||'');r['{{company}}']=esc(data.company||'');r['{{city}}']=esc(data.city||'');r['{{state}}']=esc(data.state||'');r['{{country}}']=esc(data.country||'');r['{{date}}']=new Date().toLocaleDateString();r['{{time}}']=new Date().toLocaleTimeString();r['{{location}}']=[data.city,data.state,data.country].filter(Boolean).join(', ');r['{{tracking_id}}']=esc(data.trackingId||'');r['{{lastClickedProduct}}']=esc(data.lastClickedProduct||'');r['{{lastProductClickDate}}']=esc(data.lastProductClickDate||'');r['{{lastClickedProductPrice}}']=esc(data.lastClickedProductPrice||'');r['{{lastClickedProductURL}}']=esc(data.lastClickedProductURL||'');r['{{productsClickedCount}}']=esc(data.productsClickedCount||'0');r['{{ip_address}}']=esc(data.ipAddress||'');r['{{ip}}']=esc(data.ipAddress||'');if(data.customFields){for(var k in data.customFields){r['{{'+k+'}}']=esc(String(data.customFields[k]||''));}}params.forEach(function(v,k){if(!paramMap[k]&&k!=='contact_id'&&k!=='page_id'&&k.indexOf('utm_')!==0){r['{{'+k+'}}']=esc(v);}});var hasValues=false;for(var key in r){if(r[key]){hasValues=true;break;}}if(!hasValues)return;var walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode:function(n){var p=n.parentNode;if(p&&skipTags[p.nodeName])return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});var node;while(node=walker.nextNode()){var txt=node.nodeValue;if(txt&&txt.indexOf('{{')>-1){var changed=txt;for(var ph in r){if(r[ph]&&changed.indexOf(ph)>-1){changed=changed.split(ph).join(r[ph]);}}if(changed!==txt)node.nodeValue=changed;}}var attrs=['value','placeholder','content','alt','title'];attrs.forEach(function(attr){var els=document.querySelectorAll('['+attr+'*="{{"]');for(var i=0;i<els.length;i++){var tag=els[i].tagName;if(skipTags[tag])continue;var val=els[i].getAttribute(attr);if(val){var nv=val;for(var ph in r){if(r[ph]&&nv.indexOf(ph)>-1){nv=nv.split(ph).join(r[ph]);}}if(nv!==val)els[i].setAttribute(attr,nv);}}});}function run(){if(contactId){var xhr=new XMLHttpRequest();xhr.open('GET','https://paymegpt.com/api/landing/context/'+encodeURIComponent(contactId)+'?page_id=2074');xhr.onload=function(){if(xhr.status===200){try{var resp=JSON.parse(xhr.responseText);if(resp.success&&resp.contact){var merged=resp.contact;for(var k in fields){merged[k]=fields[k];}doReplace(merged);return;}}catch(e){}}if(hasUrlFields)doReplace(fields);};xhr.onerror=function(){if(hasUrlFields)doReplace(fields);};xhr.send();}else if(hasUrlFields){doReplace(fields);}}if(document.readyState==='loading'){document.addEventListener('DOMContentLoaded',run);}else{run();}})()
 </script>
 <script data-payment>
-(function(){var slug='KUTvs2YTb';var apiBase='https://paymegpt.com';function findEmail(){var ids=['email','emailAddress','buyer-email','buyerEmail','user-email','userEmail','checkout-email','customer-email','contact-email'];for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.includes('@'))return el.value.trim();}var inputs=document.querySelectorAll('input[type="email"],input[name*="email"],input[placeholder*="email"],input[placeholder*="Email"]');for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.includes('@'))return inputs[j].value.trim();}return '';}function findName(){var ids=['name','fullName','full-name','buyer-name','buyerName','customer-name','userName','user-name'];for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value)return el.value.trim();}var inputs=document.querySelectorAll('input[name*="name"]:not([name*="email"]):not([type="email"]),input[placeholder*="name"]:not([placeholder*="email"]):not([type="email"]),input[placeholder*="Name"]:not([type="email"])');for(var j=0;j<inputs.length;j++){if(inputs[j].value)return inputs[j].value.trim();}return '';}var __realProcessPayment=function(a,b,c,d,e){var amountCents,email,productName,productDescription,customerName,quantity;if(a&&typeof a==='object'){amountCents=a.amountCents;email=a.email;productName=a.productName;productDescription=a.productDescription||'';customerName=a.name||'';quantity=a.quantity||1;}else{amountCents=typeof a==='number'?a:0;productName=typeof b==='string'?b:'';productDescription=typeof c==='string'?c:'';email='';customerName='';quantity=1;}if(!email)email=findEmail();if(!customerName)customerName=findName();if(!productName){alert('Nombre de producto requerido.');return Promise.reject('no_product_name');}if(!amountCents||amountCents<100){alert('El monto mínimo es $1.00');return Promise.reject('invalid_amount');}if(!email){alert('Por favor ingresa tu email.');return Promise.reject('no_email');}var successBase=window.location.href.split('?')[0];return fetch(apiBase+'/api/landing-pages/public/'+slug+'/payment/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,name:customerName,amountCents:amountCents,productName:productName,productDescription:productDescription,quantity:quantity,successUrl:successBase+'?payment=success&product='+encodeURIComponent(productName)+'&session_id={CHECKOUT_SESSION_ID}',cancelUrl:successBase+'?payment=cancelled'})}).then(function(r){return r.json();}).then(function(d){if(d.checkoutUrl){window.location.href=d.checkoutUrl;}else{alert(d.error||'Error procesando el pago');throw new Error(d.error);}});};Object.defineProperty(window,'__processPayment',{value:__realProcessPayment,writable:false,configurable:false});document.addEventListener('DOMContentLoaded',function(){var urlParams=new URLSearchParams(window.location.search);if(urlParams.get('payment')==='success'){var pName=urlParams.get('product')||'tu compra';var overlay=document.createElement('div');overlay.id='payment-success-overlay';overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;';overlay.innerHTML='<div style="background:white;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);"><div style="width:64px;height:64px;border-radius:50%;background:#dcfce7;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">¡Pago exitoso!</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">Gracias por adquirir '+pName.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'.</p><button onclick="document.getElementById(\'payment-success-overlay\').remove();window.history.replaceState({},\'\',window.location.pathname);" style="padding:12px 32px;font-size:16px;font-weight:600;background:#16a34a;color:white;border:none;border-radius:8px;cursor:pointer;">Continuar</button></div>';document.body.appendChild(overlay);}});})();
+(function(){var slug='KUTvs2YTb';var apiBase='https://paymegpt.com';function findEmail(){var ids=['email','emailAddress','buyer-email','buyerEmail','user-email','userEmail','checkout-email','customer-email','contact-email'];for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value&&el.value.includes('@'))return el.value.trim();}var inputs=document.querySelectorAll('input[type="email"],input[name*="email"],input[placeholder*="email"],input[placeholder*="Email"]');for(var j=0;j<inputs.length;j++){if(inputs[j].value&&inputs[j].value.includes('@'))return inputs[j].value.trim();}return '';}function findName(){var ids=['name','fullName','full-name','buyer-name','buyerName','customer-name','userName','user-name'];for(var i=0;i<ids.length;i++){var el=document.getElementById(ids[i]);if(el&&el.value)return el.value.trim();}var inputs=document.querySelectorAll('input[name*="name"]:not([name*="email"]):not([type="email"]),input[placeholder*="name"]:not([placeholder*="email"]):not([type="email"]),input[placeholder*="Name"]:not([type="email"])');for(var j=0;j<inputs.length;j++){if(inputs[j].value)return inputs[j].value.trim();}return '';}var __realProcessPayment=function(a,b,c,d,e){var amountCents,email,productName,productDescription,customerName,quantity;if(a&&typeof a==='object'){amountCents=a.amountCents;email=a.email;productName=a.productName;productDescription=a.productDescription||'';customerName=a.name||'';quantity=a.quantity||1;}else{amountCents=typeof a==='number'?a:0;productName=typeof b==='string'?b:'';productDescription=typeof c==='string'?c:'';email='';customerName='';quantity=1;}if(!email)email=findEmail();if(!customerName)customerName=findName();if(!productName){alert('Nombre de producto requerido.');return Promise.reject('no_product_name');}if(!amountCents||amountCents<100){alert('El monto mínimo es $1.00');return Promise.reject('invalid_amount');}if(!email){alert('Por favor ingresa tu email.');return Promise.reject('no_email');}var successBase=window.location.href.split('?')[0];return fetch(apiBase+'/api/landing-pages/public/'+slug+'/payment/checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({email:email,name:customerName,amountCents:amountCents,productName:productName,productDescription:productDescription,quantity:quantity,successUrl:successBase+'?payment=success&product='+encodeURIComponent(productName)+'&session_id={CHECKOUT_SESSION_ID}',cancelUrl:successBase+'?payment=cancelled'})}).then(function(r){return r.json();}).then(function(d){if(d.checkoutUrl){window.location.href=d.checkoutUrl;}else{alert(d.error||'Error procesando el pago');throw new Error(d.error);}});};Object.defineProperty(window,'__processPayment',{value:__realProcessPayment,writable:false,configurable:false});document.addEventListener('DOMContentLoaded',function(){var urlParams=new URLSearchParams(window.location.search);if(urlParams.get('payment')==='success'){var pName=urlParams.get('product')||'tu compra';var overlay=document.createElement('div');overlay.id='payment-success-overlay';overlay.style.cssText='position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:999999;font-family:system-ui,-apple-system,sans-serif;';overlay.innerHTML='<div style="background:white;border-radius:16px;padding:40px;max-width:420px;width:90%;text-align:center;box-shadow:0 20px 60px rgba(0,0,0,0.15);"><div style="width:64px;height:64px;border-radius:50%;background:#dcfce7;margin:0 auto 20px;display:flex;align-items:center;justify-content:center;"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div><h2 style="margin:0 0 12px;font-size:24px;font-weight:700;color:#111827;">¡Pago exitoso!</h2><p style="margin:0 0 24px;color:#6b7280;font-size:16px;">Gracias por adquirir '+pName.replace(/</g,'&lt;').replace(/>/g,'&gt;')+'.</p><button onclick="document.getElementById(\'payment-success-overlay\').remove();window.history.replaceState({},\'\',window.location.pathname);" style="padding:12px 32px;font-size:16px;font-weight:600;background:#16a34a;color:white;border:none;border-radius:8px;cursor:pointer;">Continuar</button></div>';document.body.appendChild(overlay);}});})()
 </script>
 <link rel="stylesheet" href="styles.css">
 <style>
@@ -64,18 +64,55 @@
 .hsp-item{text-align:center}
 .hsp-item .hsp-n{font-size:1.4rem;font-weight:900;color:#FFD600;display:block}
 .hsp-item .hsp-l{font-size:11px;color:rgba(255,255,255,0.6)}
-/* PARTNER LOGOS SECTION */
-.partners-bar{background:#0a0b14;border-top:1px solid rgba(255,255,255,0.06);border-bottom:1px solid rgba(255,255,255,0.06);padding:28px 16px;text-align:center}
-.partners-bar .pb-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:rgba(255,255,255,0.3);margin-bottom:20px;display:block}
-.partners-logos{display:flex;align-items:center;justify-content:center;gap:32px;flex-wrap:wrap}
-.partner-item{display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none;transition:opacity .2s}
-.partner-item:hover{opacity:.8}
-.partner-item img{height:36px;width:auto;object-fit:contain;filter:brightness(0) invert(1);opacity:.55;transition:opacity .2s}
-.partner-item:hover img{opacity:.8}
-.partner-item span{font-size:.6rem;font-weight:600;color:rgba(255,255,255,0.25);letter-spacing:.5px;text-transform:uppercase}
-.partner-divider{width:1px;height:40px;background:rgba(255,255,255,0.08)}
-.wl-pill{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:50px;padding:5px 14px;font-size:.62rem;font-weight:700;color:rgba(255,255,255,0.4);letter-spacing:.5px;margin-top:16px;cursor:default}
-.wl-pill:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.6)}
+
+/* ═══ PARTNER SECTION ═══ */
+.partners-section{background:linear-gradient(135deg,#0a0b18 0%,#0f0a20 50%,#0a0b18 100%);padding:64px 16px;border-top:1px solid rgba(255,255,255,0.06);position:relative;overflow:hidden}
+.partners-section::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 20% 50%,rgba(54,214,181,0.05) 0%,transparent 55%),radial-gradient(ellipse at 80% 50%,rgba(79,142,247,0.05) 0%,transparent 55%);pointer-events:none}
+@media(min-width:600px){.partners-section{padding:80px 24px}}
+.partners-inner{max-width:1080px;margin:0 auto;position:relative}
+.partners-eyebrow{text-align:center;font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:2px;color:rgba(255,255,255,0.35);margin-bottom:10px}
+.partners-headline{text-align:center;font-size:1.5rem;font-weight:900;color:#fff;margin-bottom:8px;letter-spacing:-.5px}
+@media(min-width:600px){.partners-headline{font-size:2rem;letter-spacing:-1px}}
+.partners-sub{text-align:center;font-size:.88rem;color:rgba(255,255,255,0.5);margin-bottom:48px;max-width:560px;margin-left:auto;margin-right:auto}
+@media(min-width:600px){.partners-sub{font-size:.95rem}}
+
+/* Two partner cards side by side */
+.partners-cards{display:grid;grid-template-columns:1fr;gap:16px;margin-bottom:32px}
+@media(min-width:640px){.partners-cards{grid-template-columns:1fr 1fr;gap:20px}}
+.partner-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:20px;padding:28px 24px;transition:border-color .2s,background .2s;text-decoration:none;display:block}
+.partner-card:hover{border-color:rgba(255,255,255,0.18);background:rgba(255,255,255,0.06)}
+.partner-card.pmgpt{border-color:rgba(54,214,181,0.2)}
+.partner-card.pmgpt:hover{border-color:rgba(54,214,181,0.4);background:rgba(54,214,181,0.04)}
+.partner-card.cbb{border-color:rgba(79,142,247,0.2)}
+.partner-card.cbb:hover{border-color:rgba(79,142,247,0.4);background:rgba(79,142,247,0.04)}
+
+/* Logo row */
+.pc-logo-row{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+.pc-logo{height:44px;width:auto;object-fit:contain;flex-shrink:0}
+.pc-logo-text{display:flex;flex-direction:column}
+.pc-name{font-size:1rem;font-weight:900;color:#fff;line-height:1}
+.pc-tagline{font-size:.68rem;color:rgba(255,255,255,0.4);margin-top:3px}
+
+/* Feature pills inside card */
+.pc-features{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+.pc-feat{font-size:.62rem;font-weight:700;padding:3px 10px;border-radius:20px;letter-spacing:.04em}
+.pmgpt .pc-feat{background:rgba(54,214,181,0.12);color:#36D6B5;border:1px solid rgba(54,214,181,0.2)}
+.cbb .pc-feat{background:rgba(79,142,247,0.12);color:#7baaf9;border:1px solid rgba(79,142,247,0.2)}
+
+.pc-desc{font-size:.8rem;color:rgba(255,255,255,0.55);line-height:1.6;margin-bottom:18px}
+.pc-cta{display:inline-flex;align-items:center;gap:6px;font-size:.75rem;font-weight:700;padding:8px 16px;border-radius:50px;transition:opacity .2s}
+.pmgpt .pc-cta{background:rgba(54,214,181,0.15);color:#36D6B5;border:1px solid rgba(54,214,181,0.25)}
+.pmgpt .pc-cta:hover{background:rgba(54,214,181,0.25)}
+.cbb .pc-cta{background:rgba(79,142,247,0.15);color:#7baaf9;border:1px solid rgba(79,142,247,0.25)}
+.cbb .pc-cta:hover{background:rgba(79,142,247,0.25)}
+
+/* Whitelabel banner */
+.wl-banner{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:14px;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;text-align:center}
+@media(min-width:640px){.wl-banner{text-align:left}}
+.wl-text h4{font-size:.88rem;font-weight:800;color:#fff;margin-bottom:4px}
+.wl-text p{font-size:.76rem;color:rgba(255,255,255,0.45);margin:0}
+.wl-cta{display:inline-block;background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.15);color:rgba(255,255,255,0.7);font-size:.75rem;font-weight:700;padding:9px 20px;border-radius:50px;text-decoration:none;white-space:nowrap;transition:background .2s,color .2s}
+.wl-cta:hover{background:rgba(255,255,255,0.12);color:#fff}
 </style>
 </head>
 <body>
@@ -122,7 +159,7 @@
 <div class="voice-bar"><p><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3zm-1 17.93V20h-2v2h6v-2h-2v-1.07A8.002 8.002 0 0 0 20 12h-2a6 6 0 0 1-12 0H4a8.002 8.002 0 0 0 7 7.93z"/></svg>También puedes HABLAR con BOTi en voz real — toca el micrófono abajo a la derecha 🎙️</p></div>
 <div class="ticker"><div class="ticker-inner"><span>62% de llamadas van sin contestar</span><span class="sep">·</span><span>78% compran del primero que responde</span><span class="sep">·</span><span>$676M gastados online en PR en 2024</span><span class="sep">·</span><span>21x más conversión en 5 min</span><span class="sep">·</span><span>70% de carritos online se abandonan</span><span class="sep">·</span><span>46% de reservas fuera de horario</span><span class="sep">·</span><span>85% nunca llama de vuelta</span><span class="sep">·</span><span>$42,900 pérdida promedio al año</span><span class="sep">·</span><span>62% de llamadas van sin contestar</span><span class="sep">·</span><span>78% compran del primero que responde</span><span class="sep">·</span><span>$676M gastados online en PR in 2024</span><span class="sep">·</span><span>21x más conversión en 5 min</span><span class="sep">·</span><span>70% de carritos online se abandonan</span><span class="sep">·</span><span>46% de reservas fuera de horario</span><span class="sep">·</span><span>85% nunca llama de vuelta</span><span class="sep">·</span><span>$42,900 pérdida promedio al año</span><span class="sep">·</span></div></div>
 
-<!-- ════ PAIN GRID ════ -->
+<!-- PAIN GRID -->
 <section id="pain" class="pain-before-after">
   <div style="text-align:center"><span class="chip-tag ct-coral">¿TE SUENA FAMILIAR?</span></div>
   <h2 class="sh">El problema no eres tú. Es que nadie diseñó estas herramientas para el negocio boricua.</h2>
@@ -141,7 +178,7 @@
   </div>
 </section>
 
-<!-- ════ COMMENT-TO-DM ════ -->
+<!-- COMMENT-TO-DM -->
 <section id="comment-dm" class="cdm-section">
   <div class="cdm-inner">
     <div style="text-align:center"><span class="cdm-badge">⚡ FEATURE EXCLUSIVA · COMMENT AUTO-REPLY</span></div>
@@ -175,7 +212,7 @@
   </div>
 </section>
 
-<!-- ════ STATS ════ -->
+<!-- STATS -->
 <section id="numeros" class="sec dark">
   <div style="text-align:center"><span class="chip-tag" style="background:rgba(255,214,0,.15);color:#FFD600">LOS NÚMEROS QUE NADIE TE DICE</span></div>
   <h2 class="sh">No es teoría. Es la realidad del negocio boricua en 2025.</h2>
@@ -184,14 +221,14 @@
   <div class="scta"><p>Mientras lees esto, alguien está intentando reservar contigo. ¿Lo estás contestando?</p><a href="#boti" class="btn-main" style="display:inline-block">🤖 BOTi lo contesta por ti →</a></div>
 </section>
 
-<!-- ════ CASO REAL ════ -->
+<!-- CASO REAL -->
 <section id="casos" class="sec white">
   <div style="text-align:center"><span class="chip-tag ct-coral">CASO REAL · HATILLO, PUERTO RICO</span></div>
   <h2 class="sh">Neycha hace onicoplastia premium.<br>BOTi hace todo lo demás.</h2>
   <div class="case-wrap"><div class="case-img"><img src="https://paymegpt.com/objects/generated-images/548/1773362951199-9d3ecbc4f8c57fe5.png" alt="Neycha Soto salon Hatillo PR"></div><div class="case-txt"><span class="bl r">Antes de PRbots.ai</span><ul class="chk bef"><li><span>❌</span><span>34 DMs sin contestar cada sábado</span></li><li><span>❌</span><span>No-shows costaban $19,800/año en sillas vacías</span></li><li><span>❌</span><span>Clientes esperando hasta el domingo por respuesta</span></li><li><span>❌</span><span>Estrés constante dividida entre clientes y teléfono</span></li></ul><span class="bl g" style="margin-top:22px">Después de PRbots.ai</span><ul class="chk aft"><li><span>✅</span><span>BOTi responde cada DM en menos de 60 segundos</span></li><li><span>✅</span><span>Depósito del 50% cobrado automáticamente al reservar</span></li><li><span>✅</span><span>No-shows reducidos a casi cero</span></li><li><span>✅</span><span>Agenda llena — sin tocar el teléfono durante servicios</span></li></ul><div class="qwrap"><blockquote>"Cuando termino una cita, ya tengo 3 más agendadas con dinero recibido. Antes eso no pasaba."</blockquote><cite>— Neycha Soto · Especialista en Onicoplastia · Hatillo, PR 🇵🇷</cite></div><div class="lbox"><span class="ln">$62,700</span><div><p class="lt">pérdida anual prevenida</p><p class="ls">Llamadas perdidas + no-shows + DMs sin contestar</p></div></div><a href="#boti" class="btn-sm">¿Quieres resultados como los de Neycha? →</a></div></div>
 </section>
 
-<!-- ════ FEATURES ════ -->
+<!-- FEATURES -->
 <section id="que-hacemos" class="sec warm">
   <div style="text-align:center"><span class="chip-tag ct-blue">TODO LO QUE HACE PRBOTS.AI</span></div>
   <h2 class="sh">Un sistema completo. No una app más que aprender.</h2>
@@ -209,7 +246,7 @@
   <div class="vtbl"><h3>Lo que pagarías por separado vs. PRbots.ai</h3><table class="vt"><tr><td>Recepcionista virtual 24/7</td><td>$800–$1,500/mes</td><td>✅ Incluido</td></tr><tr><td>Comment Auto-Reply (ManyChat)</td><td>$100–$200/mes</td><td>✅ Incluido</td></tr><tr><td>Instagram DM automation</td><td>$100–$200/mes</td><td>✅ Incluido</td></tr><tr><td>Shopify IA + Agente MCP</td><td>$200–$400/mes</td><td>✅ Incluido</td></tr><tr><td>Reservas + depósitos automáticos</td><td>$50–$100/mes</td><td>✅ Incluido</td></tr><tr><td>CRM completo</td><td>$50–$200/mes</td><td>✅ Incluido</td></tr><tr><td>Agente de voz IA 24/7</td><td>$500–$1,000/mes</td><td>✅ Incluido</td></tr><tr class="tot"><td>Valor total de mercado</td><td>$1,800–$3,600/mes</td><td>Desde $97 total</td></tr></table><p class="vt-note">Menos de lo que cuesta un solo día de trabajo de un empleado.</p></div>
 </section>
 
-<!-- ════ TIMELINE ════ -->
+<!-- TIMELINE -->
 <section class="timeline-section" id="timeline">
   <div class="timeline-inner">
     <div style="text-align:center"><span class="chip-tag ct-blue">TU PRIMERA SEMANA CON BOTI</span></div>
@@ -229,7 +266,7 @@
   </div>
 </section>
 
-<!-- ════ PRICING ════ -->
+<!-- PRICING -->
 <section id="precios" class="tiers-section">
   <div class="tiers-inner">
     <div style="text-align:center"><span class="chip-tag ct-green">ELIGE TU CAMINO</span></div>
@@ -260,7 +297,6 @@
           <p style="font-size:11px;color:rgba(255,255,255,0.3);text-align:center;margin-top:8px">Sin compromiso · Cancela cuando quieras</p>
         </div>
       </div>
-
       <div class="tier-card featured" style="position:relative">
         <div class="tier-top">
           <span class="tier-rib">MÁS POPULAR 🔥</span>
@@ -286,7 +322,6 @@
           <p style="font-size:11px;color:rgba(255,255,255,0.3);text-align:center;margin-top:8px">$197 setup + $297/mes · Sin contrato anual</p>
         </div>
       </div>
-
       <div class="tier-card">
         <div class="tier-top">
           <span class="tier-badge tb-pro">AGENCIA 👑</span>
@@ -311,7 +346,6 @@
         </div>
       </div>
     </div>
-
     <div class="vtbl" style="margin-top:48px">
       <h3>Comparación rápida de los tres planes</h3>
       <table class="vt">
@@ -328,7 +362,7 @@
   </div>
 </section>
 
-<!-- ════ À LA CARTE ════ -->
+<!-- À LA CARTE -->
 <section id="alacarte" class="alacarte-section">
   <div class="alacarte-inner">
     <div style="text-align:center"><span class="chip-tag ct-coral">À LA CARTE 🍽️</span></div>
@@ -386,22 +420,73 @@
   <p style="text-align:center;font-size:11px;color:rgba(255,255,255,0.25);margin-top:12px;max-width:700px;margin-left:auto;margin-right:auto;">*WhatsApp Business disponible; sujeto a aprobación de Meta. Números nuevos tienen proceso más simple.</p>
 </section>
 
-<!-- ════ PARTNER LOGOS — Orgullosos de la familia PMGPT & ChatbotBuilder ════ -->
-<div class="partners-bar">
-  <span class="pb-label">Orgullosamente construido sobre</span>
-  <div class="partners-logos">
-    <a href="https://paymegpt.com" target="_blank" rel="noopener" class="partner-item">
-      <img src="https://paymegpt.com/og-image.png" alt="PayMeGPT" loading="lazy">
-      <span>PayMeGPT</span>
-    </a>
-    <div class="partner-divider"></div>
-    <a href="https://chatbotbuilder.ai" target="_blank" rel="noopener" class="partner-item">
-      <img src="https://cdn.prod.website-files.com/65c23bb1aac98e053fb42602/66094895b3bc4e51683de57e_cbb%20circle.png" alt="ChatbotBuilder.ai" loading="lazy">
-      <span>ChatbotBuilder.ai</span>
-    </a>
+<!-- ═════ FAMILIA PMGPT & CHATBOTBUILDER ═════ -->
+<section class="partners-section" id="familia">
+  <div class="partners-inner">
+    <p class="partners-eyebrow">Con orgullo, parte de la familia</p>
+    <h2 class="partners-headline">🤝 Orgullosamente miembros de la familia<br>PayMeGPT &amp; ChatbotBuilder.ai</h2>
+    <p class="partners-sub">BOTi está construido sobre las dos mejores plataformas de agentes IA del mercado. Tú te beneficias de todo el poder que traen.</p>
+
+    <div class="partners-cards">
+
+      <!-- PMGPT CARD -->
+      <a href="https://paymegpt.com" target="_blank" rel="noopener" class="partner-card pmgpt">
+        <div class="pc-logo-row">
+          <img src="images/PMGPT LOGO.png" alt="PayMeGPT" class="pc-logo">
+          <div class="pc-logo-text">
+            <span class="pc-name">PayMeGPT</span>
+            <span class="pc-tagline">The fastest way to build AI agents</span>
+          </div>
+        </div>
+        <div class="pc-features">
+          <span class="pc-feat">75 MCP tools nativos</span>
+          <span class="pc-feat">Agente de voz ElevenLabs</span>
+          <span class="pc-feat">Flow Builder visual</span>
+          <span class="pc-feat">Shopify en 1 minuto</span>
+          <span class="pc-feat">Zapier 6,000+ apps</span>
+          <span class="pc-feat">Make.com</span>
+          <span class="pc-feat">Browser Agents</span>
+          <span class="pc-feat">Multi-canal</span>
+        </div>
+        <p class="pc-desc">La plataforma todo-en-uno para crear chatbots, agentes de voz y flujos agentics sin código. 75 herramientas MCP nativas, conecta con Zapier, Shopify, Google Sheets y miles de apps más. La mejor integración MCP del mercado.</p>
+        <span class="pc-cta">Conocer PayMeGPT →</span>
+      </a>
+
+      <!-- CBB CARD -->
+      <a href="https://chatbotbuilder.ai" target="_blank" rel="noopener" class="partner-card cbb">
+        <div class="pc-logo-row">
+          <img src="images/CBB LOGO.png" alt="ChatbotBuilder.ai" class="pc-logo">
+          <div class="pc-logo-text">
+            <span class="pc-name">ChatbotBuilder.ai</span>
+            <span class="pc-tagline">Omnichannel AI chat platform</span>
+          </div>
+        </div>
+        <div class="pc-features">
+          <span class="pc-feat">Instagram DM</span>
+          <span class="pc-feat">WhatsApp Business</span>
+          <span class="pc-feat">Facebook Messenger</span>
+          <span class="pc-feat">Comment Auto-Reply</span>
+          <span class="pc-feat">SMS &amp; Email</span>
+          <span class="pc-feat">TikTok</span>
+          <span class="pc-feat">Telegram</span>
+          <span class="pc-feat">Discord</span>
+        </div>
+        <p class="pc-desc">La plataforma omnicanal que conecta todos tus canales sociales en un solo agente IA. Instagram, WhatsApp, Facebook, TikTok, Discord — BOTi responde en todos desde un solo lugar.</p>
+        <span class="pc-cta">Conocer ChatbotBuilder →</span>
+      </a>
+
+    </div>
+
+    <!-- Whitelabel banner -->
+    <div class="wl-banner">
+      <div class="wl-text">
+        <h4>🏷️ ¿Eres agencia o freelancer? Whitelabel disponible</h4>
+        <p>Ofrece PRbots.ai con tu propia marca a tus clientes. Powered by PMGPT &amp; ChatbotBuilder.</p>
+      </div>
+      <a href="mailto:hello@prbots.ai?subject=Whitelabel%20PRbots.ai" class="wl-cta">Contacúnos sobre Whitelabel →</a>
+    </div>
   </div>
-  <a href="mailto:hello@prbots.ai?subject=Whitelabel%20PRbots.ai" class="wl-pill">🏷️ Whitelabel disponible — contáctanos</a>
-</div>
+</section>
 
 <!-- FORMULARIO — SMS NON-CONSENT: DO NOT MODIFY -->
 <section id="consultoria" class="sec white">
@@ -439,7 +524,7 @@
 <footer>
   <div class="ft">
     <div class="ft-brand"><a href="#hero" class="logo">PRbots.ai 🤖</a><p>Puerto Rico's #1 AI Sales Automation Agency<br>192 Av Dr Francisco Susoni, Unit 166<br>Hatillo, PR 00659</p></div>
-    <div class="ft-links"><a href="#boti">Habla con BOTi</a><a href="#precios">Ver Planes</a><a href="#alacarte">À la Carte</a><a href="#casos">Casos Reales</a><a href="#comparacion">Comparación</a><a href="https://paymegpt.com/p/5ysCGaS" target="_blank">SMS &amp; Privacidad</a><a href="/sms-optin.html">Newsletter &amp; SMS (Opcional)</a></div>
+    <div class="ft-links"><a href="#boti">Habla con BOTi</a><a href="#precios">Ver Planes</a><a href="#alacarte">À la Carte</a><a href="#casos">Casos Reales</a><a href="#comparacion">Comparación</a><a href="#familia">Familia PMGPT &amp; CBB</a><a href="https://paymegpt.com/p/5ysCGaS" target="_blank">SMS &amp; Privacidad</a><a href="/sms-optin.html">Newsletter &amp; SMS (Opcional)</a></div>
     <div class="ft-contact"><p>hello@prbots.ai<br>+1 (939) 297-5805<br><a href="https://www.instagram.com/prbots.ai" target="_blank">@prbots.ai en Instagram</a></p>
       <div class="ft-subscribe"><p>📩 Actualizaciones de PRbots.AI</p><button onclick="openOptinPopup()">Suscribirme (Opcional)</button></div>
     </div>
@@ -447,7 +532,6 @@
   <div class="ft-bar">
     <p>© 2025 PRbots.ai · Hecho con 🤖 en Puerto Rico 🇵🇷 · Built on <a href="https://paymegpt.com" target="_blank" style="color:rgba(255,255,255,.2)">PayMeGPT</a> &amp; <a href="https://chatbotbuilder.ai" target="_blank" style="color:rgba(255,255,255,.2)">ChatbotBuilder.ai</a></p>
     <p>Todos los derechos reservados · <a href="/sms-optin.html" style="color:rgba(255,255,255,.15)">Newsletter &amp; SMS (Opcional)</a></p>
-    <!-- SMS disclaimer — must remain in English per Twilio / TCPA legal requirement -->
     <p style="font-size:11px;color:rgba(255,255,255,.1);margin-top:6px">📵 Submitting any form on this site does not constitute consent to receive SMS marketing. SMS opt-in is voluntary and separate. <a href="/sms-optin.html" style="color:rgba(255,255,255,.15)">SMS opt-in page</a> · <a href="https://paymegpt.com/p/5ysCGaS" target="_blank" style="color:rgba(255,255,255,.15)">Privacy &amp; SMS Policy</a></p>
   </div>
 </footer>
@@ -465,11 +549,9 @@
       <div class="om-field"><label for="om-email">Correo Electrónico *</label><input type="email" id="om-email" placeholder="tu@correo.com" autocomplete="email"></div>
       <div class="om-field"><label for="om-phone">Teléfono Móvil (solo para SMS)</label><input type="tel" id="om-phone" placeholder="+1 (787) 555-0000" autocomplete="tel"></div>
       <div class="om-consent-box"><div class="om-consent-row"><input type="checkbox" id="om-consent-email" name="om_consent_email"><div><label for="om-consent-email" class="om-consent-text"><strong>📧 Sí — recibir el newsletter de PRbots.AI</strong> con tips de IA y ofertas especiales. Cancela cuando quieras.</label><div class="om-unchecked-note">Sin marcar por defecto — marca para suscribirte.</div></div></div></div>
-      <!-- SMS consent box — legal text must remain in English per Twilio / TCPA requirement -->
       <div class="om-consent-box sms-box"><div class="om-consent-row"><input type="checkbox" id="om-consent-sms" name="om_consent_sms"><div><label for="om-consent-sms" class="om-consent-text"><strong>📲 Yes — send me SMS text messages from PRbots.AI</strong> at the number above. Messages may include promotions, tips, and updates. Frequency varies. Msg &amp; Data rates may apply. Reply <strong>STOP</strong> to cancel. Reply <strong>HELP</strong> for help. See <a href="https://paymegpt.com/p/5ysCGaS" target="_blank">Privacy &amp; SMS Policy</a>. <em>SMS consent is not required to use any PRbots.AI service.</em></label><div class="om-unchecked-note">Unchecked by default — check to opt in to SMS.</div></div></div></div>
       <button class="om-submit" onclick="submitOptin()">Suscribirme →</button>
       <button class="om-skip" onclick="closeOptinPopup()">No gracias, cerrar</button>
-      <!-- Legal footer — must remain in English per Twilio / TCPA requirement -->
       <div class="om-legal">SMS opt-in is not a condition of any purchase or service. PRbots.AI · 192 Av Dr Francisco Susoni, Unit 166, Hatillo, PR 00659 · hello@prbots.ai · <a href="https://paymegpt.com/p/5ysCGaS" target="_blank">Privacy &amp; SMS Policy</a></div>
     </div>
     <div id="optin-success"><div class="os-icon">✅</div><h3>¡Ya estás suscrito(a)!</h3><p>Gracias por suscribirte.<br>Si te inscribiste a SMS, recibirás un mensaje de confirmación pronto. Responde <strong>STOP</strong> para cancelar en cualquier momento.</p></div>
